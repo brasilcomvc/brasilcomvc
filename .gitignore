@@ -1,0 +1,10 @@
+# Python byte-compiled files
+*.py[co]
+__pycache__/
+
+# Misc
+/*.sqlite
+/.venv
+/.env
+.DS_Store
+/_deploy

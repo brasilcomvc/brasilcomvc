@@ -1,0 +1,75 @@
+# coding: utf-8
+'''
+Main project settings
+
+ATTENTION: DON'T SET ENVIRONMENT-SPECIFIC VALUES IN THIS MODULE. Instead, set
+them into your .env file as it will be used by Foreman for local deployment.
+'''
+
+import os
+
+from django.conf.global_settings import (
+    MIDDLEWARE_CLASSES,
+    TEMPLATE_CONTEXT_PROCESSORS,
+)
+
+import dj_database_url
+
+
+# Env-specific
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
+DATABASES = {'default': dj_database_url.config()}
+DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
+SECRET_KEY = os.environ['SECRET_KEY']
+
+
+# Application definition
+
+DJANGO_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.humanize',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+)
+
+THIRD_PARTY_APPS = (
+)
+
+LOCAL_APPS = (
+)
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = TEMPLATE_CONTEXT_PROCESSORS + (
+    'django.core.context_processors.request',
+)
+
+TEMPLATE_DEBUG = DEBUG
+
+ROOT_URLCONF = 'brasilcomvc.urls'
+
+WSGI_APPLICATION = 'brasilcomvc.wsgi.application'
+
+
+# Internationalization
+
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'America/Sao_Paulo'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+
+# Misc
+
+SITE_ID = 1
