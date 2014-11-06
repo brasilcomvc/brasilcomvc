@@ -21,3 +21,14 @@ specific values, as defined below:
 - `DATABASE_URL` - Database connection URL (eg. `postgres://user:pass@server:port/db`)
 - `DEBUG` - Set debug mode (`'true'` or `'false'`)
 - `SECRET_KEY` - Unique and secret salt for passwords, hashes and session keys
+
+
+Setup static files
+------------------
+
+You must set up Node.js in order to make static files gathering and processing
+work. We already include nodeenv to help with that:
+
+- Install Node + npm: `nodeenv -p --prebuilt`
+- Install required packages: `nodeenv --requirements=requirements.npm.txt --update $VIRTUAL_ENV`
+

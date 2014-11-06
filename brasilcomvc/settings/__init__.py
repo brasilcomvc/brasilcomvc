@@ -12,6 +12,8 @@ from django.conf import global_settings
 
 import dj_database_url
 
+from .staticfiles import *
+
 
 # Env-specific
 
@@ -34,6 +36,7 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
+    'pipeline',
 )
 
 LOCAL_APPS = (
