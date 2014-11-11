@@ -41,6 +41,7 @@ THIRD_PARTY_APPS = (
 
 LOCAL_APPS = (
     'brasilcomvc.common',
+    'brasilcomvc.accounts',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -74,3 +75,7 @@ USE_TZ = True
 # Misc
 
 SITE_ID = 1
+
+
+# Authentication
+AUTH_USER_MODEL = 'accounts.User'
