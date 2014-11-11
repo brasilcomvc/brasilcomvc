@@ -18,7 +18,7 @@ from .staticfiles import *
 # Env-specific
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
-DATABASES = {'default': dj_database_url.config()}
+DATABASES = {'default': dj_database_url.config(default='sqlite:///dev.sqlite')}
 DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
 SECRET_KEY = os.environ['SECRET_KEY']
 
