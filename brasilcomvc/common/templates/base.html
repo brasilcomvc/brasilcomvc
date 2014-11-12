@@ -1,0 +1,40 @@
+{% load compressed %}
+
+
+<!doctype html>
+<html>
+	<head>
+	{% block head %}
+		<title>{% block title %}{% endblock title %} | Brasil.com.vc</title>
+
+		{% block css %}
+		{% endblock css %}
+	{% endblock head %}
+	</head>
+
+	<body class="{% block body_classes %}{% endblock body_classes %}">
+		{% block header %}
+		<header id="main-header">
+			{% block header_content %}
+			{% endblock header_content %}
+		</header>
+		{% endblock header %}
+
+		{% block content %}
+		<section id="main-content">
+			{% block content_content %}
+			{% endblock content_content %}
+		</section>
+		{% endblock content %}
+
+		{% block footer %}
+		<footer id="main-footer">
+			{% block footer_content %}
+			{% endblock footer_content %}
+		</footer>
+		{% endblock footer %}
+
+		{% block js %}
+		{% endblock js %}
+	</body>
+</html>
