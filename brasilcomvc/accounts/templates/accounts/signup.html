@@ -1,7 +1,22 @@
-<form action="" method="POST">
-	{% csrf_token %}
+{% extends 'accounts/base.html' %}
 
-	{{ form.as_p }}
 
-	<button type="submit">Cadastrar</button>
-</form>
+{% block title %}
+	Cadastro
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} signup
+{% endblock body_classes %}
+
+
+{% block content_content %}
+	<form method="POST">
+		{% csrf_token %}
+
+		{{ form.as_p }}
+
+		<button type="submit">Cadastrar</button>
+	</form>
+{% endblock content_content %}
