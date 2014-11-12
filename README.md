@@ -5,7 +5,7 @@ Brasil.com.vc
 Installation
 ------------
 
-1. Setup a new virtualenv: `virtualenv brasilcomvc`
+1. Setup a new virtualenv: `virtualenv .venv`
 2. Install requirements: `pip install -r requirements.txt`
 3. Run tests to check setup: `python manage.py test`
 4. [Configure your environment](#environment-settings).
