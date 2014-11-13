@@ -36,11 +36,11 @@ PIPELINE_STYLUS_ARGUMENTS = ' '.join([
 
 # Packaging specs for CSS
 PIPELINE_CSS = {
-    'app': {
+    'common': {
         'source_filenames': [
-            # ...
+            'styl/common/*.styl',
         ],
-        'output_filename': 'css/app.css',
+        'output_filename': 'css/common.css',
     }
 }
 
