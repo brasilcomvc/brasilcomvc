@@ -80,5 +80,6 @@ class UIGuidelineView(TemplateView):
     def get_context_data(self, **kwargs):
         return dict(
             super(UIGuidelineView, self).get_context_data(**kwargs),
-            form=UIGuidelineView.ExampleForm(data={}),
+            empty_form=UIGuidelineView.ExampleForm(),
+            invalid_form=UIGuidelineView.ExampleForm(data={}),
         )

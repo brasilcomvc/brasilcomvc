@@ -1,0 +1,14 @@
+{% load form_utils %}
+
+
+{% if csrf_token %}
+	{% csrf_token %}
+{% endif %}
+
+{% for field in form.hidden_fields %}
+	{{ field }}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+	{% form_field field %}
+{% endfor %}

@@ -1,0 +1,14 @@
+{% load form_utils %}
+
+
+<fieldset>
+	{% if legend %}
+		<legend>{{ legend }}</legend>
+	{% endif %}
+
+	<div>
+	{% for field in fields %}
+		{% form_field field %}
+	{% endfor %}
+	</div>
+</fieldset>
