@@ -1,0 +1,12 @@
+{% extends 'accounts/base.html' %}
+
+
+{% block title %}Perfil{% endblock title %}
+
+
+{% block body_classes %}{{ block.super }} profile{% endblock body_classes %}
+
+
+{% block content_content %}
+E-mail: {{ request.user.email }} <a href="{% url 'logout' %}">Logout</a>
+{% endblock content_content %}

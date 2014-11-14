@@ -1,0 +1,30 @@
+{% extends "accounts/base.html" %}
+
+
+{% block title %}Login{% endblock title %}
+
+
+{% block body_classes %}{{ block.super }} profile{% endblock body_classes %}
+
+
+{% block content_content %}
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+
+    <div>
+        {{ form.username.label_tag }} {{ form.username }}
+        <br>
+        {{ form.username.errors }}
+    </div>
+
+    <div>
+        {{ form.password.label_tag }} {{ form.password }}
+        <br>
+        {{ form.password.errors }}
+    </div>
+
+    {{ form.non_field_errors }}
+
+    <button type="submit">Login</button>
+</form>
+{% endblock content_content %}

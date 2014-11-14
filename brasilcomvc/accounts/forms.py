@@ -1,5 +1,15 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
+
+
+class LoginForm(AuthenticationForm):
+
+    # this is named username so we can use Django's login view
+    username = forms.EmailField(required=True)
 
 
 class SignupForm(forms.ModelForm):
