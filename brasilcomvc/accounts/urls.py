@@ -1,9 +1,9 @@
 from django.conf.urls import url
 
 from .views import (
-    Profile,
     login,
     logout,
+    Profile,
     Signup,
 )
 
