@@ -1,10 +1,10 @@
 from django.conf.urls import url
 
-from django.views.generic import TemplateView
+from .views import UIGuidelineView
 
 
 urlpatterns = [
     # UI Guideline
     url(r'^ui/$',
-        TemplateView.as_view(template_name='ui.html'), name='ui'),
+        UIGuidelineView.as_view(), name='ui'),
 ]
