@@ -3,6 +3,7 @@ from django.conf.urls import url
 from .views import (
     Profile,
     login,
+    logout,
     Signup,
 )
 
@@ -11,6 +12,10 @@ urlpatterns = (
     # User Login
     url(r'^login/$',
         login, name='login'),
+
+    # User Logout
+    url(r'^logout/$',
+        logout, name='logout'),
 
     # User Profile
     url(r'^profile/$',

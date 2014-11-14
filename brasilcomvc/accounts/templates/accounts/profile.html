@@ -8,5 +8,5 @@
 
 
 {% block content_content %}
-E-mail: {{ request.user.email }}
+E-mail: {{ request.user.email }} <a href="{% url 'logout' %}">Logout</a>
 {% endblock content_content %}

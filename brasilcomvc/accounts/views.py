@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.contrib.auth import logout as logout_user
 from django.contrib.auth.views import login as auth_login
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, TemplateView
@@ -31,3 +32,11 @@ def login(request, *args, **kwargs):
         authentication_form=LoginForm,
         template_name='accounts/login.html',
     )
+
+
+def logout(request):
+    """
+    Logout user and redirect back to login page
+    """
+    logout_user(request)
+    return HttpResponseRedirect(reverse('login'))

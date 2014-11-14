@@ -88,3 +88,10 @@ class LoginTestCase(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('profile'))
+
+
+class LogoutTestCase(TestCase):
+
+    def test_logout_redirect_to_login(self):
+        resp = self.client.get(reverse('logout'))
+        self.assertRedirects(resp, reverse('login'))
