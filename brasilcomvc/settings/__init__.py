@@ -8,6 +8,7 @@ them into your .env file as it will be used by Foreman for local deployment.
 
 import os
 
+from django.core.urlresolvers import reverse_lazy
 from django.conf import global_settings
 
 import dj_database_url
@@ -79,3 +80,4 @@ SITE_ID = 1
 
 # Authentication
 AUTH_USER_MODEL = 'accounts.User'
+LOGIN_REDIRECT_URL = reverse_lazy('profile')

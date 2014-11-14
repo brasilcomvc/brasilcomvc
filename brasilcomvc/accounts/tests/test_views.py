@@ -37,3 +37,18 @@ class SignupTestCase(TestCase):
         self.assertEqual(
             set(response.context['form'].errors),
             set(['email', 'full_name', 'password']))
+
+
+class ProfileTestCase(TestCase):
+
+    url = reverse('profile')
+
+    def test_template_used(self):
+        u = User(email='test@test.net')
+        u.set_password('test')
+        u.save()
+
+        self.assertTrue(self.client.login(username=u.email, password='test'))
+
+        resp = self.client.get(self.url)
+        self.assertTemplateUsed(resp, 'accounts/profile.html')
