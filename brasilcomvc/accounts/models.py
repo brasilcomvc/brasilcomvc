@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.db import models
 
+from brasilcomvc.common.email import send_template_email
+
 
 class User(AbstractBaseUser):
 
@@ -25,3 +27,10 @@ class User(AbstractBaseUser):
 
     def get_full_name(self):
         return self.full_name
+
+    def send_welcome_email(self):
+        send_template_email(
+            subject='Bem vindo!',
+            to=self.email,
+            template_name='emails/welcome.html',
+            context={'user': self})

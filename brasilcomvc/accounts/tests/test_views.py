@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -30,6 +31,8 @@ class SignupTestCase(TestCase):
         response = self.client.post(self.url, user_data)
         self.assertRedirects(response, self.url)
         self.assertTrue(User.objects.filter(email=user_data['email']).exists())
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'Bem vindo!')
 
     def test_signup_failure(self):
         response = self.client.post(self.url, {})
