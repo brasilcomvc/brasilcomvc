@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
+from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from brasilcomvc.common.views import AnonymousRequiredMixin
-from brasilcomvc.common.tests.test_email import EmailTestMixin
 
 from ..views import Signup
 
@@ -11,7 +11,7 @@ from ..views import Signup
 User = get_user_model()
 
 
-class SignupTestCase(EmailTestMixin, TestCase):
+class SignupTestCase(TestCase):
 
     url = reverse('signup')
 
@@ -31,7 +31,8 @@ class SignupTestCase(EmailTestMixin, TestCase):
         response = self.client.post(self.url, user_data)
         self.assertRedirects(response, self.url)
         self.assertTrue(User.objects.filter(email=user_data['email']).exists())
-        self.only_email_sent('Bem vindo!')
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'Bem vindo!')
 
     def test_signup_failure(self):
         response = self.client.post(self.url, {})
