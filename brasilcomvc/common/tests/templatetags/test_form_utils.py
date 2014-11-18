@@ -13,31 +13,29 @@ class TestForm(forms.Form):
 
 class FormFieldTestCase(TestCase):
 
-    def test_generate_an_id_from_the_form(self):
-        # When form has a prefix, use it
+    def test_generate_an_id_from_a_form_with_prefix(self):
         form = TestForm(prefix='foo')
         self.assertEqual(
             form_field(form['test_field'])['form_id'], form.prefix)
 
-        # When form has no prefix, use its class name
+    def test_generate_an_id_from_a_form_without_prefix(self):
         form = TestForm()
         self.assertEqual(form_field(form['test_field'])['form_id'], 'testform')
 
-    def test_render_html_classes_correctly(self):
-        # 1: Required field, empty form
+    def test_render_html_classes_correctly_for_required_field(self):
         form = TestForm()
         form.fields['test_field'].required = True
         self.assertEqual(
             form_field(form['test_field'])['classes'], ('required',))
 
-        # 2: Required field, empty input
+    def test_render_html_classes_correctly_for_empty_required_field(self):
         form = TestForm(data={})
         form.fields['test_field'].required = True
         self.assertEqual(
             set(form_field(form['test_field'])['classes']),
             set(['required', 'error']))
 
-        # 3: Non required field
+    def test_render_html_classes_correctly_for_non_required_field(self):
         form = TestForm()
         form.fields['test_field'].required = False
         self.assertEqual(
