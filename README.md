@@ -21,6 +21,7 @@ specific values, as defined below:
 - `DATABASE_URL` - Database connection URL (eg. `postgres://user:pass@server:port/db`)
 - `DEBUG` - Set debug mode (`'true'` or `'false'`)
 - `SECRET_KEY` - Unique and secret salt for passwords, hashes and session keys
+- `DEFAULT_FROM_EMAIL` - Email address to identify outcoming transactional emails
 
 
 Setup static files
