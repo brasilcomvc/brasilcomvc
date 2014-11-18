@@ -1,0 +1,6 @@
+{% extends 'emails/base.html' %}
+
+
+{% block body %}
+	Bem vindo, {{ user.get_short_name }}!
+{% endblock body %}

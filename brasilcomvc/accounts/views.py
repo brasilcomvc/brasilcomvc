@@ -23,6 +23,11 @@ class Signup(AnonymousRequiredMixin, CreateView):
     success_url = reverse_lazy('signup')
     template_name = 'accounts/signup.html'
 
+    def form_valid(self, form):
+        response = super(Signup, self).form_valid(form)
+        self.object.send_welcome_email()  # Send welcome email upon signup
+        return response
+
 
 def login(request, *args, **kwargs):
     if request.user and request.user.is_authenticated():
