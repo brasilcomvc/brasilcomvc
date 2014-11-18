@@ -3,6 +3,7 @@ from django.conf.urls import url
 from .views import (
     login,
     logout,
+    EditDashboard,
     Profile,
     Signup,
 )
@@ -24,4 +25,8 @@ urlpatterns = (
     # User Signup
     url(r'^cadastro/$',
         Signup.as_view(), name='signup'),
+
+    # Edit Dashboard
+    url(r'editar/$',
+        EditDashboard.as_view(), name='edit_dashboard'),
 )

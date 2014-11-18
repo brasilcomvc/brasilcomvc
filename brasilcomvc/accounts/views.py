@@ -2,7 +2,11 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import logout as logout_user
 from django.contrib.auth.views import login as auth_login
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    TemplateView,
+)
 
 
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
@@ -40,3 +44,17 @@ def logout(request):
     """
     logout_user(request)
     return HttpResponseRedirect(reverse('login'))
+
+
+class BaseEditUser(LoginRequiredMixin):
+    '''
+    Base class for User Edit views.
+    '''
+
+    def get_object(self):
+        return self.request.user
+
+
+class EditDashboard(BaseEditUser, DetailView):
+
+    template_name = 'accounts/edit_dashboard.html'

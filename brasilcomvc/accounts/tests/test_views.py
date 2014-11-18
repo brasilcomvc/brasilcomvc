@@ -95,3 +95,26 @@ class LogoutTestCase(TestCase):
     def test_logout_redirect_to_login(self):
         resp = self.client.get(reverse('logout'))
         self.assertRedirects(resp, reverse('login'))
+
+
+class EditDashboardTestCase(TestCase):
+
+    url = reverse('edit_dashboard')
+
+    def setUp(self):
+        user = User.objects.create_user('wat@example.com', password='test')
+        self.client.login(username=user.email, password='test')
+
+    def test_anonymous_is_redirect_to_login(self):
+        self.client.logout()
+        resp = self.client.get(self.url)
+        self.assertRedirects(
+            resp, '{}?next={}'.format(reverse('login'), self.url))
+
+    def test_template_used(self):
+        resp = self.client.get(self.url)
+        self.assertTemplateUsed(resp, 'accounts/edit_dashboard.html')
+
+    def test_page_should_not_display_None(self):
+        resp = self.client.get(self.url)
+        self.assertNotContains(resp, 'None')
