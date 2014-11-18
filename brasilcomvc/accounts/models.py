@@ -4,9 +4,10 @@ from django.db import models
 
 class User(AbstractBaseUser):
 
-    # Identification
+    # Personal Info
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255)
+    username = models.SlugField(max_length=30, null=True, blank=True)
 
     # Status
     date_joined = models.DateTimeField(auto_now_add=True)
