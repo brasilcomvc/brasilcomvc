@@ -49,7 +49,8 @@ class ProfileTestCase(TestCase):
 
     def test_anonymous_is_redirect_to_login(self):
         resp = self.client.get(self.url)
-        self.assertRedirects(resp, '{}?next={}'.format(reverse('login'), self.url))
+        self.assertRedirects(
+            resp, '{}?next={}'.format(reverse('login'), self.url))
 
     def test_template_used(self):
         u = User(email='test@test.net')

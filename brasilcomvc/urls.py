@@ -7,7 +7,8 @@ admin.autodiscover()
 urlpatterns = (
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^guideline/', include('brasilcomvc.guideline.urls', namespace='guideline')),
+    url(r'^guideline/',
+        include('brasilcomvc.guideline.urls', namespace='guideline')),
 
     url(r'', include('brasilcomvc.accounts.urls')),
 )
