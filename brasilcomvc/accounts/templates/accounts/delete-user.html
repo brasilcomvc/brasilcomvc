@@ -1,0 +1,20 @@
+{% extends "accounts/base.html" %}
+
+
+{% block title %}Remover Conta{% endblock title %}
+
+
+{% block body_classes %}{{ block.super }} delete-user{% endblock body_classes %}
+
+
+{% block content_content %}
+<form action="{% url 'delete_user' %}" method="POST">
+    {% csrf_token %}
+
+    <h1>Tem certeza que deseja excluir sua conta?</h1>
+    <h2>Esta ação é irreversível</h2>
+
+    <button type="submit">Eu tenho certeza</button>
+    <a href="{% url 'profile' %}">Cancelar</a>
+</form>
+{% endblock content_content %}

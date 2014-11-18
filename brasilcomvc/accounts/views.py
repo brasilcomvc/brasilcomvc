@@ -10,7 +10,6 @@ from django.views.generic import (
     UpdateView,
 )
 
-
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
 
 from .forms import LoginForm, SecuritySettingsForm, SignupForm
@@ -100,3 +99,14 @@ class EditSecuritySettings(BaseEditUser, FormView):
     def form_valid(self, form):
         form.save()
         return super(EditSecuritySettings, self).form_valid(form)
+
+
+class DeleteUser(LoginRequiredMixin, TemplateView):
+
+    template_name = 'accounts/delete-user.html'
+
+    def post(self, request, *args, **kwargs):
+        request.user.delete()
+        logout_user(request)
+        # FIXME(rochacon): replace redirect to feedback page
+        return HttpResponseRedirect('/')

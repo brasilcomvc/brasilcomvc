@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
 from .views import (
+    DeleteUser,
     login,
     logout,
     EditDashboard,
@@ -49,4 +50,8 @@ urlpatterns = (
     # Edit Security Settings
     url(r'^editar/seguranca/$',
         EditSecuritySettings.as_view(), name='edit_security_settings'),
+
+    # User Delete
+    url(r'^remover-conta/$',
+        DeleteUser.as_view(), name='delete_user'),
 )

@@ -3,9 +3,9 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from brasilcomvc.common.views import AnonymousRequiredMixin
+from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
 
-from ..views import Signup
+from ..views import DeleteUser, Signup
 
 
 User = get_user_model()
@@ -252,3 +252,36 @@ class EditSecuritySettingsTestCase(TestCase):
         self.assertRedirects(resp, reverse('edit_dashboard'))
         user = User.objects.get(pk=self.user_id)
         self.assertTrue(user.check_password(data['new_password1']))
+
+
+class DeleteUserTest(TestCase):
+
+    def _setup_user(self):
+        self.user = User(email='test@dom.ain')
+        self.user.set_password('test')
+        self.user.save()
+        self.assertTrue(self.client.login(username=self.user.email,
+                                          password='test'))
+
+    def test_delete_user_view_login_required_mixin(self):
+        self.assertTrue(issubclass(DeleteUser, LoginRequiredMixin))
+
+    def test_delete_user_view_template(self):
+        self._setup_user()
+
+        resp = self.client.get(reverse('delete_user'))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'accounts/delete-user.html')
+
+    def test_delete_user_view_should_delete_user_on_post(self):
+        self._setup_user()
+
+        logged_session = self.client.cookies['sessionid'].value
+
+        resp = self.client.post(reverse('delete_user'))
+        self.assertEqual(resp.status_code, 302)
+
+        self.assertFalse(User.objects.filter(email=self.user.email).exists())
+        self.assertNotEqual(logged_session,
+                            self.client.cookies['sessionid'].value,
+                            'Same sesion found, probably user wasnt logged out')
