@@ -73,3 +73,9 @@ class EditProfessionalInfo(BaseEditUser, UpdateView):
 
     template_name = 'accounts/edit_professional_info.html'
     fields = ('job_title', 'bio',)
+
+
+class EditNotifications(BaseEditUser, UpdateView):
+
+    fields = ('email_newsletter',)
+    template_name = 'accounts/edit_notifications.html'

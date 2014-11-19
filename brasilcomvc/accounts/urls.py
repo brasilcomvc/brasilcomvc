@@ -4,6 +4,7 @@ from .views import (
     login,
     logout,
     EditDashboard,
+    EditNotifications,
     EditPersonalInfo,
     EditProfessionalInfo,
     Profile,
@@ -39,4 +40,8 @@ urlpatterns = (
     # Edit Professional Info
     url(r'^editar/profissional/$',
         EditProfessionalInfo.as_view(), name='edit_professional_info'),
+
+    # Edit Notifications
+    url(r'^editar/notificacoes/$',
+        EditNotifications.as_view(), name='edit_notifications'),
 )

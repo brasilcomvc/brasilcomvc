@@ -20,6 +20,9 @@ class User(AbstractBaseUser):
     is_staff = models.BooleanField(editable=False, default=False)
     is_superuser = models.BooleanField(editable=False, default=False)
 
+    # Notifications
+    email_newsletter = models.BooleanField(default=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('full_name',)
 
