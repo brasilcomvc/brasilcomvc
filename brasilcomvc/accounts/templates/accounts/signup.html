@@ -1,4 +1,5 @@
 {% extends 'accounts/base.html' %}
+{% load form_utils %}
 
 
 {% block title %}
@@ -13,10 +14,7 @@
 
 {% block content_content %}
 	<form method="POST">
-		{% csrf_token %}
-
-		{{ form.as_p }}
-
+		{% form_full form %}
 		<button type="submit">Cadastrar</button>
 	</form>
 {% endblock content_content %}
