@@ -6,6 +6,7 @@ from django.views.generic import (
     CreateView,
     DetailView,
     TemplateView,
+    UpdateView,
 )
 
 
@@ -51,6 +52,8 @@ class BaseEditUser(LoginRequiredMixin):
     Base class for User Edit views.
     '''
 
+    success_url = reverse_lazy('edit_dashboard')
+
     def get_object(self):
         return self.request.user
 
@@ -58,3 +61,9 @@ class BaseEditUser(LoginRequiredMixin):
 class EditDashboard(BaseEditUser, DetailView):
 
     template_name = 'accounts/edit_dashboard.html'
+
+
+class EditPersonalInfo(BaseEditUser, UpdateView):
+
+    template_name = 'accounts/edit_personal_info.html'
+    fields = ('full_name', 'username', 'email',)

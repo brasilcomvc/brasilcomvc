@@ -4,6 +4,7 @@ from .views import (
     login,
     logout,
     EditDashboard,
+    EditPersonalInfo,
     Profile,
     Signup,
 )
@@ -29,4 +30,8 @@ urlpatterns = (
     # Edit Dashboard
     url(r'editar/$',
         EditDashboard.as_view(), name='edit_dashboard'),
+
+    # Edit Personal Info
+    url(r'^editar/info_pessoal/$',
+        EditPersonalInfo.as_view(), name='edit_personal_info'),
 )
