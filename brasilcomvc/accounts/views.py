@@ -67,3 +67,9 @@ class EditPersonalInfo(BaseEditUser, UpdateView):
 
     template_name = 'accounts/edit_personal_info.html'
     fields = ('full_name', 'username', 'email',)
+
+
+class EditProfessionalInfo(BaseEditUser, UpdateView):
+
+    template_name = 'accounts/edit_professional_info.html'
+    fields = ('job_title', 'bio',)

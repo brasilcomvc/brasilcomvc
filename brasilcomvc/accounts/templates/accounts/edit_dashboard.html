@@ -30,4 +30,18 @@
 			<a class="edit-link" href="{% url 'edit_personal_info' %}">Editar</a>
 		</p>
 	</section>
+
+	<section id="professional_info">
+		<h1>Informações Profissionais</h1>
+		<dl>
+			<dt>Título</dt>
+			<dd>{% firstof object.job_title 'Não configurado' %}</dd>
+
+			<dt>Biografia</dt>
+			<dd>{% firstof object.bio 'Não configurado' %}</dd>
+		</dl>
+		<p>
+			<a class="edit-link" href="{% url 'edit_professional_info' %}">Editar</a>
+		</p>
+	</section>
 {% endblock content_content %}

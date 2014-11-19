@@ -9,6 +9,10 @@ class User(AbstractBaseUser):
     full_name = models.CharField(max_length=255)
     username = models.SlugField(max_length=30, null=True, blank=True)
 
+    # Professional Info
+    job_title = models.CharField(max_length=80, null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+
     # Status
     date_joined = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)

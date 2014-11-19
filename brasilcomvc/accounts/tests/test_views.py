@@ -152,3 +152,35 @@ class EditPersonalInfoTestCase(TestCase):
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
+
+
+class EditProfessionalInfoTestCase(TestCase):
+
+    url = reverse('edit_professional_info')
+
+    def setUp(self):
+        user = User.objects.create_user('wat@example.com', password='test')
+        self.user_id = user.pk
+        self.client.login(username=user.email, password='test')
+
+    def test_anonymous_is_redirected_to_login(self):
+        self.client.logout()
+        resp = self.client.get(self.url)
+        self.assertRedirects(
+            resp, '{}?next={}'.format(reverse('login'), self.url))
+
+    def test_form_should_have_right_fields_only(self):
+        resp = self.client.get(self.url)
+        self.assertEqual(
+            set(resp.context['form'].fields), set(['job_title', 'bio']))
+
+    def test_correct_form_submit_should_update_data(self):
+        data = {
+            'job_title': 'Python Programmer',
+            'bio': 'I am an unusual person who does not like to write bios',
+        }
+        resp = self.client.post(self.url, data)
+        self.assertRedirects(resp, reverse('edit_dashboard'))
+        user = User.objects.get(pk=self.user_id)
+        for key, value in data.items():
+            self.assertEqual(getattr(user, key), value)
