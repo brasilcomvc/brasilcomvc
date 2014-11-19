@@ -41,6 +41,10 @@ PIPELINE_CSS = {
             'styl/common/*.styl',
         ],
         'output_filename': 'css/common.css',
+    },
+    'guideline': {
+        'source_filenames': ['guideline/styl/*.styl'],
+        'output_filename': 'css/guideline.css',
     }
 }
 
