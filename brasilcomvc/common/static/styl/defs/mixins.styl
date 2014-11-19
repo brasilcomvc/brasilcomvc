@@ -1,0 +1,29 @@
+@import 'defs/*'
+
+
+$button
+	border 0
+	color color_text_lightest !important
+	cursor pointer
+	display inline-block
+	font-family font_family_sans
+	font-size font_size_m
+	font-weight 100
+	padding 0 1em
+	vertical-align middle
+
+	&[disabled]
+		background color_text_lighter
+		color color_text_light !important
+		cursor default
+		text-decoration none !important
+
+button(color = color_main1_default, hovercolor = color_main1_dark, size = 3.4285714285714283rem)
+	@extend $button
+	background color
+	height size
+	line-height size
+
+	&:not([disabled]):hover
+		background hovercolor
+
