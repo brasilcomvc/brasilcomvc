@@ -278,10 +278,26 @@ class DeleteUserTest(TestCase):
 
         logged_session = self.client.cookies['sessionid'].value
 
-        resp = self.client.post(reverse('delete_user'))
+        data = {
+            'password': 'test'
+        }
+        resp = self.client.post(reverse('delete_user'), data=data)
         self.assertEqual(resp.status_code, 302)
 
         self.assertFalse(User.objects.filter(email=self.user.email).exists())
         self.assertNotEqual(logged_session,
                             self.client.cookies['sessionid'].value,
                             'Same sesion found, probably user wasnt logged out')
+
+    def test_delete_user_view_should_fail_on_invalid_password(self):
+        """Test the delete user view response when received an invalid password
+        The invalid password logic is tested directly on the form
+        """
+        self._setup_user()
+
+        data = {
+            'password': 'invalid'
+        }
+        resp = self.client.post(reverse('delete_user'), data=data)
+        self.assertEqual(resp.status_code, 200)
+        self.assertFalse(resp.context['form'].is_valid())

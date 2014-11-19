@@ -1,4 +1,5 @@
 {% extends "accounts/base.html" %}
+{% load form_utils %}
 
 
 {% block title %}Remover Conta{% endblock title %}
@@ -13,6 +14,8 @@
 
     <h1>Tem certeza que deseja excluir sua conta?</h1>
     <h2>Esta ação é irreversível</h2>
+
+    {% form_field form.password %}
 
     <button type="submit">Eu tenho certeza</button>
     <a href="{% url 'profile' %}">Cancelar</a>
