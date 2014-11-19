@@ -7,6 +7,7 @@ from .views import (
     EditNotifications,
     EditPersonalInfo,
     EditProfessionalInfo,
+    EditSecuritySettings,
     Profile,
     Signup,
 )
@@ -44,4 +45,8 @@ urlpatterns = (
     # Edit Notifications
     url(r'^editar/notificacoes/$',
         EditNotifications.as_view(), name='edit_notifications'),
+
+    # Edit Security Settings
+    url(r'^editar/seguranca/$',
+        EditSecuritySettings.as_view(), name='edit_security_settings'),
 )

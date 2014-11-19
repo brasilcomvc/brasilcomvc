@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 
 
 class LoginForm(AuthenticationForm):
@@ -25,3 +25,7 @@ class SignupForm(forms.ModelForm):
         self.instance.set_password(self.cleaned_data['password'])
 
         return super(SignupForm, self).save(**kwargs)
+
+
+class SecuritySettingsForm(PasswordChangeForm):
+    pass

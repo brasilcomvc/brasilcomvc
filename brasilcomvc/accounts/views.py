@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import (
     CreateView,
     DetailView,
+    FormView,
     TemplateView,
     UpdateView,
 )
@@ -12,7 +13,7 @@ from django.views.generic import (
 
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
 
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SecuritySettingsForm, SignupForm
 
 
 class Profile(LoginRequiredMixin, TemplateView):
@@ -79,3 +80,18 @@ class EditNotifications(BaseEditUser, UpdateView):
 
     fields = ('email_newsletter',)
     template_name = 'accounts/edit_notifications.html'
+
+
+class EditSecuritySettings(BaseEditUser, FormView):
+
+    form_class = SecuritySettingsForm
+    template_name = 'accounts/edit_security_settings.html'
+
+    def get_form_kwargs(self):
+        return dict(
+            super(EditSecuritySettings, self).get_form_kwargs(),
+            user=self.get_object())
+
+    def form_valid(self, form):
+        form.save()
+        return super(EditSecuritySettings, self).form_valid(form)
