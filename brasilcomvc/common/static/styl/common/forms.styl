@@ -1,0 +1,41 @@
+@import 'defs/*'
+
+
+$text-input
+	background color_text_lighter
+	border 1px solid color_text_light
+	color color_text_medium
+	font-family font_family_sans
+	font-size font_size_m
+	font-weight 300
+
+
+form
+	label
+		display block
+		margin-bottom 1em
+
+		> strong
+		.helptext
+			display block
+			margin-bottom .5em
+
+		.helptext
+			color color_text_medium
+			font-style italic
+			margin-top -.25em
+
+	textarea
+		@extend $text-input
+		padding 1em
+
+	input[type='number']
+	input[type='date']
+	input[type='search']
+	input[type='email']
+	input[type='password']
+	input[type='text']
+		@extend $text-input
+		height 3.42rem
+		line-height 3.42rem
+		padding 0 1rem

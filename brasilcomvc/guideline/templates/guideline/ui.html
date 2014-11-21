@@ -8,39 +8,96 @@
 
 
 {% block body_classes %}
-	common ui
+	guideline ui
 {% endblock body_classes %}
 
 
 {% block content_content %}
-	<section id="form-widgets">
-		<h2>Widgets de form</h2>
-		<div>
-			{# Include one field #}
-			{% form_field empty_form.search %}
-			{% form_field empty_form.option_toggle %}
-			{% form_field empty_form.option_toggle_disabled %}
+	<header>
+		<h1>Brasil.com.vc</h1>
+		<span>Diretrizes de Interface</span>
+	</header>
 
-			{# Include form fieldsets #}
-			{% form_fieldset empty_form legend='Campos de texto' fields='email text text_disabled textarea search' %}
-			{% form_fieldset empty_form legend='Campos de opção única' fields='one_choice_select one_choice_radio' %}
-			{% form_fieldset empty_form legend='Campos de opção múltipla' fields='multi_choice_select multi_choice_checkboxes' %}
-			{% form_fieldset empty_form legend='Datas e números' fields='date spin_number range_number' %}
+	<section id="color-palette">
+		<h1>Paleta de Cores</h1>
+		<div>
+			<ul>
+				<li class="blue_color_disabled"><strong>color_main1_disabled</strong><em>#bde9fc</em></li>
+				<li class="blue_color_light"><strong>color_main1_light</strong><em>#5bc9f9</em></li>
+				<li class="blue_color_default"><strong>color_main1_default</strong><em>#27a9e1</em></li>
+				<li class="blue_color_dark"><strong>color_main1_dark</strong><em>#0a8dc6</em></li>
+			</ul>
+			<ul>
+				<li class="green_color_disabled"><strong>color_main2_disabled</strong><em>#d9edc9</em></li>
+				<li class="green_color_light"><strong>color_main2_light</strong><em>#a6d97e</em></li>
+				<li class="green_color_default"><strong>color_main2_default</strong><em>#7fc241</em></li>
+				<li class="green_color_dark"><strong>color_main2_dark</strong><em>#69ae29</em></li>
+			</ul>
+			<ul>
+				<li class="yellow_color_disabled"><strong>color_main3_disabled</strong><em>#fdfbce</em></li>
+				<li class="yellow_color_light"><strong>color_main3_light</strong><em>#fef99c</em></li>
+				<li class="yellow_color_default"><strong>color_main3_default</strong><em>#fff100</em></li>
+				<li class="yellow_color_dark"><strong>color_main3_dark</strong><em>#cdc329</em></li>
+			</ul>
+			<ul>
+				<li class="red_color_disabled"><strong>color_main4_disabled</strong><em>#f7d2ca</em></li>
+				<li class="red_color_light"><strong>color_main4_light</strong><em>#e06c55</em></li>
+				<li class="red_color_default"><strong>color_main4_default</strong><em>#cc492f</em></li>
+				<li class="red_color_dark"><strong>color_main4_dark</strong><em>#ba371d</em></li>
+			</ul>
+			<ul>
+				<li class="greyscale_color0"><strong>color_text_lightest</strong><em>#fff</em></li>
+				<li class="greyscale_color1"><strong>color_text_lighter</strong><em>#f2f2f2</em></li>
+				<li class="greyscale_color2"><strong>color_text_light</strong><em>#d3d3d3</em></li>
+				<li class="greyscale_color3"><strong>color_text_medium</strong><em>#7a7a7a</em></li>
+				<li class="greyscale_color4"><strong>color_text_dark</strong><em>#505050</em></li>
+				<li class="greyscale_color5"><strong>color_text_darker</strong><em>#3b3b3b</em></li>
+				<li class="greyscale_color6"><strong>color_text_darkest</strong><em>#101010</em></li>
+			</ul>
 		</div>
 	</section>
-	<section id="form-widgets-with-errors">
-		<h2>Widgets de form (com erros)</h2>
-		<div>
-			{# Include one field #}
-			{% form_field invalid_form.search %}
-			{% form_field invalid_form.option_toggle %}
-			{% form_field invalid_form.option_toggle_disabled %}
 
-			{# Include form fieldsets #}
-			{% form_fieldset invalid_form legend='Campos de texto' fields='email text text_disabled textarea search' %}
-			{% form_fieldset invalid_form legend='Campos de opção única' fields='one_choice_select one_choice_radio' %}
-			{% form_fieldset invalid_form legend='Campos de opção múltipla' fields='multi_choice_select multi_choice_checkboxes' %}
-			{% form_fieldset invalid_form legend='Datas e números' fields='date spin_number range_number' %}
+	<section id="text-elements">
+		<h1>Elementos de Texto</h1>
+		<div>
+			<p>Este é um elemento de parágrafo com <a href="">um link</a>.</p>
+		</div>
+	</section>
+
+	<section id="buttons">
+		<h1>Botões</h1>
+		<div>
+			<h2>Usando <code>&lt;button&gt;</code>s</h2>
+			<p>
+				<button>Padrão</button>
+				<button disabled>Desativado</button>
+			</p>
+
+			<h2>Usando linkss</h2>
+			<p>
+				<a href="" class="button">Padrão</a>
+				<a href="" class="button" disabled>Desativado</a>
+			</p>
+		</div>
+	</section>
+
+	<section id="form-widgets">
+		<h1>Widgets de form</h1>
+		<div>
+			<form>
+				{% form_fieldset empty_form legend='Campos de texto' fields='email text text_disabled textarea search password' %}
+				{% form_fieldset empty_form legend='Datas e números' fields='date spin_number' %}
+			</form>
+		</div>
+	</section>
+
+	<section id="form-widgets-with-errors">
+		<h1>Widgets de form (com erros)</h1>
+		<div>
+			<form>
+				{% form_fieldset invalid_form legend='Campos de texto' fields='email text text_disabled textarea search password' %}
+				{% form_fieldset invalid_form legend='Datas e números' fields='date spin_number' %}
+			</form>
 		</div>
 	</section>
 {% endblock content_content %}

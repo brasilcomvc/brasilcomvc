@@ -20,6 +20,8 @@ class ExampleForm(forms.Form):
     textarea = forms.CharField(
         widget=forms.Textarea(
             attrs={'placeholder': 'Type something here'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput)
     search = forms.CharField(
         widget=forms.TextInput(attrs={'type': 'search'}))
     one_choice_select = forms.IntegerField(
