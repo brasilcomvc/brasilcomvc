@@ -1,0 +1,68 @@
+{% extends "accounts/base.html" %}
+
+
+{% block title %}
+	Minha Conta
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} edit edit_dashboard
+{% endblock body_classes %}
+
+
+{% block content_content %}
+	<h1>Minha conta</h1>
+
+	<section id="personal_info">
+		<h1>Informações Pessoais</h1>
+		<dl>
+			<dt>Nome</dt>
+			<dd>{{ object.get_full_name }}</dd>
+
+			<dt>Usuário</dt>
+			<dd>{% firstof object.username 'Não configurado' %}</dd>
+
+			<dt>E-mail</dt>
+			<dd>{{ object.email }}</dd>
+		</dl>
+		<p>
+			<a class="edit-link" href="{% url 'edit_personal_info' %}">Editar</a>
+		</p>
+	</section>
+
+	<section id="professional_info">
+		<h1>Informações Profissionais</h1>
+		<dl>
+			<dt>Título</dt>
+			<dd>{% firstof object.job_title 'Não configurado' %}</dd>
+
+			<dt>Biografia</dt>
+			<dd>{% firstof object.bio 'Não configurado' %}</dd>
+		</dl>
+		<p>
+			<a class="edit-link" href="{% url 'edit_professional_info' %}">Editar</a>
+		</p>
+	</section>
+
+	<section id="notifications">
+		<h1>Notificações</h1>
+		<ul>
+			<li class="{% if object.email_newsletter %}on{% endif %}">Receber novidades sobre o Brasil.com.vc.</li>
+		</ul>
+		<p>
+			<a class="edit-link" href="{% url 'edit_notifications' %}">Editar</a>
+		</p>
+	</section>
+
+	<section id="security_settings">
+		<h1>Segurança</h1>
+		<dl>
+			<dt>Senha</dt>
+			<dd>******</dd>
+		</dl>
+		<p>
+			<a class="edit-link" href="{% url 'edit_security_settings' %}">Editar</a>
+		</p>
+	</section>
+{% endblock content_content %}

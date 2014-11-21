@@ -6,9 +6,14 @@ from brasilcomvc.common.email import send_template_email
 
 class User(AbstractBaseUser):
 
-    # Identification
+    # Personal Info
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255)
+    username = models.SlugField(max_length=30, null=True, blank=True)
+
+    # Professional Info
+    job_title = models.CharField(max_length=80, null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
 
     # Status
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -16,6 +21,9 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(editable=False, default=True)
     is_staff = models.BooleanField(editable=False, default=False)
     is_superuser = models.BooleanField(editable=False, default=False)
+
+    # Notifications
+    email_newsletter = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('full_name',)

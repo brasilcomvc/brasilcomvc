@@ -1,0 +1,20 @@
+{% extends "accounts/base.html" %}
+{% load form_utils %}
+
+
+{% block title %}
+	Minha Conta - Informações Pessoais
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} edit edit_personal_info
+{% endblock body_classes %}
+
+
+{% block content_content %}
+	<form method="POST">
+		{% form_full form %}
+		<button type="submit">Salvar Alterações</button>
+	</form>
+{% endblock content_content %}

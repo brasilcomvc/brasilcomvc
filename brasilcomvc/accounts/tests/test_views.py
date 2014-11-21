@@ -99,3 +99,156 @@ class LogoutTestCase(TestCase):
     def test_logout_redirect_to_login(self):
         resp = self.client.get(reverse('logout'))
         self.assertRedirects(resp, reverse('login'))
+
+
+class EditDashboardTestCase(TestCase):
+
+    url = reverse('edit_dashboard')
+
+    def setUp(self):
+        user = User.objects.create_user('wat@example.com', password='test')
+        self.client.login(username=user.email, password='test')
+
+    def test_anonymous_is_redirect_to_login(self):
+        self.client.logout()
+        resp = self.client.get(self.url)
+        self.assertRedirects(
+            resp, '{}?next={}'.format(reverse('login'), self.url))
+
+    def test_template_used(self):
+        resp = self.client.get(self.url)
+        self.assertTemplateUsed(resp, 'accounts/edit_dashboard.html')
+
+    def test_page_should_not_display_None(self):
+        resp = self.client.get(self.url)
+        self.assertNotContains(resp, 'None')
+
+
+class EditPersonalInfoTestCase(TestCase):
+
+    url = reverse('edit_personal_info')
+
+    def setUp(self):
+        user = User.objects.create_user('wat@example.com', password='test')
+        self.user_id = user.pk
+        self.client.login(username=user.email, password='test')
+
+    def test_anonymous_is_redirected_to_login(self):
+        self.client.logout()
+        resp = self.client.get(self.url)
+        self.assertRedirects(
+            resp, '{}?next={}'.format(reverse('login'), self.url))
+
+    def test_form_should_have_right_fields_only(self):
+        resp = self.client.get(self.url)
+        self.assertEqual(
+            set(resp.context['form'].fields),
+            set(['full_name', 'username', 'email']))
+
+    def test_correct_form_submit_should_update_data(self):
+        data = {
+            'full_name': 'Test User',
+            'email': 'new@example.com',
+            'username': 'new_username',
+        }
+        resp = self.client.post(self.url, data)
+        self.assertRedirects(resp, reverse('edit_dashboard'))
+        user = User.objects.get(pk=self.user_id)
+        for key, value in data.items():
+            self.assertEqual(getattr(user, key), value)
+
+
+class EditProfessionalInfoTestCase(TestCase):
+
+    url = reverse('edit_professional_info')
+
+    def setUp(self):
+        user = User.objects.create_user('wat@example.com', password='test')
+        self.user_id = user.pk
+        self.client.login(username=user.email, password='test')
+
+    def test_anonymous_is_redirected_to_login(self):
+        self.client.logout()
+        resp = self.client.get(self.url)
+        self.assertRedirects(
+            resp, '{}?next={}'.format(reverse('login'), self.url))
+
+    def test_form_should_have_right_fields_only(self):
+        resp = self.client.get(self.url)
+        self.assertEqual(
+            set(resp.context['form'].fields), set(['job_title', 'bio']))
+
+    def test_correct_form_submit_should_update_data(self):
+        data = {
+            'job_title': 'Python Programmer',
+            'bio': 'I am an unusual person who does not like to write bios',
+        }
+        resp = self.client.post(self.url, data)
+        self.assertRedirects(resp, reverse('edit_dashboard'))
+        user = User.objects.get(pk=self.user_id)
+        for key, value in data.items():
+            self.assertEqual(getattr(user, key), value)
+
+
+class EditNotificationsTestCase(TestCase):
+
+    url = reverse('edit_notifications')
+
+    def setUp(self):
+        user = User.objects.create_user('wat@example.com', password='test')
+        self.user_id = user.pk
+        self.client.login(username=user.email, password='test')
+
+    def test_anonymous_is_redirected_to_login(self):
+        self.client.logout()
+        resp = self.client.get(self.url)
+        self.assertRedirects(
+            resp, '{}?next={}'.format(reverse('login'), self.url))
+
+    def test_form_should_have_right_fields_only(self):
+        resp = self.client.get(self.url)
+        self.assertEqual(
+            set(resp.context['form'].fields), set(['email_newsletter']))
+
+    def test_correct_form_submit_should_update_data(self):
+        data = {
+            'email_newsletter': True,
+        }
+        resp = self.client.post(self.url, data)
+        self.assertRedirects(resp, reverse('edit_dashboard'))
+        user = User.objects.get(pk=self.user_id)
+        for key, value in data.items():
+            self.assertEqual(getattr(user, key), value)
+
+
+class EditSecuritySettingsTestCase(TestCase):
+
+    url = reverse('edit_security_settings')
+
+    def setUp(self):
+        user = User.objects.create_user('wat@example.com', password='test')
+        self.user_id = user.pk
+        self.client.login(username=user.email, password='test')
+
+    def test_anonymous_is_redirected_to_login(self):
+        self.client.logout()
+        resp = self.client.get(self.url)
+        self.assertRedirects(
+            resp, '{}?next={}'.format(reverse('login'), self.url))
+
+    def test_form_should_have_right_fields_only(self):
+        resp = self.client.get(self.url)
+        self.assertEqual(
+            set(resp.context['form'].fields),
+            set(['old_password', 'new_password1', 'new_password2']))
+
+    def test_correct_form_submit_should_update_data(self):
+        data = {
+            'old_password': 'test',
+            'new_password1': 'newpwd',
+            'new_password2': 'newpwd',
+        }
+        resp = self.client.post(self.url, data)
+        self.assertRedirects(resp, reverse('edit_dashboard'))
+        user = User.objects.get(pk=self.user_id)
+        self.assertTrue(user.check_password(data['new_password1']))
