@@ -5,6 +5,10 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 
+from cities_light.models import City, Region
+
+from .models import UserAddress
+
 
 class LoginForm(AuthenticationForm):
 
@@ -29,3 +33,17 @@ class SignupForm(forms.ModelForm):
 
 class SecuritySettingsForm(PasswordChangeForm):
     pass
+
+
+class UserAddressForm(forms.ModelForm):
+
+    class Meta:
+        model = UserAddress
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(UserAddressForm, self).__init__(*args, **kwargs)
+
+        # Limit regions to available cities
+        self.fields['state'].queryset = Region.objects.filter(
+            id__in=set(City.objects.values_list('region_id', flat=True)))

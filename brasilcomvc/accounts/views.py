@@ -13,7 +13,7 @@ from django.views.generic import (
 
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
 
-from .forms import LoginForm, SecuritySettingsForm, SignupForm
+from .forms import LoginForm, SecuritySettingsForm, SignupForm, UserAddressForm
 
 
 class Profile(LoginRequiredMixin, TemplateView):
@@ -100,3 +100,22 @@ class EditSecuritySettings(BaseEditUser, FormView):
     def form_valid(self, form):
         form.save()
         return super(EditSecuritySettings, self).form_valid(form)
+
+
+class EditUserAddress(BaseEditUser, FormView):
+
+    form_class = UserAddressForm
+    template_name = 'accounts/edit_user_address.html'
+
+    def get_form_kwargs(self):
+        return dict(
+            super(EditUserAddress, self).get_form_kwargs(),
+
+            # If the user already has an address, make it the edition target
+            instance=getattr(self.request.user, 'address', None))
+
+    def form_valid(self, form):
+        address = form.save(commit=False)
+        address.user = self.request.user
+        address.save()
+        return super(EditUserAddress, self).form_valid(form)

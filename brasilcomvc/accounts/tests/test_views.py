@@ -4,7 +4,9 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from brasilcomvc.common.views import AnonymousRequiredMixin
+from cities_light.models import City, Region
 
+from ..models import UserAddress
 from ..views import Signup
 
 
@@ -252,3 +254,70 @@ class EditSecuritySettingsTestCase(TestCase):
         self.assertRedirects(resp, reverse('edit_dashboard'))
         user = User.objects.get(pk=self.user_id)
         self.assertTrue(user.check_password(data['new_password1']))
+
+
+class EditUserAddressTestCase(TestCase):
+
+    url = reverse('edit_user_address')
+    fixtures = ('test_cities',)
+
+    def setUp(self):
+        # Prepare an user instance
+        user = User.objects.create_user('wat@example.com', password='test')
+        self.user_id = user.pk
+        self.client.login(username=user.email, password='test')
+
+        # Set an address to it
+        city = City.objects.order_by('?')[0]
+        UserAddress.objects.create(
+            user=user,
+            zipcode='22222-222',
+            address_line1='Avenida Redonda, 3.14',
+            address_line2='Apto -5',
+            state=city.region,
+            city=city)
+
+    def test_anonymous_is_redirected_to_login(self):
+        self.client.logout()
+        resp = self.client.get(self.url)
+        self.assertRedirects(
+            resp, '{}?next={}'.format(reverse('login'), self.url))
+
+    def test_form_should_have_right_fields_only(self):
+        resp = self.client.get(self.url)
+        self.assertEqual(
+            set(resp.context['form'].fields),
+            set([
+                'zipcode', 'address_line1', 'address_line2', 'state', 'city']))
+
+    def test_form_state_field_should_have_used_regions_only(self):
+        region = Region.objects.order_by('?')[0]
+        City.objects.filter(region=region).delete()
+        resp = self.client.get(self.url)
+        self.assertEqual(
+            set(resp.context['form'].fields['state'].queryset),
+            set(Region.objects.exclude(id=region.id)))
+
+    def test_correct_form_submit_should_create_object_when_not_existent(self):
+        UserAddress.objects.all().delete()  # Drop any existent user address
+        city = City.objects.order_by('?')[0]
+        data = {
+            'zipcode': '00000-000',
+            'address_line1': 'Rua Sem Fim, 0',
+            'address_line2': 'Apto -1',
+            'state': city.region.id,
+            'city': city.id,
+        }
+        resp = self.client.post(self.url, data)
+        self.assertRedirects(resp, reverse('edit_dashboard'))
+        user = User.objects.get(pk=self.user_id)
+        self.assertTrue(hasattr(user, 'address'))
+
+    def test_correct_form_submit_should_update_object_when_existent(self):
+        resp = self.client.get(self.url)
+        data = resp.context['form'].initial
+        data.update({'zipcode': '33333-333'})
+        resp = self.client.post(self.url, data)
+        self.assertRedirects(resp, reverse('edit_dashboard'))
+        user = User.objects.get(pk=self.user_id)
+        self.assertEqual(user.address.zipcode, data['zipcode'])

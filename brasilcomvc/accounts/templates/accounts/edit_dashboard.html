@@ -65,4 +65,35 @@
 			<a class="edit-link" href="{% url 'edit_security_settings' %}">Editar</a>
 		</p>
 	</section>
+
+	<section id="user_address">
+	{% with user.address as address %}
+		<h1>Endereço</h1>
+		{% if address %}
+			<dl>
+				<dt>Endereço</dt>
+				<dd>{{ address.address_line1 }}</dd>
+
+				{% if address.address_line2 %}
+					<dt>Complemento</dt>
+					<dd>{{ address.address_line2 }}</dd>
+				{% endif %}
+
+				<dt>Cidade</dt>
+				<dd>{{ address.city.name }}</dd>
+
+				<dt>Estado</dt>
+				<dd>{{ address.state.name }}</dd>
+
+				<dt>CEP</dt>
+				<dd>{{ address.zipcode }}</dd>
+			</dl>
+		{% else %}
+			<p>Endereço ainda não configurado.</p>
+		{% endif %}
+		<p>
+			<a class="edit-link" href="{% url 'edit_user_address' %}">Editar</a>
+		</p>
+	{% endwith %}
+	</section>
 {% endblock content_content %}
