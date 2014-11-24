@@ -1,0 +1,415 @@
+[
+{
+	"pk": 31,
+	"fields": {
+		"tld": "br",
+		"continent": "SA",
+		"geoname_id": 3469034,
+		"phone": "55",
+		"code2": "BR",
+		"code3": "BRA",
+		"alternate_names": "Brazylia,Rep\\u00fablica Federativa do Brasil,Brasil,Federative Republic of Brazil,Brasilien",
+		"slug": "brazil",
+		"name_ascii": "Brazil",
+		"name": "Brazil"
+	},
+	"model": "cities_light.country"
+},
+{
+	"pk": 366,
+	"fields": {
+		"display_name": "Bahia, Brazil",
+		"geoname_code": "05",
+		"geoname_id": 3471168,
+		"country": 31,
+		"alternate_names": "Estado da Bahia,BA,Estado de Bahia",
+		"slug": "bahia",
+		"name_ascii": "Bahia",
+		"name": "Bahia"
+	},
+	"model": "cities_light.region"
+},
+{
+	"pk": 360,
+	"fields": {
+		"display_name": "Minas Gerais, Brazil",
+		"geoname_code": "15",
+		"geoname_id": 3457153,
+		"country": 31,
+		"alternate_names": "MG,Estado de Minas Gerais",
+		"slug": "minas-gerais",
+		"name_ascii": "Minas Gerais",
+		"name": "Minas Gerais"
+	},
+	"model": "cities_light.region"
+},
+{
+	"pk": 359,
+	"fields": {
+		"display_name": "Paran\u00e1, Brazil",
+		"geoname_code": "18",
+		"geoname_id": 3455077,
+		"country": 31,
+		"alternate_names": "PR,Estado de Paran\u00e1",
+		"slug": "parana",
+		"name_ascii": "Parana",
+		"name": "Paran\u00e1"
+	},
+	"model": "cities_light.region"
+},
+{
+	"pk": 347,
+	"fields": {
+		"display_name": "Pernambuco, Brazil",
+		"geoname_code": "30",
+		"geoname_id": 3392268,
+		"country": 31,
+		"alternate_names": "PE,Estado de Pernambuco",
+		"slug": "pernambuco",
+		"name_ascii": "Pernambuco",
+		"name": "Pernambuco"
+	},
+	"model": "cities_light.region"
+},
+{
+	"pk": 345,
+	"fields": {
+		"display_name": "Rio Grande do Norte, Brazil",
+		"geoname_code": "22",
+		"geoname_id": 3390290,
+		"country": 31,
+		"alternate_names": "RN,Estado de R\u00edo Grande del Norte",
+		"slug": "rio-grande-do-norte",
+		"name_ascii": "Rio Grande do Norte",
+		"name": "Rio Grande do Norte"
+	},
+	"model": "cities_light.region"
+},
+{
+	"pk": 357,
+	"fields": {
+		"display_name": "Rio Grande do Sul, Brazil",
+		"geoname_code": "23",
+		"geoname_id": 3451133,
+		"country": 31,
+		"alternate_names": "RS,Estado de R\u00edo Grande del Sur",
+		"slug": "rio-grande-do-sul",
+		"name_ascii": "Rio Grande do Sul",
+		"name": "Rio Grande do Sul"
+	},
+	"model": "cities_light.region"
+},
+{
+	"pk": 356,
+	"fields": {
+		"display_name": "Santa Catarina, Brazil",
+		"geoname_code": "26",
+		"geoname_id": 3450387,
+		"country": 31,
+		"alternate_names": "SC,Estado de Santa Catarina",
+		"slug": "santa-catarina",
+		"name_ascii": "Santa Catarina",
+		"name": "Santa Catarina"
+	},
+	"model": "cities_light.region"
+},
+{
+	"pk": 355,
+	"fields": {
+		"display_name": "S\u00e3o Paulo, Brazil",
+		"geoname_code": "27",
+		"geoname_id": 3448433,
+		"country": 31,
+		"alternate_names": "SP,Estado de S\u00e3o Paulo",
+		"slug": "sao-paulo",
+		"name_ascii": "Sao Paulo",
+		"name": "S\u00e3o Paulo"
+	},
+	"model": "cities_light.region"
+},
+{
+	"pk": 1158,
+	"fields": {
+		"display_name": "Agua\u00ed, S\u00e3o Paulo, Brazil",
+		"search_names": "aguaibrazil aguaisaopaulobrazil",
+		"geoname_id": 3472969,
+		"region": 355,
+		"feature_code": "PPL",
+		"population": 27503,
+		"latitude": "-22.05944",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-46.97861",
+		"name": "Agua\u00ed",
+		"name_ascii": "Aguai",
+		"slug": "aguai"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 406,
+	"fields": {
+		"display_name": "S\u00e3o Miguel do Igua\u00e7u, Paran\u00e1, Brazil",
+		"search_names": "saomigueldoiguacubrazil saomigueldoiguacuparanabrazil",
+		"geoname_id": 3448453,
+		"region": 359,
+		"feature_code": "PPL",
+		"population": 15434,
+		"latitude": "-25.34806",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-54.23778",
+		"name": "S\u00e3o Miguel do Igua\u00e7u",
+		"name_ascii": "Sao Miguel do Iguacu",
+		"slug": "sao-miguel-do-iguacu"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 848,
+	"fields": {
+		"display_name": "Ibirama, Santa Catarina, Brazil",
+		"search_names": "ibiramabrazil ibiramasantacatarinabrazil",
+		"geoname_id": 3461576,
+		"region": 356,
+		"feature_code": "PPL",
+		"population": 18357,
+		"latitude": "-27.05694",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-49.51778",
+		"name": "Ibirama",
+		"name_ascii": "Ibirama",
+		"slug": "ibirama"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 150,
+	"fields": {
+		"display_name": "Jaboat\u00e3o, Pernambuco, Brazil",
+		"search_names": "jaboataobrazil jaboataopernambucobrazil",
+		"geoname_id": 3397838,
+		"region": 347,
+		"feature_code": "PPLL",
+		"population": 702621,
+		"latitude": "-8.18028",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-35.00139",
+		"name": "Jaboat\u00e3o",
+		"name_ascii": "Jaboatao",
+		"slug": "jaboatao"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 284,
+	"fields": {
+		"display_name": "Xique Xique, Bahia, Brazil",
+		"search_names": "xiquexiquebrazil xiquexiquebahiabrazil",
+		"geoname_id": 3444823,
+		"region": 366,
+		"feature_code": "PPL",
+		"population": 35433,
+		"latitude": "-10.82294",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-42.72815",
+		"name": "Xique Xique",
+		"name_ascii": "Xique Xique",
+		"slug": "xique-xique"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 422,
+	"fields": {
+		"display_name": "S\u00e3o Joaquim da Barra, S\u00e3o Paulo, Brazil",
+		"search_names": "saojoaquimdabarrabrazil saojoaquimdabarrasaopaulobrazil",
+		"geoname_id": 3448825,
+		"region": 355,
+		"feature_code": "PPL",
+		"population": 42720,
+		"latitude": "-20.58139",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-47.85472",
+		"name": "S\u00e3o Joaquim da Barra",
+		"name_ascii": "Sao Joaquim da Barra",
+		"slug": "sao-joaquim-da-barra"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 957,
+	"fields": {
+		"display_name": "Conchal, S\u00e3o Paulo, Brazil",
+		"search_names": "conchalbrazil conchalsaopaulobrazil",
+		"geoname_id": 3465731,
+		"region": 355,
+		"feature_code": "PPL",
+		"population": 21351,
+		"latitude": "-22.33028",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-47.1725",
+		"name": "Conchal",
+		"name_ascii": "Conchal",
+		"slug": "conchal"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 650,
+	"fields": {
+		"display_name": "Nanuque, Minas Gerais, Brazil",
+		"search_names": "nanuquebrazil nanuqueminasgeraisbrazil",
+		"geoname_id": 3456398,
+		"region": 360,
+		"feature_code": "PPL",
+		"population": 37824,
+		"latitude": "-17.83917",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-40.35389",
+		"name": "Nanuque",
+		"name_ascii": "Nanuque",
+		"slug": "nanuque"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 599,
+	"fields": {
+		"display_name": "Paranapanema, S\u00e3o Paulo, Brazil",
+		"search_names": "paranapanemabrazil paranapanemasaopaulobrazil",
+		"geoname_id": 3455061,
+		"region": 355,
+		"feature_code": "PPL",
+		"population": 16215,
+		"latitude": "-23.3863",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-48.72441",
+		"name": "Paranapanema",
+		"name_ascii": "Paranapanema",
+		"slug": "paranapanema"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 1034,
+	"fields": {
+		"display_name": "Caetit\u00e9, Bahia, Brazil",
+		"search_names": "caetitebrazil caetitebahiabrazil",
+		"geoname_id": 3468317,
+		"region": 366,
+		"feature_code": "PPL",
+		"population": 27187,
+		"latitude": "-14.06944",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-42.475",
+		"name": "Caetit\u00e9",
+		"name_ascii": "Caetite",
+		"slug": "caetite"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 819,
+	"fields": {
+		"display_name": "Irati, Paran\u00e1, Brazil",
+		"search_names": "iratibrazil iratiparanabrazil",
+		"geoname_id": 3461017,
+		"region": 359,
+		"feature_code": "PPL",
+		"population": 45830,
+		"latitude": "-25.46722",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-50.65111",
+		"name": "Irati",
+		"name_ascii": "Irati",
+		"slug": "irati"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 1037,
+	"fields": {
+		"display_name": "Cachoeirinha, Rio Grande do Sul, Brazil",
+		"search_names": "cachoeirinhabrazil cachoeirinhariograndedosulbrazil",
+		"geoname_id": 3468403,
+		"region": 357,
+		"feature_code": "PPL",
+		"population": 121084,
+		"latitude": "-29.95111",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-51.09389",
+		"name": "Cachoeirinha",
+		"name_ascii": "Cachoeirinha",
+		"slug": "cachoeirinha"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 666,
+	"fields": {
+		"display_name": "Mongagu\u00e1, S\u00e3o Paulo, Brazil",
+		"search_names": "mongaguabrazil mongaguasaopaulobrazil",
+		"geoname_id": 3456944,
+		"region": 355,
+		"feature_code": "PPLA2",
+		"population": 45930,
+		"latitude": "-24.09306",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-46.62083",
+		"name": "Mongagu\u00e1",
+		"name_ascii": "Mongagua",
+		"slug": "mongagua"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 268,
+	"fields": {
+		"display_name": "Apodi, Rio Grande do Norte, Brazil",
+		"search_names": "apodibrazil apodiriograndedonortebrazil",
+		"geoname_id": 3407440,
+		"region": 345,
+		"feature_code": "PPL",
+		"population": 16757,
+		"latitude": "-5.66417",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-37.79889",
+		"name": "Apodi",
+		"name_ascii": "Apodi",
+		"slug": "apodi"
+	},
+	"model": "cities_light.city"
+},
+{
+	"pk": 865,
+	"fields": {
+		"display_name": "Guararapes, S\u00e3o Paulo, Brazil",
+		"search_names": "guararapesbrazil guararapessaopaulobrazil",
+		"geoname_id": 3461874,
+		"region": 355,
+		"feature_code": "PPL",
+		"population": 27557,
+		"latitude": "-21.26083",
+		"country": 31,
+		"alternate_names": "",
+		"longitude": "-50.64278",
+		"name": "Guararapes",
+		"name_ascii": "Guararapes",
+		"slug": "guararapes"
+	},
+	"model": "cities_light.city"
+}
+]
