@@ -1,0 +1,14 @@
+{% load static %}
+
+
+<div>
+	<a href="" class="logo">
+		<img src="{% static 'img/logo.png' %}" alt="Brasil.Com.Vc">
+ 	</a>
+ 	<nav>
+		<ul>
+			<li><a href="{% url 'signup' %}" class="button">Cadastre-se</a></li>
+			<li><a href="{% url 'login' %}">Login</a></li>
+		</ul>
+ 	</nav>
+</div>
