@@ -19,12 +19,18 @@ $button
 		cursor default
 		text-decoration none !important
 
-button(color = color_main1_default, hovercolor = color_main1_dark, size = 3.4285714285714283rem)
+button(color = color_main1_default, hovercolor = color_main1_dark, size = 'default')
 	@extend $button
 	background color
-	height size
-	line-height size
 
 	&:not([disabled]):hover
 		background hovercolor
 
+	if ( size == 'default' )
+		size = 48px
+
+	if ( size == 'small' )
+		size = 38px
+
+	height size
+	line-height size
