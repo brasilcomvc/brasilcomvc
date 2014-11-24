@@ -25,6 +25,7 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 PIPELINE_COMPILERS = (
+    'pipeline.compilers.coffee.CoffeeScriptCompiler',
     'pipeline.compilers.stylus.StylusCompiler',
 )
 
