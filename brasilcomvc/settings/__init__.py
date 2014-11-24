@@ -39,6 +39,7 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'pipeline',
+    'cities_light',
 )
 
 LOCAL_APPS = (
