@@ -1,5 +1,5 @@
 {% load compressed %}
-
+{% load static %}
 
 <!doctype html>
 <html>
@@ -12,6 +12,7 @@
 			{% compressed_css 'guideline' %}
 		{% endblock css %}
 	{% endblock head %}
+		<link rel="icon" href="{% static 'img/favicon.ico' %}">
 	</head>
 
 	<body class="{% block body_classes %}{% endblock body_classes %}">
