@@ -27,7 +27,7 @@
 			<dd>{{ object.email }}</dd>
 		</dl>
 		<p>
-			<a class="edit-link" href="{% url 'edit_personal_info' %}">Editar</a>
+			<a class="button" href="{% url 'edit_personal_info' %}">Editar</a>
 		</p>
 	</section>
 
@@ -41,7 +41,7 @@
 			<dd>{% firstof object.bio 'Não configurado' %}</dd>
 		</dl>
 		<p>
-			<a class="edit-link" href="{% url 'edit_professional_info' %}">Editar</a>
+			<a class="button" href="{% url 'edit_professional_info' %}">Editar</a>
 		</p>
 	</section>
 
@@ -51,7 +51,7 @@
 			<li class="{% if object.email_newsletter %}on{% endif %}">Receber novidades sobre o Brasil.com.vc.</li>
 		</ul>
 		<p>
-			<a class="edit-link" href="{% url 'edit_notifications' %}">Editar</a>
+			<a class="button" href="{% url 'edit_notifications' %}">Editar</a>
 		</p>
 	</section>
 
@@ -62,7 +62,7 @@
 			<dd>******</dd>
 		</dl>
 		<p>
-			<a class="edit-link" href="{% url 'edit_security_settings' %}">Editar</a>
+			<a class="button" href="{% url 'edit_security_settings' %}">Editar</a>
 		</p>
 	</section>
 {% endblock content_content %}

@@ -25,6 +25,15 @@ form
 			font-style italic
 			margin-top -.25em
 
+		&.error
+			input
+			textarea
+				border-color color_main4_default
+
+		.errorlist
+			margin-top .5em
+			color color_main4_default
+
 	textarea
 		@extend $text-input
 		padding 1em
@@ -39,3 +48,10 @@ form
 		height 3.42rem
 		line-height 3.42rem
 		padding 0 1rem
+
+	select
+		@extend $text-input
+		height 3.42rem
+
+		option
+			padding .5em
