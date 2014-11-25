@@ -13,11 +13,12 @@
 
 
 {% block content_content %}
+<section id="content">
 	<h1>Cadastro</h1>
 	<form method="POST">
 		{% form_full form %}
 		<button type="submit">Cadastrar</button>
 	</form>
-	<p>Já é cadastrado? Faça <a href="{% url 'login' %}">login</a></p>
 	<p>Já é cadastrado? Faça <a href="{% url 'login' %}">login</a>.</p>
+</section>
 {% endblock content_content %}

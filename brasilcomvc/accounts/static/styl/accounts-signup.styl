@@ -1,6 +1,22 @@
 @import 'kouto-swiss'
 @import 'defs/*'
+
+
 body.accounts.signup
+
+	#content
+		margin-top 2rem !important
+		margin-bottom 2rem !important
+
 	h1
 		margin-bottom 1rem !important
 		text-align center
+
+	form
+		margin-bottom 2rem
+
+	// GRID DEFINITION
+	+media-query( breakpoint_desktop )
+		#main-content > *
+			col(5)
+			offset(3.5)
