@@ -112,7 +112,12 @@ class DeleteUser(LoginRequiredMixin, FormView):
         return kwargs
 
     def form_valid(self, form):
+        email = self.request.user.email
+
+        # Delete user and logout (clean session)
         self.request.user.delete()
         logout_user(self.request)
-        # FIXME(rochacon): replace redirect to feedback page
-        return HttpResponseRedirect('/')
+
+        # Put deleted_email into session for feedback form consumption
+        self.request.session['deleted_email'] = email
+        return HttpResponseRedirect(reverse('feedback:create'))

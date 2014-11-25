@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load form_utils %}
+
+{% block title %}Ajude-nos a melhorar{% endblock title %}
+
+{% block body_class %}feedback {{ block.super }}{% endblock body_class %}
+
+{% block content_content %}
+    <form action="{% url 'feedback:create' %}" method="POST">
+        {% csrf_token %}
+
+        {% form_field form.question_1 %}
+        <br>
+
+        {% form_field form.question_2 %}
+        <br>
+
+        {% form_field form.question_3 %}
+        <br>
+
+        {% form_field form.question_4 %}
+        <br>
+
+        {% form_field form.question_5 %}
+        <br>
+
+        {% form_field form.comments %}
+        <br>
+
+        <button type="submit">Enviar</submit>
+
+    </form>
+{% endblock content_content %}

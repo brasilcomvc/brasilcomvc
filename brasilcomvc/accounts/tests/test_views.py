@@ -288,6 +288,8 @@ class DeleteUserTest(TestCase):
         self.assertNotEqual(logged_session,
                             self.client.cookies['sessionid'].value,
                             'Same sesion found, probably user wasnt logged out')
+        self.assertIn('deleted_email', self.client.session)
+        self.assertEqual(self.client.session['deleted_email'], self.user.email)
 
     def test_delete_user_view_should_fail_on_invalid_password(self):
         """Test the delete user view response when received an invalid password

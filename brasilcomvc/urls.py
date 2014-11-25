@@ -7,6 +7,9 @@ admin.autodiscover()
 urlpatterns = (
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^feedback/',
+        include('brasilcomvc.feedback.urls', namespace='feedback')),
+
     url(r'^guideline/',
         include('brasilcomvc.guideline.urls', namespace='guideline')),
 
