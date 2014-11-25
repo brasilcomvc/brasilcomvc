@@ -3,11 +3,16 @@
 
 
 body.accounts.login
+
+	#content
+		margin-top 2rem !important
+		margin-bottom 2rem !important
+
 	h1
 		margin-bottom 1rem !important
 		text-align center
 	// GRID DEFINITION
 	+media-query( breakpoint_desktop )
-		#main-content form
-			col(6)
-			offset(3)
+		#main-content > *
+			col(5)
+			offset(3.5)
