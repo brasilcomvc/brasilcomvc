@@ -11,6 +11,7 @@
 {% block content_content %}
 <form action="{% url 'delete_user' %}" method="POST">
     {% csrf_token %}
+<section id="content">
 
     <h1>Tem certeza que deseja excluir sua conta?</h1>
     <h2>Esta ação é irreversível</h2>
@@ -20,4 +21,5 @@
     <button type="submit">Eu tenho certeza</button>
     <a href="{% url 'profile' %}">Cancelar</a>
 </form>
+</section>
 {% endblock content_content %}
