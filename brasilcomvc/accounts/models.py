@@ -8,7 +8,7 @@ class User(AbstractBaseUser):
 
     # Personal Info
     email = models.EmailField(unique=True)
-    full_name = models.CharField(max_length=255)
+    full_name = models.CharField('Nome Completo', max_length=255)
     username = models.SlugField(max_length=30, null=True, blank=True)
 
     # Professional Info
