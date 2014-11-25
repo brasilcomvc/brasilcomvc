@@ -1,6 +1,8 @@
 Brasil.com.vc
 =============
 
+[![Build Status](https://travis-ci.org/brasilcomvc/brasilcomvc.svg?branch=feat%2Ftravis-ci)](https://travis-ci.org/brasilcomvc/brasilcomvc)
+
 
 Installation
 ------------
