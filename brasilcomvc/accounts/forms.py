@@ -14,7 +14,7 @@ class LoginForm(AuthenticationForm):
 
 class SignupForm(forms.ModelForm):
 
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(label='Senha', widget=forms.PasswordInput)
 
     class Meta:
         model = get_user_model()
