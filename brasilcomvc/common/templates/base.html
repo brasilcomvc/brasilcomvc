@@ -1,11 +1,14 @@
 {% load compressed %}
 {% load static %}
 
+
 <!doctype html>
 <html>
 	<head>
 	{% block head %}
 		<title>{% block title %}{% endblock title %} | Brasil.com.vc</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		{% block css %}
 			{% compressed_css 'common' %}

@@ -1,11 +1,16 @@
+@import 'kouto-swiss'
 @import 'defs/*'
 
 
 body.accounts.edit.edit_dashboard
-
 	#main-content
-
 		section
-
 			.button
 				button(size: 'small')
+
+
+	// GRID DEFINITION
+	+media-query( breakpoint_desktop )
+		#main-content section
+			col(6)
+			min-height 20em

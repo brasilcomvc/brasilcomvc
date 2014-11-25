@@ -1,0 +1,22 @@
+breakpoint_smartphone = only screen, max-width 480px
+breakpoint_tablet = only screen, min-width 481px, max-width 960px
+breakpoint_desktop = only screen, min-width 961px
+
+
+body
+	+media-query( breakpoint_smartphone )
+		gs('fluid', 4, 17%)
+
+		#main-content
+			col()
+
+	+media-query( breakpoint_tablet )
+		gs('fluid', 6, 12%)
+
+		#main-content
+			col(4)
+			offset(1)
+
++media-query( breakpoint_desktop )
+	#main-content
+		gs('fixed', 12, 50px, 30px)
