@@ -9,17 +9,18 @@
 
 
 {% block content_content %}
-<form action="{% url 'delete_user' %}" method="POST">
-    {% csrf_token %}
 <section id="content">
+	<h1>Excluir Conta</h1>
+	<form action="{% url 'delete_user' %}" method="POST">
+	    {% csrf_token %}
 
-    <h1>Tem certeza que deseja excluir sua conta?</h1>
-    <h2>Esta ação é irreversível</h2>
+	    <p>Tem certeza que deseja excluir sua conta?</p>
+	    <p>Esta ação é irreversível</p>
 
-    {% form_field form.password %}
+	    {% form_field form.password %}
 
-    <button type="submit">Eu tenho certeza</button>
-    <a href="{% url 'profile' %}">Cancelar</a>
-</form>
+	    <button type="submit">Eu tenho certeza</button>
+	    <a href="{% url 'profile' %}">Cancelar</a>
+	</form>
 </section>
 {% endblock content_content %}
