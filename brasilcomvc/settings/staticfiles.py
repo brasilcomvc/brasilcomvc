@@ -55,6 +55,11 @@ PIPELINE_CSS = {
 
 # Packaging specs for JavaScript
 PIPELINE_JS = {
+    '3rdparty': {
+        'source_filenames': (
+        ),
+        'output_filename': '3rdparty.js',
+    },
     'accounts': {
         'source_filenames': ['coffee/accounts-*.coffee'],
         'output_filename': 'js/accounts.js',
