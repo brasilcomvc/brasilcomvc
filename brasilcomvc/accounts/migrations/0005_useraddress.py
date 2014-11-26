@@ -8,7 +8,7 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cities_light', '0003_auto_20141124_1354'),
+        ('cities_light', '0003_auto_20141120_0342'),
         ('accounts', '0004_user_email_newsletter'),
     ]
 
