@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from itertools import groupby
 
 from django import forms
 from django.contrib.auth import get_user_model
@@ -45,5 +46,14 @@ class UserAddressForm(forms.ModelForm):
         super(UserAddressForm, self).__init__(*args, **kwargs)
 
         # Limit regions to available cities
-        self.fields['state'].queryset = Region.objects.filter(
+        states = Region.objects.filter(
             id__in=set(City.objects.values_list('region_id', flat=True)))
+        self.fields['state'].queryset = states
+        self.fields['state'].choices = states.values_list('id', 'name')
+
+        # Group cities by region (state)
+        self.fields['city'].choices = [
+            (state, [(city.pk, city.name) for city in cities],)
+            for state, cities in groupby(
+                self.fields['city'].queryset.order_by('region__name', 'name'),
+                lambda city: city.region.name)]
