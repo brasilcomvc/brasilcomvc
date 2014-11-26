@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.apps import AppConfig
 
 from cities_light.signals import city_items_pre_import
