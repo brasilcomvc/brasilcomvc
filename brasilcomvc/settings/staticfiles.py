@@ -57,6 +57,7 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     '3rdparty': {
         'source_filenames': (
+            'jquery/dist/jquery.js',
         ),
         'output_filename': '3rdparty.js',
     },
