@@ -21,8 +21,12 @@ if 'test' in sys.argv:
     STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
 
 STATICFILES_FINDERS = (
+    'pipeline.finders.FileSystemFinder',
     'pipeline.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
+)
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, '../bower_components'),
 )
 PIPELINE_COMPILERS = (
     'pipeline.compilers.coffee.CoffeeScriptCompiler',

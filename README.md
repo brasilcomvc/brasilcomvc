@@ -32,4 +32,4 @@ work. We already include nodeenv to help with that:
 
 - Install Node + npm: `nodeenv -p --prebuilt`
 - Install required packages: `nodeenv --requirements=requirements.npm.txt --update $VIRTUAL_ENV`
-
+- Install 3rd-party front-end libs from bower: `bower install`
