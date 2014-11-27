@@ -4,9 +4,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
-from cities_light.models import City, Region
+from cities_light.models import City
 
-from ..forms import UserAddressForm
 from ..models import UserAddress
 from ..views import (
     EditDashboard,
@@ -252,24 +251,6 @@ class EditUserAddressTestCase(TestCase):
 
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditUserAddress, LoginRequiredMixin))
-
-    def test_form_should_have_all_fields(self):
-        self.assertEqual(UserAddressForm.Meta.fields, '__all__')
-
-    def test_form_state_field_should_have_used_regions_only(self):
-        region = Region.objects.order_by('?')[0]
-        City.objects.filter(region=region).delete()
-        self.assertEqual(
-            set(UserAddressForm().fields['state'].queryset),
-            set(Region.objects.exclude(id=region.id)))
-
-    def test_form_group_cities(self):
-        expected_choices = [
-            (region.name, list(
-                region.city_set.order_by('name').values_list('pk', 'name')),)
-            for region in Region.objects.order_by('name')
-        ]
-        self.assertEqual(UserAddressForm()._group_cities(), expected_choices)
 
     def test_correct_form_submit_should_create_object_when_not_existent(self):
         self.assertFalse(UserAddress.objects.exists())
