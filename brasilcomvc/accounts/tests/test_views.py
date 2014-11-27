@@ -6,6 +6,7 @@ from django.test import TestCase
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
 from cities_light.models import City, Region
 
+from ..forms import UserAddressForm
 from ..models import UserAddress
 from ..views import (
     EditDashboard,
@@ -143,10 +144,8 @@ class EditPersonalInfoTestCase(TestCase):
         self.assertTrue(issubclass(EditPersonalInfo, LoginRequiredMixin))
 
     def test_form_should_have_right_fields_only(self):
-        resp = self.client.get(self.url)
         self.assertEqual(
-            set(resp.context['form'].fields),
-            set(['full_name', 'username', 'email']))
+            EditPersonalInfo.fields, ('full_name', 'username', 'email',))
 
     def test_correct_form_submit_should_update_data(self):
         data = {
@@ -174,9 +173,8 @@ class EditProfessionalInfoTestCase(TestCase):
         self.assertTrue(issubclass(EditProfessionalInfo, LoginRequiredMixin))
 
     def test_form_should_have_right_fields_only(self):
-        resp = self.client.get(self.url)
         self.assertEqual(
-            set(resp.context['form'].fields), set(['job_title', 'bio']))
+            EditProfessionalInfo.fields, ('job_title', 'bio',))
 
     def test_correct_form_submit_should_update_data(self):
         data = {
@@ -203,9 +201,8 @@ class EditNotificationsTestCase(TestCase):
         self.assertTrue(issubclass(EditNotifications, LoginRequiredMixin))
 
     def test_form_should_have_right_fields_only(self):
-        resp = self.client.get(self.url)
         self.assertEqual(
-            set(resp.context['form'].fields), set(['email_newsletter']))
+            EditNotifications.fields, ('email_newsletter',))
 
     def test_correct_form_submit_should_update_data(self):
         data = {
@@ -229,12 +226,6 @@ class EditSecuritySettingsTestCase(TestCase):
 
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditSecuritySettings, LoginRequiredMixin))
-
-    def test_form_should_have_right_fields_only(self):
-        resp = self.client.get(self.url)
-        self.assertEqual(
-            set(resp.context['form'].fields),
-            set(['old_password', 'new_password1', 'new_password2']))
 
     def test_correct_form_submit_should_update_data(self):
         data = {
@@ -272,19 +263,14 @@ class EditUserAddressTestCase(TestCase):
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditUserAddress, LoginRequiredMixin))
 
-    def test_form_should_have_right_fields_only(self):
-        resp = self.client.get(self.url)
-        self.assertEqual(
-            set(resp.context['form'].fields),
-            set([
-                'zipcode', 'address_line1', 'address_line2', 'state', 'city']))
+    def test_form_should_have_all_fields(self):
+        self.assertEqual(UserAddressForm.Meta.fields, '__all__')
 
     def test_form_state_field_should_have_used_regions_only(self):
         region = Region.objects.order_by('?')[0]
         City.objects.filter(region=region).delete()
-        resp = self.client.get(self.url)
         self.assertEqual(
-            set(resp.context['form'].fields['state'].queryset),
+            set(UserAddressForm().fields['state'].queryset),
             set(Region.objects.exclude(id=region.id)))
 
     def test_correct_form_submit_should_create_object_when_not_existent(self):

@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import logout as logout_user
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import login as auth_login
 from django.http import HttpResponseRedirect
 from django.views.generic import (
@@ -13,7 +14,7 @@ from django.views.generic import (
 
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
 
-from .forms import LoginForm, SecuritySettingsForm, SignupForm, UserAddressForm
+from .forms import LoginForm, SignupForm, UserAddressForm
 
 
 class Profile(LoginRequiredMixin, TemplateView):
@@ -89,7 +90,7 @@ class EditNotifications(BaseEditUser, UpdateView):
 
 class EditSecuritySettings(BaseEditUser, FormView):
 
-    form_class = SecuritySettingsForm
+    form_class = PasswordChangeForm
     template_name = 'accounts/edit_security_settings.html'
 
     def get_form_kwargs(self):

@@ -4,7 +4,7 @@ from itertools import groupby
 
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm
 
 from cities_light.models import City, Region
 
@@ -30,10 +30,6 @@ class SignupForm(forms.ModelForm):
         self.instance.set_password(self.cleaned_data['password'])
 
         return super(SignupForm, self).save(**kwargs)
-
-
-class SecuritySettingsForm(PasswordChangeForm):
-    pass
 
 
 class UserAddressForm(forms.ModelForm):
