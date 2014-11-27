@@ -1,0 +1,19 @@
+{
+  "name": "brasilcomvc",
+  "version": "dev",
+  "authors": [
+    "Evandro Myller <eMyller@7ws.co>"
+  ],
+  "license": "-",
+  "homepage": "http://brasil.com.vc",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1"
+  }
+}

@@ -6,6 +6,7 @@ __pycache__/
 *.css
 *.js
 /webroot
+/bower_components
 
 # Misc
 /*.sqlite

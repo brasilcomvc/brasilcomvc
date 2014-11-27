@@ -44,6 +44,8 @@
 		{% endblock footer %}
 
 		{% block js %}
+			{% compressed_js '3rdparty' %}
+			{% compressed_js 'accounts' %}
 		{% endblock js %}
 	</body>
 </html>

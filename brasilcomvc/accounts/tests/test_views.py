@@ -3,9 +3,20 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from brasilcomvc.common.views import AnonymousRequiredMixin
+from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
+from cities_light.models import City
 
-from ..views import Signup
+from ..models import UserAddress
+from ..views import (
+    EditDashboard,
+    EditNotifications,
+    EditPersonalInfo,
+    EditProfessionalInfo,
+    EditSecuritySettings,
+    EditUserAddress,
+    Profile,
+    Signup,
+)
 
 
 User = get_user_model()
@@ -19,7 +30,7 @@ class SignupTestCase(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
-    def test_signup_view_inherits_anonymous_required_mixin(self):
+    def test_inherits_anonymous_required_mixin(self):
         self.assertTrue(issubclass(Signup, AnonymousRequiredMixin))
 
     def test_signup_success(self):
@@ -47,10 +58,8 @@ class ProfileTestCase(TestCase):
 
     url = reverse('profile')
 
-    def test_anonymous_is_redirect_to_login(self):
-        resp = self.client.get(self.url)
-        self.assertRedirects(
-            resp, '{}?next={}'.format(reverse('login'), self.url))
+    def test_inherits_login_required_mixin(self):
+        self.assertTrue(issubclass(Profile, LoginRequiredMixin))
 
     def test_template_used(self):
         u = User(email='test@test.net')
@@ -109,11 +118,8 @@ class EditDashboardTestCase(TestCase):
         user = User.objects.create_user('wat@example.com', password='test')
         self.client.login(username=user.email, password='test')
 
-    def test_anonymous_is_redirect_to_login(self):
-        self.client.logout()
-        resp = self.client.get(self.url)
-        self.assertRedirects(
-            resp, '{}?next={}'.format(reverse('login'), self.url))
+    def test_inherits_login_required_mixin(self):
+        self.assertTrue(issubclass(EditDashboard, LoginRequiredMixin))
 
     def test_template_used(self):
         resp = self.client.get(self.url)
@@ -133,17 +139,12 @@ class EditPersonalInfoTestCase(TestCase):
         self.user_id = user.pk
         self.client.login(username=user.email, password='test')
 
-    def test_anonymous_is_redirected_to_login(self):
-        self.client.logout()
-        resp = self.client.get(self.url)
-        self.assertRedirects(
-            resp, '{}?next={}'.format(reverse('login'), self.url))
+    def test_inherits_login_required_mixin(self):
+        self.assertTrue(issubclass(EditPersonalInfo, LoginRequiredMixin))
 
     def test_form_should_have_right_fields_only(self):
-        resp = self.client.get(self.url)
         self.assertEqual(
-            set(resp.context['form'].fields),
-            set(['full_name', 'username', 'email']))
+            EditPersonalInfo.fields, ('full_name', 'username', 'email',))
 
     def test_correct_form_submit_should_update_data(self):
         data = {
@@ -167,16 +168,12 @@ class EditProfessionalInfoTestCase(TestCase):
         self.user_id = user.pk
         self.client.login(username=user.email, password='test')
 
-    def test_anonymous_is_redirected_to_login(self):
-        self.client.logout()
-        resp = self.client.get(self.url)
-        self.assertRedirects(
-            resp, '{}?next={}'.format(reverse('login'), self.url))
+    def test_inherits_login_required_mixin(self):
+        self.assertTrue(issubclass(EditProfessionalInfo, LoginRequiredMixin))
 
     def test_form_should_have_right_fields_only(self):
-        resp = self.client.get(self.url)
         self.assertEqual(
-            set(resp.context['form'].fields), set(['job_title', 'bio']))
+            EditProfessionalInfo.fields, ('job_title', 'bio',))
 
     def test_correct_form_submit_should_update_data(self):
         data = {
@@ -199,16 +196,12 @@ class EditNotificationsTestCase(TestCase):
         self.user_id = user.pk
         self.client.login(username=user.email, password='test')
 
-    def test_anonymous_is_redirected_to_login(self):
-        self.client.logout()
-        resp = self.client.get(self.url)
-        self.assertRedirects(
-            resp, '{}?next={}'.format(reverse('login'), self.url))
+    def test_inherits_login_required_mixin(self):
+        self.assertTrue(issubclass(EditNotifications, LoginRequiredMixin))
 
     def test_form_should_have_right_fields_only(self):
-        resp = self.client.get(self.url)
         self.assertEqual(
-            set(resp.context['form'].fields), set(['email_newsletter']))
+            EditNotifications.fields, ('email_newsletter',))
 
     def test_correct_form_submit_should_update_data(self):
         data = {
@@ -230,17 +223,8 @@ class EditSecuritySettingsTestCase(TestCase):
         self.user_id = user.pk
         self.client.login(username=user.email, password='test')
 
-    def test_anonymous_is_redirected_to_login(self):
-        self.client.logout()
-        resp = self.client.get(self.url)
-        self.assertRedirects(
-            resp, '{}?next={}'.format(reverse('login'), self.url))
-
-    def test_form_should_have_right_fields_only(self):
-        resp = self.client.get(self.url)
-        self.assertEqual(
-            set(resp.context['form'].fields),
-            set(['old_password', 'new_password1', 'new_password2']))
+    def test_inherits_login_required_mixin(self):
+        self.assertTrue(issubclass(EditSecuritySettings, LoginRequiredMixin))
 
     def test_correct_form_submit_should_update_data(self):
         data = {
@@ -252,3 +236,58 @@ class EditSecuritySettingsTestCase(TestCase):
         self.assertRedirects(resp, reverse('edit_dashboard'))
         user = User.objects.get(pk=self.user_id)
         self.assertTrue(user.check_password(data['new_password1']))
+
+
+class EditUserAddressTestCase(TestCase):
+
+    url = reverse('edit_user_address')
+    fixtures = ('test_cities',)
+
+    def setUp(self):
+        # Prepare an user instance
+        user = User.objects.create_user('wat@example.com', password='test')
+        self.user_id = user.pk
+        self.client.login(username=user.email, password='test')
+
+    def test_inherits_login_required_mixin(self):
+        self.assertTrue(issubclass(EditUserAddress, LoginRequiredMixin))
+
+    def test_correct_form_submit_should_create_object_when_not_existent(self):
+        self.assertFalse(UserAddress.objects.exists())
+        city = City.objects.order_by('?')[0]
+        data = {
+            'zipcode': '00000-000',
+            'address_line1': 'Rua Sem Fim, 0',
+            'address_line2': 'Apto -1',
+            'state': city.region.id,
+            'city': city.id,
+        }
+        resp = self.client.post(self.url, data)
+        self.assertRedirects(resp, reverse('edit_dashboard'))
+        address = UserAddress.objects.get(user_id=self.user_id)
+        self.assertEqual(address.address_line1, data['address_line1'])
+        self.assertEqual(address.address_line2, data['address_line2'])
+        self.assertEqual(address.city_id, data['city'])
+        self.assertEqual(address.state_id, data['state'])
+        self.assertEqual(address.zipcode, data['zipcode'])
+
+    def test_correct_form_submit_should_update_object_when_existent(self):
+        city = City.objects.order_by('?')[0]
+        address = UserAddress.objects.create(
+            user_id=self.user_id,
+            zipcode='22222-222',
+            address_line1='Avenida Redonda, 3.14',
+            address_line2='Apto -5',
+            state=city.region,
+            city=city)
+        data = {
+            'address_line1': address.address_line1,
+            'address_line2': address.address_line2,
+            'state': address.state_id,
+            'city': address.city_id,
+            'zipcode': '33333-333',
+        }
+        resp = self.client.post(self.url, data)
+        self.assertRedirects(resp, reverse('edit_dashboard'))
+        address = UserAddress.objects.get(id=address.id)
+        self.assertEqual(address.zipcode, data['zipcode'])

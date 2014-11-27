@@ -8,6 +8,7 @@ from .views import (
     EditPersonalInfo,
     EditProfessionalInfo,
     EditSecuritySettings,
+    EditUserAddress,
     Profile,
     Signup,
 )
@@ -49,4 +50,8 @@ urlpatterns = (
     # Edit Security Settings
     url(r'^editar/seguranca/$',
         EditSecuritySettings.as_view(), name='edit_security_settings'),
+
+    # Edit User Address
+    url(r'^editar/endereco/$',
+        EditUserAddress.as_view(), name='edit_user_address'),
 )

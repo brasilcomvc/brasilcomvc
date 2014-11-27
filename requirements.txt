@@ -1,6 +1,7 @@
 Django==1.7.1
 dj-database-url==0.3.0
 nodeenv==0.11.1
+django-cities-light==3.0.2
 
 # django-pipeline  # Restore when our pull request (#383) gets merged
 http://github.com/emyller/django-pipeline/archive/35234de.zip

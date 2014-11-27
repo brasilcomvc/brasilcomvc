@@ -1,11 +1,11 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import logout as logout_user
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import login as auth_login
 from django.http import HttpResponseRedirect
 from django.views.generic import (
     CreateView,
     DetailView,
-    FormView,
     TemplateView,
     UpdateView,
 )
@@ -13,7 +13,7 @@ from django.views.generic import (
 
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
 
-from .forms import LoginForm, SecuritySettingsForm, SignupForm
+from .forms import LoginForm, SignupForm, UserAddressForm
 
 
 class Profile(LoginRequiredMixin, TemplateView):
@@ -87,16 +87,28 @@ class EditNotifications(BaseEditUser, UpdateView):
     template_name = 'accounts/edit_notifications.html'
 
 
-class EditSecuritySettings(BaseEditUser, FormView):
+class EditSecuritySettings(BaseEditUser, UpdateView):
 
-    form_class = SecuritySettingsForm
+    form_class = PasswordChangeForm
     template_name = 'accounts/edit_security_settings.html'
 
     def get_form_kwargs(self):
-        return dict(
-            super(EditSecuritySettings, self).get_form_kwargs(),
-            user=self.get_object())
+        kwargs = super(EditSecuritySettings, self).get_form_kwargs()
+        kwargs['user'] = kwargs.pop('instance')
+        return kwargs
+
+
+class EditUserAddress(BaseEditUser, UpdateView):
+
+    form_class = UserAddressForm
+    template_name = 'accounts/edit_user_address.html'
+
+    def get_object(self):
+        # If the user already has an address, make it the edition target
+        return getattr(self.request.user, 'address', None)
 
     def form_valid(self, form):
-        form.save()
-        return super(EditSecuritySettings, self).form_valid(form)
+        address = form.save(commit=False)
+        address.user = self.request.user
+        address.save()
+        return super(EditUserAddress, self).form_valid(form)

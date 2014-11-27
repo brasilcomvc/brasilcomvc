@@ -21,10 +21,15 @@ if 'test' in sys.argv:
     STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
 
 STATICFILES_FINDERS = (
+    'pipeline.finders.FileSystemFinder',
     'pipeline.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
 )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, '../bower_components'),
+)
 PIPELINE_COMPILERS = (
+    'pipeline.compilers.coffee.CoffeeScriptCompiler',
     'pipeline.compilers.stylus.StylusCompiler',
 )
 
@@ -54,4 +59,14 @@ PIPELINE_CSS = {
 
 # Packaging specs for JavaScript
 PIPELINE_JS = {
+    '3rdparty': {
+        'source_filenames': (
+            'jquery/dist/jquery.js',
+        ),
+        'output_filename': '3rdparty.js',
+    },
+    'accounts': {
+        'source_filenames': ['coffee/accounts-*.coffee'],
+        'output_filename': 'js/accounts.js',
+    },
 }
