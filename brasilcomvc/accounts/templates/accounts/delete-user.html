@@ -3,12 +3,12 @@
 
 
 {% block title %}
-    Remover Conta
+	Remover Conta
 {% endblock title %}
 
 
 {% block body_classes %}
-    {{ block.super }} delete-user
+	{{ block.super }} delete-user
 {% endblock body_classes %}
 
 
@@ -16,15 +16,13 @@
 <section id="content">
 	<h1>Excluir Conta</h1>
 	<form action="{% url 'delete_user' %}" method="POST">
-	    {% csrf_token %}
+		<p>Tem certeza que deseja excluir sua conta?</p>
+		<p>Esta ação é irreversível</p>
 
-	    <p>Tem certeza que deseja excluir sua conta?</p>
-	    <p>Esta ação é irreversível</p>
+		{% form_full form %}
 
-	    {% form_field form.password %}
-
-	    <button type="submit">Eu tenho certeza</button>
-	    <a href="{% url 'profile' %}">Cancelar</a>
+		<button type="submit">Eu tenho certeza</button>
+		<a href="{% url 'profile' %}">Cancelar</a>
 	</form>
 </section>
 {% endblock content_content %}
