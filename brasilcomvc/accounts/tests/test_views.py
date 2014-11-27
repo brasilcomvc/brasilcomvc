@@ -250,16 +250,6 @@ class EditUserAddressTestCase(TestCase):
         self.user_id = user.pk
         self.client.login(username=user.email, password='test')
 
-        # Set an address to it
-        city = City.objects.order_by('?')[0]
-        UserAddress.objects.create(
-            user=user,
-            zipcode='22222-222',
-            address_line1='Avenida Redonda, 3.14',
-            address_line2='Apto -5',
-            state=city.region,
-            city=city)
-
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditUserAddress, LoginRequiredMixin))
 
@@ -274,7 +264,7 @@ class EditUserAddressTestCase(TestCase):
             set(Region.objects.exclude(id=region.id)))
 
     def test_correct_form_submit_should_create_object_when_not_existent(self):
-        UserAddress.objects.all().delete()  # Drop any existent user address
+        self.assertFalse(UserAddress.objects.exists())
         city = City.objects.order_by('?')[0]
         data = {
             'zipcode': '00000-000',
@@ -285,14 +275,30 @@ class EditUserAddressTestCase(TestCase):
         }
         resp = self.client.post(self.url, data)
         self.assertRedirects(resp, reverse('edit_dashboard'))
-        user = User.objects.get(pk=self.user_id)
-        self.assertTrue(hasattr(user, 'address'))
+        address = UserAddress.objects.get(user_id=self.user_id)
+        self.assertEqual(address.address_line1, data['address_line1'])
+        self.assertEqual(address.address_line2, data['address_line2'])
+        self.assertEqual(address.city_id, data['city'])
+        self.assertEqual(address.state_id, data['state'])
+        self.assertEqual(address.zipcode, data['zipcode'])
 
     def test_correct_form_submit_should_update_object_when_existent(self):
-        resp = self.client.get(self.url)
-        data = resp.context['form'].initial
-        data.update({'zipcode': '33333-333'})
+        city = City.objects.order_by('?')[0]
+        address = UserAddress.objects.create(
+            user_id=self.user_id,
+            zipcode='22222-222',
+            address_line1='Avenida Redonda, 3.14',
+            address_line2='Apto -5',
+            state=city.region,
+            city=city)
+        data = {
+            'address_line1': address.address_line1,
+            'address_line2': address.address_line2,
+            'state': address.state_id,
+            'city': address.city_id,
+            'zipcode': '33333-333',
+        }
         resp = self.client.post(self.url, data)
         self.assertRedirects(resp, reverse('edit_dashboard'))
-        user = User.objects.get(pk=self.user_id)
-        self.assertEqual(user.address.zipcode, data['zipcode'])
+        address = UserAddress.objects.get(id=address.id)
+        self.assertEqual(address.zipcode, data['zipcode'])
