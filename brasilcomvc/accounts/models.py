@@ -31,7 +31,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     def get_short_name(self):
-        return self.full_name.split(maxsplit=1)[0]
+        return self.full_name.split()[0]
 
     def get_full_name(self):
         return self.full_name
