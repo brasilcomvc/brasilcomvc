@@ -77,3 +77,8 @@ PIPELINE_JS = {
         'output_filename': 'js/accounts.js',
     },
 }
+
+# Binaries (this settings assumes you've installed all node modules locally)
+PIPELINE_COFFEE_SCRIPT_BINARY = os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'coffee')
+PIPELINE_STYLUS_BINARY = os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'stylus')
+PIPELINE_YUGLIFY_BINARY = os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'yuglify')

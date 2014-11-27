@@ -11,6 +11,7 @@ Installation
 2. Install requirements: `pip install -r requirements.txt`
 3. Run tests to check setup: `python manage.py test`
 4. [Configure your environment](#environment-settings).
+5. [Setup static files](#setup-static-files)
 
 
 Environment settings
@@ -34,8 +35,8 @@ Setup static files
 ------------------
 
 You must set up Node.js in order to make static files gathering and processing
-work. We already include nodeenv to help with that:
+work.
 
-- Install Node + npm: `nodeenv -p --prebuilt`
-- Install required packages: `nodeenv --requirements=requirements.npm.txt --update $VIRTUAL_ENV`
-- Install 3rd-party front-end libs from bower: `bower install`
+1. Install Node + npm. For OS X using Homebrew: `brew install npm`
+2. Install required packages: `npm install`
+   `npm` will call bower after install
