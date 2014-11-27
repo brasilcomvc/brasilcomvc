@@ -6,7 +6,6 @@ from django.http import HttpResponseRedirect
 from django.views.generic import (
     CreateView,
     DetailView,
-    FormView,
     TemplateView,
     UpdateView,
 )
@@ -88,32 +87,25 @@ class EditNotifications(BaseEditUser, UpdateView):
     template_name = 'accounts/edit_notifications.html'
 
 
-class EditSecuritySettings(BaseEditUser, FormView):
+class EditSecuritySettings(BaseEditUser, UpdateView):
 
     form_class = PasswordChangeForm
     template_name = 'accounts/edit_security_settings.html'
 
     def get_form_kwargs(self):
-        return dict(
-            super(EditSecuritySettings, self).get_form_kwargs(),
-            user=self.get_object())
-
-    def form_valid(self, form):
-        form.save()
-        return super(EditSecuritySettings, self).form_valid(form)
+        kwargs = super(EditSecuritySettings, self).get_form_kwargs()
+        kwargs['user'] = kwargs.pop('instance')
+        return kwargs
 
 
-class EditUserAddress(BaseEditUser, FormView):
+class EditUserAddress(BaseEditUser, UpdateView):
 
     form_class = UserAddressForm
     template_name = 'accounts/edit_user_address.html'
 
-    def get_form_kwargs(self):
-        return dict(
-            super(EditUserAddress, self).get_form_kwargs(),
-
-            # If the user already has an address, make it the edition target
-            instance=getattr(self.request.user, 'address', None))
+    def get_object(self):
+        # If the user already has an address, make it the edition target
+        return getattr(self.request.user, 'address', None)
 
     def form_valid(self, form):
         address = form.save(commit=False)
