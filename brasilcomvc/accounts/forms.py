@@ -48,7 +48,13 @@ class UserAddressForm(forms.ModelForm):
         self.fields['state'].choices = states.values_list('id', 'name')
 
         # Group cities by region (state)
-        self.fields['city'].choices = [
+        self.fields['city'].choices = self._group_cities()
+
+    def _group_cities(self):
+        '''
+        Build a choices-like list with all cities grouped by state (region)
+        '''
+        return [
             (state, [(city.pk, city.name) for city in cities],)
             for state, cities in groupby(
                 self.fields['city'].queryset.order_by('region__name', 'name'),

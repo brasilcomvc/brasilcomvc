@@ -263,6 +263,14 @@ class EditUserAddressTestCase(TestCase):
             set(UserAddressForm().fields['state'].queryset),
             set(Region.objects.exclude(id=region.id)))
 
+    def test_form_group_cities(self):
+        expected_choices = [
+            (region.name, list(
+                region.city_set.order_by('name').values_list('pk', 'name')),)
+            for region in Region.objects.order_by('name')
+        ]
+        self.assertEqual(UserAddressForm()._group_cities(), expected_choices)
+
     def test_correct_form_submit_should_create_object_when_not_existent(self):
         self.assertFalse(UserAddress.objects.exists())
         city = City.objects.order_by('?')[0]
