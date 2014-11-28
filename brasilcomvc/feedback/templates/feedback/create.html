@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load form_utils %}
+
+{% block title %}
+	Ajude-nos a melhorar
+{% endblock title %}
+
+
+{% block body_class %}
+	{{ block.super }} feedback
+{% endblock body_class %}
+
+
+{% block content_content %}
+	<form action="{% url 'feedback:create' %}" method="POST">
+		{% form_full form %}
+
+		<button type="submit">Enviar</submit>
+
+	</form>
+{% endblock content_content %}

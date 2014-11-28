@@ -9,4 +9,10 @@
 
 {% block content_content %}
 E-mail: {{ request.user.email }} <a href="{% url 'logout' %}">Logout</a>
+
+<br />
+<br />
+<br />
+
+<a href="{% url 'delete_user' %}">Remover conta</a>
 {% endblock content_content %}

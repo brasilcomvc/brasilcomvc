@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'brasilcomvc.common',
     'brasilcomvc.accounts',
+    'brasilcomvc.feedback',
     'brasilcomvc.guideline',
 )
 

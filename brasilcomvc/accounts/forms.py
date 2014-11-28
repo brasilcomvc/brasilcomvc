@@ -11,6 +11,21 @@ from cities_light.models import City, Region
 from .models import UserAddress
 
 
+class DeleteUserForm(forms.Form):
+
+    password = forms.CharField(label='Senha', widget=forms.PasswordInput)
+
+    def __init__(self, user, *args, **kwargs):
+        super(DeleteUserForm, self).__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        if not self.user.check_password(password):
+            self.add_error('password', 'Senha inválida')
+        return password
+
+
 class LoginForm(AuthenticationForm):
 
     # this is named username so we can use Django's login view
@@ -28,7 +43,6 @@ class SignupForm(forms.ModelForm):
     def save(self, **kwargs):
         # Set password from user input
         self.instance.set_password(self.cleaned_data['password'])
-
         return super(SignupForm, self).save(**kwargs)
 
 

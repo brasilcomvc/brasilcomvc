@@ -8,6 +8,7 @@ from cities_light.models import City
 
 from ..models import UserAddress
 from ..views import (
+    DeleteUser,
     EditDashboard,
     EditNotifications,
     EditPersonalInfo,
@@ -291,3 +292,56 @@ class EditUserAddressTestCase(TestCase):
         self.assertRedirects(resp, reverse('edit_dashboard'))
         address = UserAddress.objects.get(id=address.id)
         self.assertEqual(address.zipcode, data['zipcode'])
+
+
+class DeleteUserTest(TestCase):
+
+    def _setup_user(self):
+        self.user = User(email='test@dom.ain')
+        self.user.set_password('test')
+        self.user.save()
+        self.assertTrue(self.client.login(
+            username=self.user.email, password='test'))
+
+    def test_delete_user_view_login_required_mixin(self):
+        self.assertTrue(issubclass(DeleteUser, LoginRequiredMixin))
+
+    def test_delete_user_view_template(self):
+        self._setup_user()
+
+        resp = self.client.get(reverse('delete_user'))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'accounts/delete-user.html')
+
+    def test_delete_user_view_should_delete_user_on_post(self):
+        self._setup_user()
+
+        logged_session = self.client.cookies['sessionid'].value
+
+        data = {
+            'password': 'test'
+        }
+        resp = self.client.post(reverse('delete_user'), data=data)
+        self.assertEqual(resp.status_code, 302)
+
+        self.assertFalse(User.objects.filter(email=self.user.email).exists())
+        self.assertNotEqual(
+            logged_session,
+            self.client.cookies['sessionid'].value,
+            'Same sesion found, probably user wasnt logged out')
+        self.assertIn('deleted_email', self.client.session)
+        self.assertEqual(self.client.session['deleted_email'], self.user.email)
+
+    def test_delete_user_view_should_fail_on_invalid_password(self):
+        '''
+        Test the delete user view response when received an invalid password
+        The invalid password logic is tested directly on the form
+        '''
+        self._setup_user()
+
+        data = {
+            'password': 'invalid'
+        }
+        resp = self.client.post(reverse('delete_user'), data=data)
+        self.assertEqual(resp.status_code, 200)
+        self.assertFalse(resp.context['form'].is_valid())

@@ -6,14 +6,19 @@ from django.http import HttpResponseRedirect
 from django.views.generic import (
     CreateView,
     DetailView,
+    FormView,
     TemplateView,
     UpdateView,
 )
 
-
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
 
-from .forms import LoginForm, SignupForm, UserAddressForm
+from .forms import (
+    DeleteUserForm,
+    LoginForm,
+    SignupForm,
+    UserAddressForm,
+)
 
 
 class Profile(LoginRequiredMixin, TemplateView):
@@ -112,3 +117,25 @@ class EditUserAddress(BaseEditUser, UpdateView):
         address.user = self.request.user
         address.save()
         return super(EditUserAddress, self).form_valid(form)
+
+
+class DeleteUser(LoginRequiredMixin, FormView):
+
+    form_class = DeleteUserForm
+    template_name = 'accounts/delete-user.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(DeleteUser, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        email = self.request.user.email
+
+        # Delete user and logout (clean session)
+        self.request.user.delete()
+        logout_user(self.request)
+
+        # Put deleted_email into session for feedback form consumption
+        self.request.session['deleted_email'] = email
+        return HttpResponseRedirect(reverse('feedback:create'))

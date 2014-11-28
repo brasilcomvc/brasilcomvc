@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
 from .views import (
+    DeleteUser,
     login,
     logout,
     EditDashboard,
@@ -54,4 +55,8 @@ urlpatterns = (
     # Edit User Address
     url(r'^editar/endereco/$',
         EditUserAddress.as_view(), name='edit_user_address'),
+
+    # User Delete
+    url(r'^remover-conta/$',
+        DeleteUser.as_view(), name='delete_user'),
 )
