@@ -11,6 +11,9 @@ from cities_light.models import City, Region
 from .models import UserAddress
 
 
+User = get_user_model()
+
+
 class DeleteUserForm(forms.Form):
 
     password = forms.CharField(label='Senha', widget=forms.PasswordInput)
@@ -37,13 +40,23 @@ class SignupForm(forms.ModelForm):
     password = forms.CharField(label='Senha', widget=forms.PasswordInput)
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ('full_name', 'email',)
 
     def save(self, **kwargs):
         # Set password from user input
         self.instance.set_password(self.cleaned_data['password'])
         return super(SignupForm, self).save(**kwargs)
+
+
+class EditNotificationsForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email_newsletter',)
+        labels = {
+            'email_newsletter': 'Receber novidades sobre o Brasil.com.vc',
+        }
 
 
 class UserAddressForm(forms.ModelForm):
