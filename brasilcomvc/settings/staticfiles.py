@@ -39,6 +39,9 @@ PIPELINE_STYLUS_ARGUMENTS = ' '.join([
     '--use kouto-swiss',
 ]).format(path=BASE_DIR)
 
+# JavaScript configuration
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.jsmin.JSMinCompressor'
+
 # Packaging specs for CSS
 PIPELINE_CSS = {
     'common': {
