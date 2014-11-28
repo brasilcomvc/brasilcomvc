@@ -65,6 +65,10 @@ PIPELINE_JS = {
         ),
         'output_filename': '3rdparty.js',
     },
+    'common': {
+        'source_filenames': ['coffee/common-*.coffee'],
+        'output_filename': 'js/common.js',
+    },
     'accounts': {
         'source_filenames': ['coffee/accounts-*.coffee'],
         'output_filename': 'js/accounts.js',
