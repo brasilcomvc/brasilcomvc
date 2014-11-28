@@ -14,6 +14,7 @@ from django.views.generic import (
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
 
 from .forms import (
+    EditNotificationsForm,
     DeleteUserForm,
     LoginForm,
     SignupForm,
@@ -88,7 +89,7 @@ class EditProfessionalInfo(BaseEditUser, UpdateView):
 
 class EditNotifications(BaseEditUser, UpdateView):
 
-    fields = ('email_newsletter',)
+    form_class = EditNotificationsForm
     template_name = 'accounts/edit_notifications.html'
 
 

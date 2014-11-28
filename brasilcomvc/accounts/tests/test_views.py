@@ -202,7 +202,7 @@ class EditNotificationsTestCase(TestCase):
 
     def test_form_should_have_right_fields_only(self):
         self.assertEqual(
-            EditNotifications.fields, ('email_newsletter',))
+            EditNotifications.form_class.Meta.fields, ('email_newsletter',))
 
     def test_correct_form_submit_should_update_data(self):
         data = {

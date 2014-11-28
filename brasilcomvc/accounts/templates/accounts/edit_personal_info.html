@@ -13,8 +13,11 @@
 
 
 {% block content_content %}
+<section id="content">
+	<h1>Minha Conta - Informações Pessoais</h1>
 	<form method="POST">
 		{% form_full form %}
 		<button type="submit">Salvar Alterações</button>
 	</form>
+</section>
 {% endblock content_content %}
