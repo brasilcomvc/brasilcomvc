@@ -2,7 +2,14 @@
 id="{{ form_id }}_{{ field.name }}"
 class="{{ classes|join:' ' }}">
 	<strong>{{ field.label }}</strong>
-	<span class="helptext">{{ field.help_text }}</span>
+
+	{% if field.help_text %}
+		<span class="helptext">{{ field.help_text }}</span>
+	{% endif %}
+
 	{{ field }}
-	{{ field.errors }}
+
+	{% if field.errors %}
+		{{ field.errors }}
+	{% endif %}
 </label>
