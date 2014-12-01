@@ -69,7 +69,9 @@ def password_reset(request):
         request,
         template_name='accounts/password_reset.html',
         post_reset_redirect=reverse('password_reset_sent'),
-        subject_template_name='emails/password_reset_subject.txt')
+        subject_template_name='emails/password_reset_subject.txt',
+        email_template_name='emails/password_reset.html',
+        html_email_template_name='emails/password_reset.html')
 
 
 def password_reset_sent(request):
