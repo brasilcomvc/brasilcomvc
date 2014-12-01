@@ -1,3 +1,6 @@
+# encoding: utf8
+from __future__ import unicode_literals
+
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.core.urlresolvers import reverse
@@ -102,6 +105,65 @@ class LogoutTestCase(TestCase):
     def test_logout_redirect_to_login(self):
         resp = self.client.get(reverse('logout'))
         self.assertRedirects(resp, reverse('login'))
+
+
+class PasswordResetTestCase(TestCase):
+
+    url = reverse('password_reset')
+
+    def _setup_user(self):
+        self.user = User.objects.create(email='wat@example.com')
+        self.user.set_password('forgot-it')
+        self.user.save()
+
+    def test_page_is_accessible(self):
+        resp = self.client.get(self.url)
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed('accounts/password_reset.html')
+
+    def test_inexistent_email_submit_should_raise_no_error(self):
+        resp = self.client.post(self.url, {'email': 'nil@example.com'})
+        self.assertNotEqual(resp.status_code, 200)
+
+    def test_existent_email_submit_should_proceed(self):
+        self._setup_user()
+        resp = self.client.post(self.url, {'email': self.user.email})
+        self.assertRedirects(resp, reverse('password_reset_sent'))
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'Redefinição de senha')
+
+    def test_reset_email_should_have_secret_link(self):
+        self._setup_user()
+        resp = self.client.post(self.url, {'email': self.user.email})
+        reset_url = reverse('password_reset_confirm', kwargs={
+            'uidb64': resp.context['uid'],
+            'token': resp.context['token']})
+        self.assertIn('http://testserver' + reset_url, mail.outbox[0].body)
+
+
+class ResetPasswordConfirmTestCase(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(email='wat@example.com')
+        self.user.set_password('forgot-it')
+        self.user.save()
+        resp = self.client.post(
+            reverse('password_reset'), {'email': self.user.email})
+        self.url = reverse('password_reset_confirm', kwargs={
+            'uidb64': resp.context['uid'],
+            'token': resp.context['token']})
+
+    def test_secret_link_should_open_final_password_reset_page(self):
+        resp = self.client.get(self.url)
+        self.assertTemplateUsed(resp, 'accounts/password_reset_confirm.html')
+
+    def test_password_reset_confirm_post_should_update_user_password(self):
+        new_pwd = '123'
+        resp = self.client.post(
+            self.url, {'new_password1': new_pwd, 'new_password2': new_pwd})
+        self.assertRedirects(resp, reverse('password_reset_complete'))
+        user = User.objects.get(id=self.user.id)
+        self.assertTrue(user.check_password(new_pwd))
 
 
 class EditDashboardTestCase(TestCase):

@@ -4,6 +4,9 @@ from .views import (
     DeleteUser,
     login,
     logout,
+    password_reset,
+    password_reset_confirm,
+    password_reset_sent,
     EditDashboard,
     EditNotifications,
     EditPersonalInfo,
@@ -23,6 +26,22 @@ urlpatterns = (
     # User Logout
     url(r'^logout/$',
         logout, name='logout'),
+
+    # Password Reset
+    url(r'^esqueci-senha/$',
+        password_reset, name='password_reset'),
+
+    # Password Reset Sent
+    url(r'^esqueci-senha/enviado$',
+        password_reset_sent, name='password_reset_sent'),
+
+    # Password Reset Confirm
+    url(r'^esqueci-senha/redefinir/(?P<uidb64>[^-]+)-(?P<token>[^$]+)$',
+        password_reset_confirm, name='password_reset_confirm'),
+
+    # Password Reset Complete
+    url(r'^esqueci-senha/redefinir/ok$',
+        login, name='password_reset_complete'),
 
     # User Profile
     url(r'^profile/$',
