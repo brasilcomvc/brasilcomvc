@@ -1,0 +1,12 @@
+{
+    "dependencies": {
+        "bower": "1.3.12",
+        "coffee-script": "1.8.0",
+        "kouto-swiss": "0.10.3",
+        "stylus": "0.49.3",
+        "yuglify": "0.1.4"
+    },
+    "scripts": {
+        "postinstall": "./node_modules/.bin/bower install"
+    }
+}

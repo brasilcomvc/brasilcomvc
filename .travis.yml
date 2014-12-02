@@ -10,7 +10,6 @@ env:
     - SECRET_KEY=test
 install:
   - pip install -r requirements.txt
-  - nodeenv --python-virtualenv --prebuilt -r requirements.npm.txt
   - python manage.py migrate
 script:
   - python manage.py test
