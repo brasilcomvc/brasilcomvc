@@ -35,14 +35,14 @@ class SignupTestCase(TestCase):
         self.assertTrue(issubclass(Signup, AnonymousRequiredMixin))
 
     def test_signup_success(self):
-        user_data = {
+        data = {
             'email': 'user@example.com',
             'full_name': 'Test User',
             'password': '123',
         }
-        response = self.client.post(self.url, user_data)
+        response = self.client.post(self.url, data)
         self.assertRedirects(response, self.url)
-        self.assertTrue(User.objects.filter(email=user_data['email']).exists())
+        self.assertTrue(User.objects.filter(email=data['email']).exists())
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'Bem vindo!')
 
@@ -63,12 +63,9 @@ class ProfileTestCase(TestCase):
         self.assertTrue(issubclass(Profile, LoginRequiredMixin))
 
     def test_template_used(self):
-        u = User(email='test@test.net')
-        u.set_password('test')
-        u.save()
-
-        self.assertTrue(self.client.login(username=u.email, password='test'))
-
+        data = {'email': 'user@example.com', 'password': '123'}
+        User.objects.create_user(**data)
+        self.client.login(username=data['email'], password=data['password'])
         resp = self.client.get(self.url)
         self.assertTemplateUsed(resp, 'accounts/profile.html')
 
@@ -82,23 +79,19 @@ class LoginTestCase(TestCase):
         self.assertTemplateUsed(resp, 'accounts/login.html')
 
     def test_login_success(self):
-        u = User(email='user@domain.xxx')
-        u.set_password('passwd')
-        u.save()
-
+        data = {'email': 'user@example.com', 'password': '123'}
+        User.objects.create_user(**data)
         response = self.client.post(self.url, data={
-            'username': 'user@domain.xxx',
-            'password': 'passwd',
+            'username': data['email'],
+            'password': data['password'],
         })
         self.assertRedirects(response, reverse('profile'))
 
     def test_logged_user_should_be_redirected_to_profile(self):
-        u = User(email='wat@domain.net')
-        u.set_password('test')
-        u.save()
-
-        self.assertTrue(self.client.login(username=u.email, password='test'))
-
+        data = {'email': 'user@example.com', 'password': '123'}
+        User.objects.create_user(**data)
+        self.assertTrue(self.client.login(
+            username=data['email'], password=data['password']))
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('profile'))
@@ -116,8 +109,10 @@ class EditDashboardTestCase(TestCase):
     url = reverse('edit_dashboard')
 
     def setUp(self):
-        user = User.objects.create_user('wat@example.com', password='test')
-        self.client.login(username=user.email, password='test')
+        data = {'email': 'user@example.com', 'password': '123'}
+        User.objects.create_user(**data)
+        self.client.login(
+            username=data['email'], password=data['password'])
 
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditDashboard, LoginRequiredMixin))
@@ -136,9 +131,10 @@ class EditPersonalInfoTestCase(TestCase):
     url = reverse('edit_personal_info')
 
     def setUp(self):
-        user = User.objects.create_user('wat@example.com', password='test')
+        data = {'email': 'user@example.com', 'password': '123'}
+        user = User.objects.create_user(**data)
+        self.client.login(username=data['email'], password=data['password'])
         self.user_id = user.pk
-        self.client.login(username=user.email, password='test')
 
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditPersonalInfo, LoginRequiredMixin))
@@ -165,9 +161,10 @@ class EditProfessionalInfoTestCase(TestCase):
     url = reverse('edit_professional_info')
 
     def setUp(self):
-        user = User.objects.create_user('wat@example.com', password='test')
+        data = {'email': 'user@example.com', 'password': '123'}
+        user = User.objects.create_user(**data)
+        self.client.login(username=data['email'], password=data['password'])
         self.user_id = user.pk
-        self.client.login(username=user.email, password='test')
 
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditProfessionalInfo, LoginRequiredMixin))
@@ -193,9 +190,10 @@ class EditNotificationsTestCase(TestCase):
     url = reverse('edit_notifications')
 
     def setUp(self):
-        user = User.objects.create_user('wat@example.com', password='test')
+        data = {'email': 'user@example.com', 'password': '123'}
+        user = User.objects.create_user(**data)
+        self.client.login(username=data['email'], password=data['password'])
         self.user_id = user.pk
-        self.client.login(username=user.email, password='test')
 
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditNotifications, LoginRequiredMixin))
@@ -220,16 +218,17 @@ class EditSecuritySettingsTestCase(TestCase):
     url = reverse('edit_security_settings')
 
     def setUp(self):
-        user = User.objects.create_user('wat@example.com', password='test')
+        data = {'email': 'user@example.com', 'password': '123'}
+        user = User.objects.create_user(**data)
+        self.client.login(username=data['email'], password=data['password'])
         self.user_id = user.pk
-        self.client.login(username=user.email, password='test')
 
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditSecuritySettings, LoginRequiredMixin))
 
     def test_correct_form_submit_should_update_data(self):
         data = {
-            'old_password': 'test',
+            'old_password': '123',
             'new_password1': 'newpwd',
             'new_password2': 'newpwd',
         }
@@ -245,10 +244,10 @@ class EditUserAddressTestCase(TestCase):
     fixtures = ('test_cities',)
 
     def setUp(self):
-        # Prepare an user instance
-        user = User.objects.create_user('wat@example.com', password='test')
+        data = {'email': 'user@example.com', 'password': '123'}
+        user = User.objects.create_user(**data)
+        self.client.login(username=data['email'], password=data['password'])
         self.user_id = user.pk
-        self.client.login(username=user.email, password='test')
 
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(EditUserAddress, LoginRequiredMixin))
@@ -296,12 +295,12 @@ class EditUserAddressTestCase(TestCase):
 
 class DeleteUserTest(TestCase):
 
+    url = reverse('delete_user')
+
     def _setup_user(self):
-        self.user = User(email='test@dom.ain')
-        self.user.set_password('test')
-        self.user.save()
-        self.assertTrue(self.client.login(
-            username=self.user.email, password='test'))
+        data = {'email': 'user@example.com', 'password': '123'}
+        self.user = User.objects.create_user(**data)
+        self.client.login(username=data['email'], password=data['password'])
 
     def test_delete_user_view_login_required_mixin(self):
         self.assertTrue(issubclass(DeleteUser, LoginRequiredMixin))
@@ -318,10 +317,7 @@ class DeleteUserTest(TestCase):
 
         logged_session = self.client.cookies['sessionid'].value
 
-        data = {
-            'password': 'test'
-        }
-        resp = self.client.post(reverse('delete_user'), data=data)
+        resp = self.client.post(self.url, {'password': '123'})
         self.assertEqual(resp.status_code, 302)
 
         self.assertFalse(User.objects.filter(email=self.user.email).exists())
@@ -338,10 +334,6 @@ class DeleteUserTest(TestCase):
         The invalid password logic is tested directly on the form
         '''
         self._setup_user()
-
-        data = {
-            'password': 'invalid'
-        }
-        resp = self.client.post(reverse('delete_user'), data=data)
+        resp = self.client.post(self.url, {'password': 'invalid'})
         self.assertEqual(resp.status_code, 200)
         self.assertFalse(resp.context['form'].is_valid())
