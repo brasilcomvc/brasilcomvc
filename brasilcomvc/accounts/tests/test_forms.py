@@ -50,19 +50,13 @@ class UserAddressFormTestCase(TestCase):
 class DeleteUserFormTestCase(TestCase):
 
     def test_clean_password_with_valid_password(self):
-        u = User(email='wat@wat.net')
-        u.set_password('test')
-        u.save()
-
+        u = User.objects.create_user('wat@wat.net', 'test')
         f = DeleteUserForm(user=u, data={'password': 'test'})
         self.assertTrue(f.is_valid())
         self.assertEqual(f.errors, {})
 
     def test_clean_password_with_invalid_password(self):
-        u = User(email='wat@wat.net')
-        u.set_password('hardtoguess')
-        u.save()
-
+        u = User.objects.create_user('wat@wat.net', 'hardtoguess')
         f = DeleteUserForm(user=u, data={'password': 'guess'})
         self.assertFalse(f.is_valid())
         self.assertIn('password', f.errors)

@@ -1,10 +1,29 @@
 # encoding: utf8
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import AbstractBaseUser, UserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
 from brasilcomvc.common.email import send_template_email
+
+
+class UserManager(BaseUserManager):
+    '''
+    A custom manager class to provide user management that fits our model
+    '''
+
+    def create_user(self, email, password=None, **fields):
+        user = User(email=email, **fields)
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, email, password, **fields):
+        user = self.create_user(email, password, **fields)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+        return user
 
 
 class User(AbstractBaseUser):
