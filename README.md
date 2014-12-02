@@ -40,3 +40,11 @@ work.
 1. Install Node + npm. For OS X using Homebrew: `brew install npm`
 2. Install required packages: `npm install`
    `npm` will call bower after install
+
+S3 is also supported as static server. To enable S3 support the following environment variables must be configured:
+
+- `STATIC_BACKEND` - Set this to `s3` to enable S3 support
+- `AWS_ACCESS_KEY_ID` - Your AWS access key ID
+- `AWS_SECRET_ACCESS_KEY` - Your AWS secret access key
+- `AWS_STORAGE_BUCKET_NAME` - Your bucket name
+- `AWS_S3_CUSTOM_DOMAIN` - Optional. A custom domain to be used
