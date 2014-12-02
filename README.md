@@ -43,6 +43,8 @@ work.
 
 S3 is also supported as static server. To enable S3 support the following environment variables must be configured:
 
+:warning: when using S3 static backend you must use Python 2, [reference](http://code.larlet.fr/django-storages/issue/155/python-3-support).
+
 - `STATIC_BACKEND` - Set this to `s3` to enable S3 support
 - `AWS_ACCESS_KEY_ID` - Your AWS access key ID
 - `AWS_SECRET_ACCESS_KEY` - Your AWS secret access key
