@@ -8,6 +8,7 @@ from django.contrib.auth.views import (
     password_reset_confirm as django_password_reset_confirm,
 )
 from django.http import HttpResponseRedirect
+
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -84,6 +85,7 @@ def password_reset_confirm(request, **kwargs):
     return django_password_reset_confirm(
         request,
         template_name='accounts/password_reset_confirm.html',
+        post_reset_redirect=reverse('login'),
         **kwargs)
 
 

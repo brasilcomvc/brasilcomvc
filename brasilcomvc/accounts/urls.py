@@ -39,10 +39,6 @@ urlpatterns = (
     url(r'^esqueci-senha/redefinir/(?P<uidb64>[^-]+)-(?P<token>[^$]+)$',
         password_reset_confirm, name='password_reset_confirm'),
 
-    # Password Reset Complete
-    url(r'^esqueci-senha/redefinir/ok$',
-        login, name='password_reset_complete'),
-
     # User Profile
     url(r'^profile/$',
         Profile.as_view(), name='profile'),

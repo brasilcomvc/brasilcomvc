@@ -161,7 +161,7 @@ class ResetPasswordConfirmTestCase(TestCase):
         new_pwd = '123'
         resp = self.client.post(
             self.url, {'new_password1': new_pwd, 'new_password2': new_pwd})
-        self.assertRedirects(resp, reverse('password_reset_complete'))
+        self.assertRedirects(resp, reverse('login'))
         user = User.objects.get(id=self.user.id)
         self.assertTrue(user.check_password(new_pwd))
 
