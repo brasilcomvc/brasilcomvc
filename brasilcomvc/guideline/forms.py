@@ -14,7 +14,7 @@ class ExampleForm(forms.Form):
     text = forms.CharField(
         widget=forms.TextInput(), min_length=3, max_length=10)
     text_disabled = forms.CharField(
-        widget=forms.TextInput(attrs={'disabled': True}),
+        widget=forms.TextInput(attrs={'disabled': ''}),
         help_text='Disabled just because.',
         initial='Immutable')
     textarea = forms.CharField(
@@ -36,7 +36,7 @@ class ExampleForm(forms.Form):
     option_toggle = forms.BooleanField(
         widget=forms.CheckboxInput())
     option_toggle_disabled = forms.BooleanField(
-        widget=forms.CheckboxInput(attrs={'disabled': True}))
+        widget=forms.CheckboxInput(attrs={'disabled': ''}))
     spin_number = forms.IntegerField(
         widget=forms.NumberInput(), initial=0)
     range_number = forms.IntegerField(
