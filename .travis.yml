@@ -5,6 +5,8 @@ python:
 env:
   global:
     - DEFAULT_FROM_EMAIL=test@domain.net
+    - EMAIL_HOST=localhost
+    - EMAIL_PORT=25
     - SECRET_KEY=test
 install:
   - pip install -r requirements.txt
