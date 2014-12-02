@@ -29,6 +29,7 @@ specific values, as defined below:
 - `EMAIL_PORT` - SMTP port to be used for email sending
 - `EMAIL_HOST_USER` - Username to authenticate on the SMTP server
 - `EMAIL_HOST_PASSWORD` - Password to authenticate on the SMTP server
+- `SENTRY_DSN` - Optional. Use this to configure your Sentry DNS.
 
 
 Setup static files
