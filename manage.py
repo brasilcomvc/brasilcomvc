@@ -8,6 +8,8 @@ if __name__ == '__main__':
     if 'test' in sys.argv:
         os.environ.setdefault('SECRET_KEY', 'dummy_secret_key')
         os.environ.setdefault('DEFAULT_FROM_EMAIL', 'noreply@localhost')
+        os.environ.setdefault('EMAIL_HOST', 'localhost')
+        os.environ.setdefault('EMAIL_PORT', '25')
 
     from django.core.management import execute_from_command_line
 
