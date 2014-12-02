@@ -24,6 +24,10 @@ specific values, as defined below:
 - `DEBUG` - Set debug mode (`'true'` or `'false'`)
 - `SECRET_KEY` - Unique and secret salt for passwords, hashes and session keys
 - `DEFAULT_FROM_EMAIL` - Email address to identify outcoming transactional emails
+- `EMAIL_HOST` - SMTP host name to be used for email sending
+- `EMAIL_PORT` - SMTP port to be used for email sending
+- `EMAIL_HOST_USER` - Username to authenticate on the SMTP server
+- `EMAIL_HOST_PASSWORD` - Password to authenticate on the SMTP server
 
 
 Setup static files

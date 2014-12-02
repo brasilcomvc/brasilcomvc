@@ -23,6 +23,10 @@ DATABASES = {'default': dj_database_url.config(default='sqlite:///dev.sqlite')}
 DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
 SECRET_KEY = os.environ['SECRET_KEY']
 DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 # Application definition
