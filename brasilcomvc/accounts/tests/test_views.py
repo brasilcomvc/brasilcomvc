@@ -121,9 +121,10 @@ class PasswordResetTestCase(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed('accounts/password_reset.html')
 
-    def test_inexistent_email_submit_should_raise_no_error(self):
+    def test_inexistent_email_submit_should_fail_silently(self):
         resp = self.client.post(self.url, {'email': 'nil@example.com'})
-        self.assertNotEqual(resp.status_code, 200)
+        self.assertRedirects(resp, reverse('password_reset_sent'))
+        self.assertEqual(len(mail.outbox), 0)
 
     def test_existent_email_submit_should_proceed(self):
         self._setup_user()
