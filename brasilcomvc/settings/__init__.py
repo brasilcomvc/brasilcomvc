@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = (
     'pipeline',
     'cities_light',
     'raven.contrib.django.raven_compat',
+    'social.apps.django_app.default',
     'storages',
 )
 
@@ -65,6 +66,8 @@ MIDDLEWARE_CLASSES = global_settings.MIDDLEWARE_CLASSES + (
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
 )
 
 TEMPLATE_DEBUG = DEBUG
@@ -92,3 +95,27 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('profile')
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# python-social-auth
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'brasilcomvc.accounts.pipelines.set_user_info_from_auth_provider',
+)
+SOCIAL_AUTH_SLUGIFY_USERNAMES = True
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ['FACEBOOK_APP_KEY']
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['FACEBOOK_APP_SECRET']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['public_profile', 'email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'pt_BR'}

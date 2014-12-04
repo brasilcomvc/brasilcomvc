@@ -10,6 +10,8 @@ if __name__ == '__main__':
         os.environ.setdefault('DEFAULT_FROM_EMAIL', 'noreply@localhost')
         os.environ.setdefault('EMAIL_HOST', 'localhost')
         os.environ.setdefault('EMAIL_PORT', '25')
+        os.environ.setdefault('FACEBOOK_APP_KEY', 'fb_key')
+        os.environ.setdefault('FACEBOOK_APP_SECRET', 'fb_secret')
 
     from django.core.management import execute_from_command_line
 
