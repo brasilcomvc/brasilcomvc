@@ -7,6 +7,8 @@ env:
     - DEFAULT_FROM_EMAIL=test@domain.net
     - EMAIL_HOST=localhost
     - EMAIL_PORT=25
+    - FACEBOOK_APP_KEY=fb_key
+    - FACEBOOK_APP_SECRET=fb_secret
     - SECRET_KEY=test
 install:
   - pip install -r requirements.txt
