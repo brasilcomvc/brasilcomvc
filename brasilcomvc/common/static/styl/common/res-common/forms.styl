@@ -1,0 +1,49 @@
+$text-input
+	background: color_text_lighter
+	border: 1px solid color_text_light
+	color: color_text_medium
+	height: 3.42rem
+	font: 300 font_size_m font_family_sans
+	size: 100% 3.42rem
+
+
+form
+	label
+		display: block
+		margin-bottom: 1em
+
+		> strong
+		.helptext
+			display: block
+			margin-bottom: 0.5em
+
+		.helptext
+			color: color_text_medium
+			font-style: italic
+			margin-top: -0.25em
+
+		&.error
+			input
+			textarea
+				border-color: color_main4_default
+
+		.errorlist
+			color: color_main4_default
+			margin-top: 0.5em
+
+	input[type='date']
+	input[type='email']
+	input[type='number']
+	input[type='password']
+	input[type='search']
+	input[type='text']
+	select
+	textarea
+		@extend $text-input
+		padding: 0 1rem
+
+	select option
+		padding: 0.5em
+
+	textarea
+		padding: 1rem

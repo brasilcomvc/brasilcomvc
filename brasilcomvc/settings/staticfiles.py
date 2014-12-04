@@ -46,9 +46,7 @@ PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.jsmin.JSMinCompressor'
 # Packaging specs for CSS
 PIPELINE_CSS = {
     'common': {
-        'source_filenames': [
-            'styl/common/*.styl',
-        ],
+        'source_filenames': ['styl/common/manifest.styl'],
         'output_filename': 'css/common.css',
     },
     'guideline': {

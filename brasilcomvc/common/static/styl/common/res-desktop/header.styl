@@ -1,0 +1,16 @@
+body
+	margin-top: 76px !important
+
+	#main-header
+		height: @margin-top
+
+		.main-nav
+			absolute: 50% 0px false false
+			transform: translateY(-50%)
+
+			li
+				display: inline
+
+			a:not(.button)
+				button(color: transparent, hovercolor: rgba(black, 0.1))
+				color: color_text_dark !important
