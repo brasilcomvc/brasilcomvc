@@ -1,33 +1,35 @@
-@import 'defs/colors'
+@import 'kouto-swiss'
+@import 'defs/*'
 
-header-height = 75px
 
-body
-	padding-top header-height
+header-height = 74px
+
 
 #main-header
-	item-height = 52px
+	background: color_text_lighter
+	fixed: 0 false false 0
+	size: 100% header-height
+	z-index: 1
 
-	background color_text_lighter
-	display block
-	position fixed
-	z-index 1
-	width 100%
-	height header-height
-	line-height header-height
-	top 0
-	left 0
+	> div
+		position: relative
 
-	.logo
-		display block
-		float left
+	.logo img
+		height: header-height * (3/5)
+		margin: ((header-height - @height) * (1/2)) 0
 
-		img
-			margin-top ( ( header-height - item-height ) / 2 )
+	.main-nav
+		absolute: 50% 0px false false
+		transform: translateY(-50%)
 
-	nav
-		float right
+		li
+			display: inline
 
-		ul
-			li
-				display inline-block
+		a:not(.button)
+			button(color: transparent, hovercolor: rgba(black, 0.1))
+			color: color_text_dark !important
+
+
+// Compensate the header height over page contents
+body
+	margin-top: header-height !important
