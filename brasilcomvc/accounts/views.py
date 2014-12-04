@@ -1,8 +1,14 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import logout as logout_user
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.views import login as auth_login
+from django.contrib.auth.views import (
+    login as auth_login,
+    password_reset as django_password_reset,
+    password_reset_done as django_password_reset_done,
+    password_reset_confirm as django_password_reset_confirm,
+)
 from django.http import HttpResponseRedirect
+
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -57,6 +63,30 @@ def logout(request):
     """
     logout_user(request)
     return HttpResponseRedirect(reverse('login'))
+
+
+def password_reset(request):
+    return django_password_reset(
+        request,
+        template_name='accounts/password_reset.html',
+        post_reset_redirect=reverse('password_reset_sent'),
+        subject_template_name='emails/password_reset_subject.txt',
+        email_template_name='emails/password_reset.txt',
+        html_email_template_name='emails/password_reset.html')
+
+
+def password_reset_sent(request):
+    return django_password_reset_done(
+        request,
+        template_name='accounts/password_reset_sent.html')
+
+
+def password_reset_confirm(request, **kwargs):
+    return django_password_reset_confirm(
+        request,
+        template_name='accounts/password_reset_confirm.html',
+        post_reset_redirect=reverse('login'),
+        **kwargs)
 
 
 class BaseEditUser(LoginRequiredMixin):
