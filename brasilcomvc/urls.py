@@ -7,6 +7,9 @@ admin.autodiscover()
 urlpatterns = (
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^auth/social/',
+        include('social.apps.django_app.urls', namespace='social')),
+
     url(r'^feedback/',
         include('brasilcomvc.feedback.urls', namespace='feedback')),
 

@@ -15,6 +15,7 @@
 {% block content_content %}
 <section id="content">
 	<h1>Login</h1>
+	<a href="{% url 'social:begin' 'facebook' %}" class="button facebook">Facebook</a>
 	<form method="POST">
 		{% form_full form %}
 		<button type="submit">Login</button>
