@@ -54,7 +54,7 @@ PIPELINE_CSS = {
         'output_filename': 'css/guideline.css',
     },
     'accounts': {
-        'source_filenames': ['styl/accounts-*.styl'],
+        'source_filenames': ['styl/accounts-manifest.styl'],
         'output_filename': 'css/accounts.css',
     }
 }
