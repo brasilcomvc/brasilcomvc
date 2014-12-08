@@ -5,15 +5,15 @@
 	<a href="" class="logo">
 		<img src="{% static 'img/logo.png' %}" alt="Brasil.Com.Vc">
  	</a>
- 	<nav>
+ 	<nav class="main-nav">
 		<ul>
-			{% if request.user.is_authenticated %}
-				<li><a class="hollow button" href="{% url 'edit_dashboard' %}">Minha Conta</a></li>
-				<li><a class="hollow button" href="{% url 'logout' %}">Logout</a></li>
-			{% else %}
-				<li><a class="proceed button" href="{% url 'signup' %}">Cadastre-se</a></li>
-				<li><a class="hollow button" href="{% url 'login' %}">Login</a></li>
-			{% endif %}
+		{% if request.user.is_authenticated %}
+			<li><a href="{% url 'edit_dashboard' %}">Minha Conta</a></li>
+			<li><a href="{% url 'logout' %}">Logout</a></li>
+		{% else %}
+			<li><a class="proceed button" href="{% url 'signup' %}">Cadastre-se</a></li>
+			<li><a href="{% url 'login' %}">Login</a></li>
+		{% endif %}
 		</ul>
  	</nav>
 </div>

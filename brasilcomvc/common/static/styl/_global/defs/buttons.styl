@@ -1,0 +1,51 @@
+@require 'defs/*'
+
+
+_button_sizes = {
+	'default': 3.4rem,
+	'small': 2rem,
+}
+
+
+button(color=color_main1_default, hovercolor=color_main1_dark, size='default')
+	// Static attributes
+	border: 0
+	cursor: pointer
+	font-family: font_family_sans
+	font-size: font_size_m
+	font-weight: 100
+	padding: 0 1em
+	text-decoration: none !important
+	vertical-align: middle
+
+	background: color unless @background
+	color: color_text_lightest unless @color
+	display: inline-block unless @display
+	height: _button_sizes[size]
+	line-height: @height
+
+	&:hover
+		background: hovercolor
+
+	&[disabled]
+		background: color_text_lighter
+		color: color_text_light
+		cursor: default
+		&:hover
+			background: @background
+
+	&.danger
+		background: color_main4_default
+		&:hover
+			background: color_main4_dark
+
+	&.proceed
+		background: color_main2_default
+		&:hover
+			background: color_main2_dark
+
+	&.facebook
+		background: color_facebook
+		color: color_text_lightest
+		&:hover
+			background: darken(color_facebook, 15%)

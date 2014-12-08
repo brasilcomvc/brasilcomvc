@@ -36,7 +36,7 @@ PIPELINE_COMPILERS = (
 
 # Stylus configuration
 PIPELINE_STYLUS_ARGUMENTS = ' '.join([
-    '--include {path}/common/static/styl',  # Expose common styl lib dir
+    '--include {path}/common/static/styl/_global',  # Expose global .styl libs
     '--use kouto-swiss',
 ]).format(path=BASE_DIR)
 
@@ -46,9 +46,7 @@ PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.jsmin.JSMinCompressor'
 # Packaging specs for CSS
 PIPELINE_CSS = {
     'common': {
-        'source_filenames': [
-            'styl/common/*.styl',
-        ],
+        'source_filenames': ['styl/common-manifest.styl'],
         'output_filename': 'css/common.css',
     },
     'guideline': {
@@ -56,7 +54,7 @@ PIPELINE_CSS = {
         'output_filename': 'css/guideline.css',
     },
     'accounts': {
-        'source_filenames': ['styl/accounts-*.styl'],
+        'source_filenames': ['styl/accounts-manifest.styl'],
         'output_filename': 'css/accounts.css',
     }
 }

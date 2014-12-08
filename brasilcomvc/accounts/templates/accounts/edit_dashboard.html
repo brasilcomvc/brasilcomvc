@@ -8,12 +8,12 @@
 
 
 {% block body_classes %}
-	{{ block.super }} edit edit_dashboard
+	{{ block.super }} edit_dashboard
 {% endblock body_classes %}
 
 
 {% block content_content %}
-
+<section id="content">
 	<header>
 		<h1>Minha conta</h1>
 	</header>
@@ -108,4 +108,5 @@
 			<a class="button danger" href="{% url 'delete_user' %}">Remover Conta</a>
 		</p>
 	</section>
+</section>
 {% endblock content_content %}

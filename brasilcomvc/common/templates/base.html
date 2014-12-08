@@ -8,7 +8,7 @@
 	{% block head %}
 		<title>{% block title %}{% endblock title %} | Brasil.com.vc</title>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
 		{% block css %}
 			{% compressed_css 'common' %}
@@ -45,6 +45,7 @@
 
 		{% block js %}
 			{% compressed_js '3rdparty' %}
+			{% compressed_js 'common' %}
 			{% compressed_js 'accounts' %}
 		{% endblock js %}
 	</body>
