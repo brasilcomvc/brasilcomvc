@@ -13,7 +13,7 @@ from .signals import (
 class AccountsAppConfig(AppConfig):
 
     name = 'brasilcomvc.accounts'
-    verbose_name = 'Usuários e autenticação'
+    verbose_name = 'Autenticação e Autorização'
 
     def ready(self):
         city_items_pre_import.connect(filter_city_import)

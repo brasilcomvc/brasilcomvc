@@ -63,6 +63,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
+    class Meta:
+        verbose_name = 'usuário'
+
     def get_short_name(self):
         return self.full_name.split()[0]
 
