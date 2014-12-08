@@ -13,6 +13,8 @@
 		height: 70%
 		transform: translateY(-50%)
 
-	.main-nav a:not(.button)
+	.main-nav a
 		button(color: transparent, hovercolor: rgba(black, 0.1))
-		color: color_text_dark !important
+
+		&:not(.proceed)
+			color: color_text_dark
