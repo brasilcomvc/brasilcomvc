@@ -52,9 +52,5 @@ body
 	&:not(.header-focus) #main-header .main-nav
 		transform: translateX(-100%)
 
-	&.header-focus
-		pointer-events: none
-
-		#main-header .main-nav
-			pointer-events: auto
-			box-shadow: 0 0 0 999px rgba(black, 0.4)
+	&.header-focus #main-header .main-nav
+		box-shadow: 0 0 0 999px rgba(black, 0.4)

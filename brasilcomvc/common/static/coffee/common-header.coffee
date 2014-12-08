@@ -1,3 +1,7 @@
-$(document).on 'click', (e) ->
+body = $(document.body)
+
+$(document).on 'touchend', (e) ->
 	in_nav = !!$(e.target).closest('#main-header .main-nav').length
-	$(document.body).toggleClass 'header-focus', in_nav
+	if not in_nav and body.hasClass('header-focus')
+		e.preventDefault()
+	body.toggleClass 'header-focus', in_nav
