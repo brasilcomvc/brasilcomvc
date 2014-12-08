@@ -36,7 +36,7 @@ PIPELINE_COMPILERS = (
 
 # Stylus configuration
 PIPELINE_STYLUS_ARGUMENTS = ' '.join([
-    '--include {path}/common/static/styl',  # Expose common styl lib dir
+    '--include {path}/common/static/styl/_global',  # Expose global .styl libs
     '--use kouto-swiss',
 ]).format(path=BASE_DIR)
 
