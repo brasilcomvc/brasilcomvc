@@ -1,7 +1,12 @@
 # encoding: utf8
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
+
 from django.db import models
 
 from brasilcomvc.common.email import send_template_email
@@ -26,7 +31,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
 
     # Personal Info
     email = models.EmailField(unique=True)
@@ -42,7 +47,6 @@ class User(AbstractBaseUser):
     date_updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(editable=False, default=True)
     is_staff = models.BooleanField(editable=False, default=False)
-    is_superuser = models.BooleanField(editable=False, default=False)
 
     # Notifications
     email_newsletter = models.BooleanField(default=True)
