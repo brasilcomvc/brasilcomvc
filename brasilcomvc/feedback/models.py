@@ -12,6 +12,7 @@ QUESTIONS = (
     'Não tenho mais tempo para pesquisar utilizando o serviço',
 )
 
+
 class Feedback(models.Model):
 
     email = models.EmailField()
@@ -24,6 +25,8 @@ class Feedback(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    comments.verbose_name = 'comentários'
 
     def __str__(self):
         return '{} - {}'.format(self.email, self.created)
