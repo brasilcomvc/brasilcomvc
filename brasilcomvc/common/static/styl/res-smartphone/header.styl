@@ -1,8 +1,56 @@
+header-height = 60px
+
+
 body
-	margin-top: 60px !important
+	margin-top: header-height !important
 
 	#main-header
 		height: @margin-top
 
+		.logo img
+			left: 50%
+			transform: translate(-50%, -50%)
+
 		.main-nav
-			display: none
+			background: color_text_lighter
+			fixed: 0 false 0 0
+			transition: time_animation
+			width: 80%
+
+			ul
+				margin: 1em
+
+			a
+				display: block !important
+
+			// trigger button
+			&:before
+			&:after
+				absolute: 0 (header-height * -1) false false
+				content: ''
+				font-size: 0
+
+			&:before  // touch area
+				size: header-height
+				z-index: 1
+
+			&:after  // "sandwich" icon
+				button()
+				background-image: linear-gradient(
+					color_text_medium 20%,
+					transparent 20%,
+					transparent 40%,
+					color_text_medium 40%,
+					color_text_medium 60%,
+					transparent 60%,
+					transparent 80%,
+					color_text_medium 80%);
+				margin: header-height * 0.25
+				size: header-height * 0.5
+
+
+	&:not(.header-focus) #main-header .main-nav
+		transform: translateX(-100%)
+
+	&.header-focus #main-header .main-nav
+		box-shadow: 0 0 0 999px rgba(black, 0.4)
