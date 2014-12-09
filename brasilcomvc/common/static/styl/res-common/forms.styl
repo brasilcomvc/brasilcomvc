@@ -14,17 +14,25 @@ form
 		color: color_main4_default
 
 	label
+	legend
 		display: block
 		margin-bottom: 1em
+
+	fieldset
+		margin-bottom: 2em
+
+		legend
+			font-weight: bold
+
+	label
+		label
+		strong
+			cursor: pointer
 
 		> strong:first-child
 		.helptext
 			display: block
 			margin-bottom: 0.5em
-
-		> strong
-		label
-			cursor: pointer
 
 		.helptext
 			color: color_text_medium
@@ -33,11 +41,12 @@ form
 
 		&.error
 			input
+			select
 			textarea
 				border-color: color_main4_default
 
-		.errorlist
-			margin-top: 0.5em
+			.errorlist
+				margin-top: 0.5em
 
 	input
 	select
