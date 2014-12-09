@@ -4,6 +4,14 @@ from django import template
 register = template.Library()
 
 
+@register.filter('type')
+def type_(obj):
+    '''
+    Retrieve the class name of an object
+    '''
+    return str(type(obj).__name__)
+
+
 @register.inclusion_tag('widgets/form_full.html')
 def form_full(form, csrf_token=True):
     '''
