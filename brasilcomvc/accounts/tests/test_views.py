@@ -345,7 +345,7 @@ class EditUserAddressTestCase(TestCase):
             city=city)
         data = {
             'address_line1': address.address_line1,
-            'address_line2': address.address_line2,
+            'address_line2': '',
             'state': address.state_id,
             'city': address.city_id,
             'zipcode': '33333-333',
@@ -354,6 +354,7 @@ class EditUserAddressTestCase(TestCase):
         self.assertRedirects(resp, reverse('edit_dashboard'))
         address = UserAddress.objects.get(id=address.id)
         self.assertEqual(address.zipcode, data['zipcode'])
+        self.assertEqual(address.address_line2, data['address_line2'])
 
 
 class DeleteUserTest(TestCase):

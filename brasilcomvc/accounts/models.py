@@ -85,7 +85,7 @@ class UserAddress(models.Model):
     user = models.OneToOneField('User', related_name='address', editable=False)
     zipcode = models.CharField(max_length=90)
     address_line1 = models.CharField(max_length=120)
-    address_line2 = models.CharField(max_length=80)
+    address_line2 = models.CharField(max_length=80, blank=True)
     state = models.ForeignKey('cities_light.Region')
     city = models.ForeignKey('cities_light.City')
 
