@@ -60,3 +60,36 @@ form
 
 	textarea
 		padding: 1rem
+
+	input[type='checkbox']
+		base-size = 1.4em
+
+		appearance: none
+		border: none
+		margin: 0 0.5em 0 0
+		position: relative
+		size: (base-size * 2.4) base-size
+		vertical-align: text-bottom
+
+		&:before
+		&:after
+			content: ''
+			display: inline-block
+
+		&:before
+			background: color_text_lighter
+			border: 1px solid color_text_light
+			size: (base-size * 2.4) base-size
+
+		&:after
+			absolute: 0 false false 0
+			background: color_text_light
+			box-shadow: 0 0 0 1px color_text_light
+			cursor: pointer
+			size: (base-size * 1.2) base-size
+			transition: time_animation * 0.5
+
+		&:checked:after
+			background: color_main1_light
+			box-shadow: 0 0 0 1px color_main1_light
+			left: base-size * 1.2
