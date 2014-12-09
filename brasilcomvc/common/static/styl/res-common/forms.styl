@@ -71,13 +71,12 @@ form
 		padding: 1rem
 
 	input[type='checkbox']
-		base-size = 1.4em
-
+	input[type='radio']
 		appearance: none
 		border: none
+		cursor: pointer
 		margin: 0 0.5em 0 0
 		position: relative
-		size: (base-size * 2.4) base-size
 		vertical-align: text-bottom
 
 		&:before
@@ -88,17 +87,44 @@ form
 		&:before
 			background: color_text_lighter
 			border: 1px solid color_text_light
+
+		&:after
+			transition: time_animation
+
+		&:checked:after
+			background: color_main1_light
+
+	input[type='checkbox']
+		base-size = 1.4em
+
+		&
+		&:before
 			size: (base-size * 2.4) base-size
 
 		&:after
 			absolute: 0 false false 0
 			background: color_text_light
 			box-shadow: 0 0 0 1px color_text_light
-			cursor: pointer
 			size: (base-size * 1.2) base-size
-			transition: time_animation * 0.5
 
 		&:checked:after
-			background: color_main1_light
 			box-shadow: 0 0 0 1px color_main1_light
 			left: base-size * 1.2
+
+	input[type='radio']
+		base-size = 1.5em
+
+		&
+		&:before
+			size: base-size
+
+		&:before
+		&:after
+			border-radius: 100%
+
+		&:after
+			absolute: 50% false false 50%
+			background: color_text_lighter
+			size: base-size * 0.5
+			transform: translate(-50%, -50%)
+
