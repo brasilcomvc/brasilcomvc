@@ -8,6 +8,9 @@ $text-input
 	font: 300 font_size_m font_family_sans
 	size: 100% 3.42rem
 
+	&:focus
+		border-color: color_main1_light
+
 
 form
 	.errorlist
@@ -87,6 +90,9 @@ form
 		&:before
 			background: color_text_lighter
 			border: 1px solid color_text_light
+
+		&:focus:before
+			border-color: color_main1_light
 
 		&:after
 			transition: time_animation
