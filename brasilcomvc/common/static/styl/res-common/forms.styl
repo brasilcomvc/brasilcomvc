@@ -1,10 +1,15 @@
 $text-input
+	appearance: none
 	background: color_text_lighter
 	border: 1px solid color_text_light
+	border-radius: 0
 	color: color_text_medium
 	height: 3.42rem
 	font: 300 font_size_m font_family_sans
 	size: 100% 3.42rem
+
+	&:focus
+		border-color: color_main1_light
 
 
 form
@@ -12,10 +17,22 @@ form
 		color: color_main4_default
 
 	label
+	legend
 		display: block
 		margin-bottom: 1em
 
-		> strong
+	fieldset
+		margin-bottom: 2em
+
+		legend
+			font-weight: bold
+
+	label
+		label
+		strong
+			cursor: pointer
+
+		> strong:first-child
 		.helptext
 			display: block
 			margin-bottom: 0.5em
@@ -27,11 +44,17 @@ form
 
 		&.error
 			input
+			select
 			textarea
 				border-color: color_main4_default
 
-		.errorlist
-			margin-top: 0.5em
+			.errorlist
+				margin-top: 0.5em
+
+	input
+	select
+	textarea
+		outline: none
 
 	input[type='date']
 	input[type='email']
@@ -44,8 +67,74 @@ form
 		@extend $text-input
 		padding: 0 1rem
 
+	select
+		appearance: menulist-button
+
 	select option
 		padding: 0.5em
 
 	textarea
+		min-height: 7rem
 		padding: 1rem
+
+	input[type='checkbox']
+	input[type='radio']
+		appearance: none
+		border: none
+		cursor: pointer
+		margin: 0 0.5em 0 0
+		position: relative
+		vertical-align: text-bottom
+
+		&:before
+		&:after
+			content: ''
+			display: inline-block
+
+		&:before
+			background: color_text_lighter
+			border: 1px solid color_text_light
+
+		&:focus:before
+			border-color: color_main1_light
+
+		&:after
+			transition: time_animation
+
+		&:checked:after
+			background: color_main1_light
+
+	input[type='checkbox']
+		base-size = 1.4em
+
+		&
+		&:before
+			size: (base-size * 2.4) base-size
+
+		&:after
+			absolute: 0 false false 0
+			background: color_text_light
+			box-shadow: 0 0 0 1px color_text_light
+			size: (base-size * 1.2) base-size
+
+		&:checked:after
+			box-shadow: 0 0 0 1px color_main1_light
+			left: base-size * 1.2
+
+	input[type='radio']
+		base-size = 1.5em
+
+		&
+		&:before
+			size: base-size
+
+		&:before
+		&:after
+			border-radius: 100%
+
+		&:after
+			absolute: 50% false false 50%
+			background: color_text_lighter
+			size: base-size * 0.5
+			transform: translate(-50%, -50%)
+

@@ -1,15 +1,17 @@
+{% load form_utils %}
+
+
 <label
 id="{{ form_id }}_{{ field.name }}"
 class="{{ classes|join:' ' }}">
+{% if field.field.widget|type == 'CheckboxInput' %}
+	{{ field }} <strong>{{ field.label }}</strong>
+	{% if field.errors %}{{ field.errors }}{% endif %}
+	{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
+{% else %}
 	<strong>{{ field.label }}</strong>
-
-	{% if field.help_text %}
-		<span class="helptext">{{ field.help_text }}</span>
-	{% endif %}
-
+	{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
 	{{ field }}
-
-	{% if field.errors %}
-		{{ field.errors }}
-	{% endif %}
+	{% if field.errors %}{{ field.errors }}{% endif %}
+{% endif %}
 </label>

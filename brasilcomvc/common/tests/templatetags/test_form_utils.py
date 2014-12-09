@@ -4,11 +4,20 @@ from django.test import TestCase
 from ...templatetags.form_utils import (
     form_field,
     form_fieldset,
+    type_,
 )
 
 
 class TestForm(forms.Form):
     test_field = forms.CharField(max_length=40)
+
+
+class TypeTestCase(TestCase):
+
+    def test_type_filter_should_return_correct_class_name(self):
+        self.assertEqual(type_([]), 'list')
+        form = TestForm()
+        self.assertEqual(type_(form['test_field'].field.widget), 'TextInput')
 
 
 class FormFieldTestCase(TestCase):
