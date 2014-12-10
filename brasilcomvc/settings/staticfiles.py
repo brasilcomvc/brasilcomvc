@@ -56,7 +56,11 @@ PIPELINE_CSS = {
     'accounts': {
         'source_filenames': ['styl/accounts-manifest.styl'],
         'output_filename': 'css/accounts.css',
-    }
+    },
+    'projects': {
+        'source_filenames': ['styl/projects-manifest.styl'],
+        'output_filename': 'css/projects.css',
+    },
 }
 
 # Packaging specs for JavaScript
@@ -74,6 +78,10 @@ PIPELINE_JS = {
     'accounts': {
         'source_filenames': ['coffee/accounts-*.coffee'],
         'output_filename': 'js/accounts.js',
+    },
+    'projects': {
+        'source_filenames': ['coffee/projects-*.coffee'],
+        'output_filename': 'js/projects.js',
     },
 }
 
