@@ -28,13 +28,16 @@ class Project(models.Model):
     how_to_help.verbose_name = 'como ajudar'
     requirements.verbose_name = 'requisitos'
 
+    def __unicode__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('projects:project_details', kwargs={'slug': self.slug})
+
     def save(self, **kwargs):
         if self.pk is None:
             self.slug = slugify(smart_text(self.name))
         super(Project, self).save(**kwargs)
-
-    def get_absolute_url(self):
-        return reverse('projects:project_details', kwargs={'slug': self.slug})
 
 
 class Tag(models.Model):
