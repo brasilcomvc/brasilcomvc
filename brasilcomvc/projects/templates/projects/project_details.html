@@ -16,7 +16,12 @@
 <section id="content">
 	<h1>{{ project.name }}</h1>
 
+
 	<section id="main-info">
+		<section class="img">
+			<img src="{{ project.img.url }}">
+		</section>
+
 		<blockquote class="relevant-fact">
 			{{ project.relevant_fact|linebreaks }}
 		</blockquote>

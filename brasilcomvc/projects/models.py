@@ -6,6 +6,12 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.encoding import smart_text
 from django.utils.text import slugify
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
+
+
+def project_img_upload_to(instance, filename):
+    return 'projects/{}/img.jpeg'.format(instance.slug)
 
 
 class Project(models.Model):
@@ -20,6 +26,10 @@ class Project(models.Model):
     how_to_help = models.TextField()
     requirements = models.TextField()
     tags = models.ManyToManyField('Tag', blank=True)
+    img = ProcessedImageField(upload_to=project_img_upload_to,
+                              processors=[ResizeToFill(640, 480)],
+                              format='JPEG',
+                              options={'quality': 80})
 
     name.verbose_name = 'nome'
     relevant_fact.verbose_name = 'fato relevante'
