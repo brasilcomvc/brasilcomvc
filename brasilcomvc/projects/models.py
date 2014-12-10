@@ -28,6 +28,10 @@ class Project(models.Model):
     how_to_help.verbose_name = 'como ajudar'
     requirements.verbose_name = 'requisitos'
 
+    class Meta:
+        verbose_name = 'Projeto'
+        verbose_name_plural = 'Projetos'
+
     def __unicode__(self):
         return self.name
 
