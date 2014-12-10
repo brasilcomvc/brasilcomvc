@@ -19,7 +19,7 @@ class Project(models.Model):
     short_description = models.TextField(null=True, blank=True)
     how_to_help = models.TextField()
     requirements = models.TextField()
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', blank=True)
 
     name.verbose_name = 'nome'
     relevant_fact.verbose_name = 'fato relevante'
