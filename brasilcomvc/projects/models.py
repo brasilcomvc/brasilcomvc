@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.db import models
+from django.utils.encoding import smart_text
 from django.utils.text import slugify
 
 
@@ -26,4 +27,4 @@ class Project(models.Model):
     requirements.verbose_name = 'requisitos'
 
     def clean(self):
-        self.slug = slugify(self.name)
+        self.slug = slugify(smart_text(self.name))
