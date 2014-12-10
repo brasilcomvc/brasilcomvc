@@ -1,14 +1,17 @@
 from django.test import TestCase
+from django.contrib.auth import get_user_model
 
 from ..models import Project
+
+User = get_user_model()
 
 
 class ProjectDetailsTestCase(TestCase):
 
-    fixtures = ('test_users', 'test_projects',)
-
     def setUp(self):
-        self.project = Project.objects.order_by('?')[0]
+        self.project = Project.objects.create(
+            owner=User.objects.create_user('test@example.com', '123'),
+            name='Test Project')
         self.url = self.project.get_absolute_url()
 
     def test_page_opens_successfully(self):
