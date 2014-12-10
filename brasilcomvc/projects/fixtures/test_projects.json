@@ -1,0 +1,34 @@
+[
+{
+	"pk": 1,
+	"fields": {
+		"name": "Test Project 1",
+		"how_to_help": "Doing nothing.",
+		"relevant_fact": "100% of this information isn't useful.",
+		"short_description": "Just a short description.",
+		"tags": [
+			1,
+			2
+		],
+		"requirements": "- Be lazy\r\n- Must like movies",
+		"slug": "test-project-1",
+		"owner": 1,
+		"about": "This should be a very long description text."
+	},
+	"model": "projects.project"
+},
+{
+	"pk": 1,
+	"fields": {
+		"name": "Tag 1"
+	},
+	"model": "projects.tag"
+},
+{
+	"pk": 2,
+	"fields": {
+		"name": "Tag 2"
+	},
+	"model": "projects.tag"
+}
+]
