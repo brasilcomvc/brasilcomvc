@@ -19,7 +19,9 @@
 
 	<section id="main-info">
 		<section class="img">
+			{% if project.img %}
 			<img src="{{ project.img.url }}">
+			{% endif %}
 		</section>
 
 		<blockquote class="relevant-fact">
