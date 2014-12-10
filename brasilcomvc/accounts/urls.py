@@ -48,7 +48,7 @@ urlpatterns = (
         Signup.as_view(), name='signup'),
 
     # Edit Dashboard
-    url(r'editar/$',
+    url(r'^editar/$',
         EditDashboard.as_view(), name='edit_dashboard'),
 
     # Edit Personal Info
