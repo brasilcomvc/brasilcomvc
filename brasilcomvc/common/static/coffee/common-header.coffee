@@ -6,7 +6,7 @@ _prevent_ghost_click = (e) ->
 		-> body.off 'touchend', _prevent_ghost_click,
 		370)
 
-$(document).on 'touchstart', (e) ->
+$(document).on 'touchstart mousedown', (e) ->
 	in_nav = !!$(e.target).closest('#main-header .main-nav').length
 
 	if not in_nav and body.hasClass('header-focus')
