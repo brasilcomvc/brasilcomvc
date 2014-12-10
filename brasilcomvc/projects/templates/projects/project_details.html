@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load firstof from future %}
+
+
+{% block title %}
+	{{ project.name }}
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} projects project-details
+{% endblock body_classes %}
+
+
+{% block content_content %}
+<section id="content">
+	<h1>{{ project.name }}</h1>
+
+	<section id="main-info">
+		<blockquote class="relevant-fact">
+			{{ project.relevant_fact }}
+		</blockquote>
+		<section class="about">
+			<h1>Sobre o projeto</h1>
+			{{ project.about }}
+		</section>
+		<section class="how-to-help">
+			<h1>Como ajudar</h1>
+			{{ project.how_to_help }}
+		</section>
+		<section class="requirements">
+			<h1>Requisitos</h1>
+			{{ project.requirements }}
+		</section>
+	</section>
+
+	<section id="extra-info">
+		<section class="short-description">
+			{% firstof project.short_description project.about|truncatechars:200 %}
+		</section>
+		<section class="tags">
+			<ul>
+			{% for tag in project.tags.all %}
+				<li>{{ tag.name }}</li>
+			{% endfor %}
+			</ul>
+		</section>
+		<section class="owner">
+			{{ project.owner }}
+		</section>
+	</section>
+</section>
+{% endblock content_content %}
