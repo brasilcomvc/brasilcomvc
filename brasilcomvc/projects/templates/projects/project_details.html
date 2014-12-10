@@ -38,6 +38,13 @@
 		<section class="short-description">
 			{% firstof project.short_description project.about|truncatechars:200 %}
 		</section>
+		<section class="tags">
+			<ul>
+			{% for tag in project.tags.all %}
+				<li>{{ tag.name }}</li>
+			{% endfor %}
+			</ul>
+		</section>
 		<section class="owner">
 			{{ project.owner }}
 		</section>

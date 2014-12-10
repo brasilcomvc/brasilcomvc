@@ -19,6 +19,7 @@ class Project(models.Model):
     short_description = models.TextField(null=True, blank=True)
     how_to_help = models.TextField()
     requirements = models.TextField()
+    tags = models.ManyToManyField('Tag')
 
     name.verbose_name = 'nome'
     relevant_fact.verbose_name = 'fato relevante'
@@ -32,3 +33,8 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse('projects:project_details', kwargs={'slug': self.slug})
+
+
+class Tag(models.Model):
+
+    name = models.CharField(max_length=24)
