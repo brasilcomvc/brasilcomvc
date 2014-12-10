@@ -12,7 +12,17 @@
 
 
 {% block content_content %}
+	<h1>Ajude-nos a melhorar!</h1>
+	<p>
+		Conte pra gente quais foram os motivos que te levaram a apagar sua conta! Utilizaremos estes dados para melhorar nosso serviço. As informações preenchidas aqui são enviadas anonimamente.
+	</p>
+	<br>
+	<br>
+
 	<form action="{% url 'feedback:create' %}" method="POST">
+		<h2>Dê seu feedback</h2>
+		<br>
+
 		{% form_full form %}
 
 		<button type="submit">Enviar</submit>
