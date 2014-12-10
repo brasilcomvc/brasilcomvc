@@ -18,26 +18,26 @@
 
 	<section id="main-info">
 		<blockquote class="relevant-fact">
-			{{ project.relevant_fact }}
+			{{ project.relevant_fact|linebreaks }}
 		</blockquote>
 		<section class="about">
 			<h1>Sobre o projeto</h1>
-			{{ project.about }}
+			{{ project.about|linebreaks }}
 		</section>
 		<section class="how-to-help">
 			<h1>Como ajudar</h1>
-			{{ project.how_to_help }}
+			{{ project.how_to_help|linebreaks }}
 		</section>
 		<section class="requirements">
 			<h1>Requisitos</h1>
-			{{ project.requirements }}
+			{{ project.requirements|linebreaks }}
 		</section>
 	</section>
 
 	<section id="extra-info">
 		<section class="short-description">
 			<h1>Resumo</h1>
-			{% firstof project.short_description project.about|truncatechars:200 %}
+			{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
 		</section>
 		<section class="tags">
 			<ul>
