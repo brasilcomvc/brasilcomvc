@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.encoding import smart_text
 from django.utils.text import slugify
-from imagekit.models import ProcessedImageField
+from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
 
 
@@ -32,6 +32,11 @@ class Project(models.Model):
         options={'quality': 80},
         processors=[ResizeToFill(854, 480)],
         upload_to=project_img_upload_to)
+    img_thumbnail = ImageSpecField(
+        format='JPEG',
+        options={'quality': 80},
+        processors=[ResizeToFill(320, 240)],
+        source='img')
     video = models.URLField(null=True, blank=True)
 
     name.verbose_name = 'nome'
