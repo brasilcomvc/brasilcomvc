@@ -56,7 +56,11 @@ PIPELINE_CSS = {
     'accounts': {
         'source_filenames': ['styl/accounts-manifest.styl'],
         'output_filename': 'css/accounts.css',
-    }
+    },
+    'projects': {
+        'source_filenames': ['styl/projects-manifest.styl'],
+        'output_filename': 'css/projects.css',
+    },
 }
 
 # Packaging specs for JavaScript
@@ -75,19 +79,24 @@ PIPELINE_JS = {
         'source_filenames': ['coffee/accounts-*.coffee'],
         'output_filename': 'js/accounts.js',
     },
+    'projects': {
+        'source_filenames': ['coffee/projects-*.coffee'],
+        'output_filename': 'js/projects.js',
+    },
 }
 
 # Binaries (this settings assumes you've installed all node modules locally)
-PIPELINE_COFFEE_SCRIPT_BINARY = os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'coffee')
-PIPELINE_STYLUS_BINARY = os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'stylus')
-PIPELINE_YUGLIFY_BINARY = os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'yuglify')
+_node_modules = os.path.join(BASE_DIR, '../node_modules/.bin')
+PIPELINE_COFFEE_SCRIPT_BINARY = os.path.join(_node_modules, 'coffee')
+PIPELINE_STYLUS_BINARY = os.path.join(_node_modules, 'stylus')
+PIPELINE_YUGLIFY_BINARY = os.path.join(_node_modules, 'yuglify')
 
 # Statics on S3
 if os.environ.get('STATIC_BACKEND', 'local') == 's3':
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-    AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_S3_CUSTOM_DOMAIN',
-                                          '{}.s3.amazonaws.com'.format(
-                                                AWS_STORAGE_BUCKET_NAME))
+    AWS_S3_CUSTOM_DOMAIN = os.environ.get(
+        'AWS_S3_CUSTOM_DOMAIN',
+        '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME))
     AWS_S3_URL_PROTOCOL = 'https:'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     STATIC_URL = '%s//%s/' % (AWS_S3_URL_PROTOCOL, AWS_S3_CUSTOM_DOMAIN)

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'projects/base.html' %}
 {% load firstof from future %}
 
 
@@ -8,7 +8,7 @@
 
 
 {% block body_classes %}
-	{{ block.super }} projects project-details
+	{{ block.super }} project-details
 {% endblock body_classes %}
 
 
@@ -16,27 +16,35 @@
 <section id="content">
 	<h1>{{ project.name }}</h1>
 
+
 	<section id="main-info">
+		{% if project.img %}
+		<figure class="img">
+			<img src="{{ project.img.url }}" alt="imagem do {{ project.name }}">
+		</figure>
+		{% endif %}
+
 		<blockquote class="relevant-fact">
-			{{ project.relevant_fact }}
+			{{ project.relevant_fact|linebreaks }}
 		</blockquote>
 		<section class="about">
 			<h1>Sobre o projeto</h1>
-			{{ project.about }}
+			{{ project.about|linebreaks }}
 		</section>
 		<section class="how-to-help">
 			<h1>Como ajudar</h1>
-			{{ project.how_to_help }}
+			{{ project.how_to_help|linebreaks }}
 		</section>
 		<section class="requirements">
 			<h1>Requisitos</h1>
-			{{ project.requirements }}
+			{{ project.requirements|linebreaks }}
 		</section>
 	</section>
 
 	<section id="extra-info">
 		<section class="short-description">
-			{% firstof project.short_description project.about|truncatechars:200 %}
+			<h1>Resumo</h1>
+			{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
 		</section>
 		<section class="tags">
 			<ul>
@@ -46,7 +54,8 @@
 			</ul>
 		</section>
 		<section class="owner">
-			{{ project.owner }}
+			<h1>Organizador</h1>
+			{{ project.owner.get_full_name }}
 		</section>
 	</section>
 </section>

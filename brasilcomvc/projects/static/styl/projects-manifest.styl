@@ -1,0 +1,10 @@
+@require 'kouto-swiss'
+@require 'defs/*'
+
+
++media-query(only screen)
+	@import 'res-common/*'
+
++media-query(breakpoint_desktop)
+	gs('fixed', 12, 50px, 30px)
+	@import 'res-desktop/*'

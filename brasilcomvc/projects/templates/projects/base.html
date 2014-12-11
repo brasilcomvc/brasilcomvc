@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load compressed %}
+
+
+{% block css %}
+	{{ block.super }}
+	{% compressed_css 'projects' %}
+{% endblock css %}
+
+
+{% block body_classes %}
+	projects
+{% endblock body_classes %}
+
+
+{% block js %}
+	{{ block.super}}
+	{% compressed_js 'projects' %}
+{% endblock js %}
