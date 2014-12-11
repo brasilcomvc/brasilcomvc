@@ -30,7 +30,7 @@ class Project(models.Model):
     img = ProcessedImageField(
         format='JPEG',
         options={'quality': 80},
-        processors=[ResizeToFill(640, 480)],
+        processors=[ResizeToFill(854, 480)],
         upload_to=project_img_upload_to)
     video = models.URLField(null=True, blank=True)
 
