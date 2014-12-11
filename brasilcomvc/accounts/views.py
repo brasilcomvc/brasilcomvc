@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.contrib.auth import authenticate, login as login_user
 from django.contrib.auth import logout as logout_user
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import (
@@ -38,12 +39,20 @@ class Signup(AnonymousRequiredMixin, CreateView):
     '''
 
     form_class = SignupForm
-    success_url = reverse_lazy('accounts:signup')
+    success_url = reverse_lazy('accounts:edit_dashboard')
     template_name = 'accounts/signup.html'
 
     def form_valid(self, form):
         response = super(Signup, self).form_valid(form)
-        self.object.send_welcome_email()  # Send welcome email upon signup
+
+        # log user in
+        user = authenticate(email=form.cleaned_data['email'],
+                            password=form.cleaned_data['password'])
+        login_user(self.request, user)
+
+        # Send welcome email upon signup
+        user.send_welcome_email()
+
         return response
 
 

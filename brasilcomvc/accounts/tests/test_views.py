@@ -44,7 +44,7 @@ class SignupTestCase(TestCase):
             'password': '123',
         }
         response = self.client.post(self.url, data)
-        self.assertRedirects(response, self.url)
+        self.assertRedirects(response, reverse('accounts:edit_dashboard'))
         self.assertTrue(User.objects.filter(email=data['email']).exists())
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'Bem vindo!')
