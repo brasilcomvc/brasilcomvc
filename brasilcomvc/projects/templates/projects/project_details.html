@@ -18,11 +18,11 @@
 
 
 	<section id="main-info">
-		<section class="img">
-			{% if project.img %}
-			<img src="{{ project.img.url }}">
-			{% endif %}
-		</section>
+		{% if project.img %}
+		<figure class="img">
+			<img src="{{ project.img.url }}" alt="imagem do {{ project.name }}">
+		</figure>
+		{% endif %}
 
 		<blockquote class="relevant-fact">
 			{{ project.relevant_fact|linebreaks }}
