@@ -18,7 +18,6 @@ from ..views import (
     EditProfessionalInfo,
     EditSecuritySettings,
     EditUserAddress,
-    Profile,
     Signup,
 )
 
@@ -58,21 +57,6 @@ class SignupTestCase(TestCase):
             set(['email', 'full_name', 'password']))
 
 
-class ProfileTestCase(TestCase):
-
-    url = reverse('accounts:profile')
-
-    def test_inherits_login_required_mixin(self):
-        self.assertTrue(issubclass(Profile, LoginRequiredMixin))
-
-    def test_template_used(self):
-        data = {'email': 'user@example.com', 'password': '123'}
-        User.objects.create_user(**data)
-        self.client.login(username=data['email'], password=data['password'])
-        resp = self.client.get(self.url)
-        self.assertTemplateUsed(resp, 'accounts/profile.html')
-
-
 class LoginTestCase(TestCase):
 
     url = reverse('accounts:login')
@@ -88,16 +72,16 @@ class LoginTestCase(TestCase):
             'username': data['email'],
             'password': data['password'],
         })
-        self.assertRedirects(response, reverse('accounts:profile'))
+        self.assertRedirects(response, reverse('accounts:edit_dashboard'))
 
-    def test_logged_user_should_be_redirected_to_profile(self):
+    def test_logged_user_should_be_redirected_to_dashboard(self):
         data = {'email': 'user@example.com', 'password': '123'}
         User.objects.create_user(**data)
         self.assertTrue(self.client.login(
             username=data['email'], password=data['password']))
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('accounts:profile'))
+        self.assertRedirects(response, reverse('accounts:edit_dashboard'))
 
 
 class LogoutTestCase(TestCase):

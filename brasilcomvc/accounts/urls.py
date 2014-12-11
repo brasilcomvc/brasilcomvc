@@ -13,7 +13,6 @@ from .views import (
     EditProfessionalInfo,
     EditSecuritySettings,
     EditUserAddress,
-    Profile,
     Signup,
 )
 
@@ -38,10 +37,6 @@ urlpatterns = (
     # Password Reset Confirm
     url(r'^esqueci-senha/redefinir/(?P<uidb64>[^-]+)-(?P<token>[^$]+)$',
         password_reset_confirm, name='password_reset_confirm'),
-
-    # User Profile
-    url(r'^profile/$',
-        Profile.as_view(), name='profile'),
 
     # User Signup
     url(r'^cadastro/$',

@@ -29,10 +29,6 @@ from .forms import (
 )
 
 
-class Profile(LoginRequiredMixin, TemplateView):
-    template_name = 'accounts/profile.html'
-
-
 class Signup(AnonymousRequiredMixin, CreateView):
     '''
     User Signup
@@ -58,7 +54,7 @@ class Signup(AnonymousRequiredMixin, CreateView):
 
 def login(request, *args, **kwargs):
     if request.user and request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('accounts:profile'))
+        return HttpResponseRedirect(reverse('accounts:edit_dashboard'))
     return auth_login(
         request,
         authentication_form=LoginForm,

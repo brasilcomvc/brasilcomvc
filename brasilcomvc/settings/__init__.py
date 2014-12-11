@@ -95,7 +95,7 @@ SITE_ID = 1
 # Authentication
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = reverse_lazy('accounts:login')
-LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:edit_dashboard')
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
