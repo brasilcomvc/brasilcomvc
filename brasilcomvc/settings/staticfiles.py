@@ -86,16 +86,17 @@ PIPELINE_JS = {
 }
 
 # Binaries (this settings assumes you've installed all node modules locally)
-PIPELINE_COFFEE_SCRIPT_BINARY = os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'coffee')
-PIPELINE_STYLUS_BINARY = os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'stylus')
-PIPELINE_YUGLIFY_BINARY = os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'yuglify')
+_node_modules = os.path.join(BASE_DIR, '../node_modules/.bin')
+PIPELINE_COFFEE_SCRIPT_BINARY = os.path.join(_node_modules, 'coffee')
+PIPELINE_STYLUS_BINARY = os.path.join(_node_modules, 'stylus')
+PIPELINE_YUGLIFY_BINARY = os.path.join(_node_modules, 'yuglify')
 
 # Statics on S3
 if os.environ.get('STATIC_BACKEND', 'local') == 's3':
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-    AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_S3_CUSTOM_DOMAIN',
-                                          '{}.s3.amazonaws.com'.format(
-                                                AWS_STORAGE_BUCKET_NAME))
+    AWS_S3_CUSTOM_DOMAIN = os.environ.get(
+        'AWS_S3_CUSTOM_DOMAIN',
+        '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME))
     AWS_S3_URL_PROTOCOL = 'https:'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     STATIC_URL = '%s//%s/' % (AWS_S3_URL_PROTOCOL, AWS_S3_CUSTOM_DOMAIN)

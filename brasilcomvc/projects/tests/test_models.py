@@ -12,8 +12,7 @@ class ProjectTestCase(TestCase):
     def test_project_slug_gets_generated_correctly(self):
         project = Project(
             owner=User.objects.create_user('test@example.com', '123'),
-            name='This is a Test Project',
-        )
+            name='This is a Test Project')
         project.save()
         self.assertEqual(project.slug, 'this-is-a-test-project')
         old_slug = project.slug

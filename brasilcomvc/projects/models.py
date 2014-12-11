@@ -26,10 +26,11 @@ class Project(models.Model):
     how_to_help = models.TextField()
     requirements = models.TextField()
     tags = models.ManyToManyField('Tag', blank=True)
-    img = ProcessedImageField(upload_to=project_img_upload_to,
-                              processors=[ResizeToFill(640, 480)],
-                              format='JPEG',
-                              options={'quality': 80})
+    img = ProcessedImageField(
+        format='JPEG',
+        options={'quality': 80},
+        processors=[ResizeToFill(640, 480)],
+        upload_to=project_img_upload_to)
 
     name.verbose_name = 'nome'
     relevant_fact.verbose_name = 'fato relevante'
