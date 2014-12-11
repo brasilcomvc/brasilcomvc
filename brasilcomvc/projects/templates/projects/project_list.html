@@ -1,0 +1,44 @@
+{% extends 'projects/base.html' %}
+{% load firstof from future %}
+
+
+{% block title %}
+	Projetos
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} project-list
+{% endblock body_classes %}
+
+
+{% block content_content %}
+<section id="content">
+	<h1>Projetos</h1>
+
+	<ul>
+	{% for project in project_list %}
+		<li class="project">
+		<a href="{{ project.get_absolute_url }}">
+			<figure>
+				<img src="{{ project.img_thumbnail.url }}" alt="imagem do {{ project.name }}">
+			</figure>
+			<h2>{{ project.name }}</h2>
+			<div class="short-description">
+				{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
+			</div>
+			<div class="tags">
+				<ul>
+				{% for tag in project.tags.all %}
+					<li>{{ tag.name }}</li>
+				{% endfor %}
+				</ul>
+			</div>
+		</a>
+		</li>
+	{% empty %}
+		<p>Nenhum projeto disponível. :(</p>
+	{% endfor %}
+	</ul>
+</section>
+{% endblock content_content %}
