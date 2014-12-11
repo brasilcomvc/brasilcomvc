@@ -32,6 +32,7 @@ class Project(models.Model):
         options={'quality': 80},
         processors=[ResizeToFill(640, 480)],
         upload_to=project_img_upload_to)
+    video = models.URLField(null=True, blank=True)
 
     name.verbose_name = 'nome'
     relevant_fact.verbose_name = 'fato relevante'
@@ -39,6 +40,7 @@ class Project(models.Model):
     short_description.verbose_name = 'descrição curta'
     how_to_help.verbose_name = 'como ajudar'
     requirements.verbose_name = 'requisitos'
+    video.verbose_name = 'vídeo'
 
     class Meta:
         verbose_name = 'Projeto'
