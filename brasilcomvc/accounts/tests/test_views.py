@@ -28,7 +28,7 @@ User = get_user_model()
 
 class SignupTestCase(TestCase):
 
-    url = reverse('signup')
+    url = reverse('accounts:signup')
 
     def test_signup_page_is_accessible(self):
         response = self.client.get(self.url)
@@ -60,7 +60,7 @@ class SignupTestCase(TestCase):
 
 class ProfileTestCase(TestCase):
 
-    url = reverse('profile')
+    url = reverse('accounts:profile')
 
     def test_inherits_login_required_mixin(self):
         self.assertTrue(issubclass(Profile, LoginRequiredMixin))
@@ -75,7 +75,7 @@ class ProfileTestCase(TestCase):
 
 class LoginTestCase(TestCase):
 
-    url = reverse('login')
+    url = reverse('accounts:login')
 
     def test_template_used(self):
         resp = self.client.get(self.url)
@@ -88,7 +88,7 @@ class LoginTestCase(TestCase):
             'username': data['email'],
             'password': data['password'],
         })
-        self.assertRedirects(response, reverse('profile'))
+        self.assertRedirects(response, reverse('accounts:profile'))
 
     def test_logged_user_should_be_redirected_to_profile(self):
         data = {'email': 'user@example.com', 'password': '123'}
@@ -97,19 +97,19 @@ class LoginTestCase(TestCase):
             username=data['email'], password=data['password']))
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('profile'))
+        self.assertRedirects(response, reverse('accounts:profile'))
 
 
 class LogoutTestCase(TestCase):
 
     def test_logout_redirect_to_login(self):
-        resp = self.client.get(reverse('logout'))
-        self.assertRedirects(resp, reverse('login'))
+        resp = self.client.get(reverse('accounts:logout'))
+        self.assertRedirects(resp, reverse('accounts:login'))
 
 
 class PasswordResetTestCase(TestCase):
 
-    url = reverse('password_reset')
+    url = reverse('accounts:password_reset')
 
     def _setup_user(self):
         self.user = User.objects.create(email='wat@example.com')
@@ -123,20 +123,20 @@ class PasswordResetTestCase(TestCase):
 
     def test_inexistent_email_submit_should_fail_silently(self):
         resp = self.client.post(self.url, {'email': 'nil@example.com'})
-        self.assertRedirects(resp, reverse('password_reset_sent'))
+        self.assertRedirects(resp, reverse('accounts:password_reset_sent'))
         self.assertEqual(len(mail.outbox), 0)
 
     def test_existent_email_submit_should_proceed(self):
         self._setup_user()
         resp = self.client.post(self.url, {'email': self.user.email})
-        self.assertRedirects(resp, reverse('password_reset_sent'))
+        self.assertRedirects(resp, reverse('accounts:password_reset_sent'))
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'Redefinição de senha')
 
     def test_reset_email_should_have_secret_link(self):
         self._setup_user()
         resp = self.client.post(self.url, {'email': self.user.email})
-        reset_url = reverse('password_reset_confirm', kwargs={
+        reset_url = reverse('accounts:password_reset_confirm', kwargs={
             'uidb64': resp.context['uid'],
             'token': resp.context['token']})
         self.assertIn('http://testserver' + reset_url, mail.outbox[0].body)
@@ -149,8 +149,8 @@ class ResetPasswordConfirmTestCase(TestCase):
         self.user.set_password('forgot-it')
         self.user.save()
         resp = self.client.post(
-            reverse('password_reset'), {'email': self.user.email})
-        self.url = reverse('password_reset_confirm', kwargs={
+            reverse('accounts:password_reset'), {'email': self.user.email})
+        self.url = reverse('accounts:password_reset_confirm', kwargs={
             'uidb64': resp.context['uid'],
             'token': resp.context['token']})
 
@@ -162,14 +162,14 @@ class ResetPasswordConfirmTestCase(TestCase):
         new_pwd = '123'
         resp = self.client.post(
             self.url, {'new_password1': new_pwd, 'new_password2': new_pwd})
-        self.assertRedirects(resp, reverse('login'))
+        self.assertRedirects(resp, reverse('accounts:login'))
         user = User.objects.get(id=self.user.id)
         self.assertTrue(user.check_password(new_pwd))
 
 
 class EditDashboardTestCase(TestCase):
 
-    url = reverse('edit_dashboard')
+    url = reverse('accounts:edit_dashboard')
 
     def setUp(self):
         data = {'email': 'user@example.com', 'password': '123'}
@@ -191,7 +191,7 @@ class EditDashboardTestCase(TestCase):
 
 class EditPersonalInfoTestCase(TestCase):
 
-    url = reverse('edit_personal_info')
+    url = reverse('accounts:edit_personal_info')
 
     def setUp(self):
         data = {'email': 'user@example.com', 'password': '123'}
@@ -213,7 +213,7 @@ class EditPersonalInfoTestCase(TestCase):
             'username': 'new_username',
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('edit_dashboard'))
+        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
@@ -221,7 +221,7 @@ class EditPersonalInfoTestCase(TestCase):
 
 class EditProfessionalInfoTestCase(TestCase):
 
-    url = reverse('edit_professional_info')
+    url = reverse('accounts:edit_professional_info')
 
     def setUp(self):
         data = {'email': 'user@example.com', 'password': '123'}
@@ -242,7 +242,7 @@ class EditProfessionalInfoTestCase(TestCase):
             'bio': 'I am an unusual person who does not like to write bios',
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('edit_dashboard'))
+        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
@@ -250,7 +250,7 @@ class EditProfessionalInfoTestCase(TestCase):
 
 class EditNotificationsTestCase(TestCase):
 
-    url = reverse('edit_notifications')
+    url = reverse('accounts:edit_notifications')
 
     def setUp(self):
         data = {'email': 'user@example.com', 'password': '123'}
@@ -270,7 +270,7 @@ class EditNotificationsTestCase(TestCase):
             'email_newsletter': True,
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('edit_dashboard'))
+        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
@@ -278,7 +278,7 @@ class EditNotificationsTestCase(TestCase):
 
 class EditSecuritySettingsTestCase(TestCase):
 
-    url = reverse('edit_security_settings')
+    url = reverse('accounts:edit_security_settings')
 
     def setUp(self):
         data = {'email': 'user@example.com', 'password': '123'}
@@ -296,14 +296,14 @@ class EditSecuritySettingsTestCase(TestCase):
             'new_password2': 'newpwd',
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('edit_dashboard'))
+        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
         user = User.objects.get(pk=self.user_id)
         self.assertTrue(user.check_password(data['new_password1']))
 
 
 class EditUserAddressTestCase(TestCase):
 
-    url = reverse('edit_user_address')
+    url = reverse('accounts:edit_user_address')
     fixtures = ('test_cities',)
 
     def setUp(self):
@@ -326,7 +326,7 @@ class EditUserAddressTestCase(TestCase):
             'city': city.id,
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('edit_dashboard'))
+        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
         address = UserAddress.objects.get(user_id=self.user_id)
         self.assertEqual(address.address_line1, data['address_line1'])
         self.assertEqual(address.address_line2, data['address_line2'])
@@ -351,7 +351,7 @@ class EditUserAddressTestCase(TestCase):
             'zipcode': '33333-333',
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('edit_dashboard'))
+        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
         address = UserAddress.objects.get(id=address.id)
         self.assertEqual(address.zipcode, data['zipcode'])
         self.assertEqual(address.address_line2, data['address_line2'])
@@ -359,7 +359,7 @@ class EditUserAddressTestCase(TestCase):
 
 class DeleteUserTest(TestCase):
 
-    url = reverse('delete_user')
+    url = reverse('accounts:delete_user')
 
     def _setup_user(self):
         data = {'email': 'user@example.com', 'password': '123'}
@@ -372,7 +372,7 @@ class DeleteUserTest(TestCase):
     def test_delete_user_view_template(self):
         self._setup_user()
 
-        resp = self.client.get(reverse('delete_user'))
+        resp = self.client.get(reverse('accounts:delete_user'))
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed(resp, 'accounts/delete-user.html')
 

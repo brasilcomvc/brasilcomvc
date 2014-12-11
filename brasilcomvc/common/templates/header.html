@@ -8,11 +8,11 @@
  	<nav class="main-nav">
 		<ul>
 		{% if request.user.is_authenticated %}
-			<li><a href="{% url 'edit_dashboard' %}">Minha Conta</a></li>
-			<li><a href="{% url 'logout' %}">Logout</a></li>
+			<li><a href="{% url 'accounts:edit_dashboard' %}">Minha Conta</a></li>
+			<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
 		{% else %}
-			<li><a class="proceed" href="{% url 'signup' %}">Cadastre-se</a></li>
-			<li><a href="{% url 'login' %}">Login</a></li>
+			<li><a class="proceed" href="{% url 'accounts:signup' %}">Cadastre-se</a></li>
+			<li><a href="{% url 'accounts:login' %}">Login</a></li>
 		{% endif %}
 		</ul>
  	</nav>

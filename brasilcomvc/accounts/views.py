@@ -38,7 +38,7 @@ class Signup(AnonymousRequiredMixin, CreateView):
     '''
 
     form_class = SignupForm
-    success_url = reverse_lazy('signup')
+    success_url = reverse_lazy('accounts:signup')
     template_name = 'accounts/signup.html'
 
     def form_valid(self, form):
@@ -49,7 +49,7 @@ class Signup(AnonymousRequiredMixin, CreateView):
 
 def login(request, *args, **kwargs):
     if request.user and request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('profile'))
+        return HttpResponseRedirect(reverse('accounts:profile'))
     return auth_login(
         request,
         authentication_form=LoginForm,
@@ -62,14 +62,14 @@ def logout(request):
     Logout user and redirect back to login page
     """
     logout_user(request)
-    return HttpResponseRedirect(reverse('login'))
+    return HttpResponseRedirect(reverse('accounts:login'))
 
 
 def password_reset(request):
     return django_password_reset(
         request,
         template_name='accounts/password_reset.html',
-        post_reset_redirect=reverse('password_reset_sent'),
+        post_reset_redirect=reverse('accounts:password_reset_sent'),
         subject_template_name='emails/password_reset_subject.txt',
         email_template_name='emails/password_reset.txt',
         html_email_template_name='emails/password_reset.html')
@@ -85,7 +85,7 @@ def password_reset_confirm(request, **kwargs):
     return django_password_reset_confirm(
         request,
         template_name='accounts/password_reset_confirm.html',
-        post_reset_redirect=reverse('login'),
+        post_reset_redirect=reverse('accounts:login'),
         **kwargs)
 
 
@@ -94,7 +94,7 @@ class BaseEditUser(LoginRequiredMixin):
     Base class for User Edit views.
     '''
 
-    success_url = reverse_lazy('edit_dashboard')
+    success_url = reverse_lazy('accounts:edit_dashboard')
 
     def get_object(self):
         return self.request.user

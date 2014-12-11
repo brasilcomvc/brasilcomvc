@@ -23,7 +23,7 @@
 		{% form_full form %}
 		<button type="submit">Login</button>
 	</form>
-	<p>Você não tem uma conta? <a href="{% url 'signup' %}">Cadastre-se</a></p>
-	<p><a href="{% url 'password_reset' %}">Esqueci minha senha</a>! :(</p>
+	<p>Você não tem uma conta? <a href="{% url 'accounts:signup' %}">Cadastre-se</a></p>
+	<p><a href="{% url 'accounts:password_reset' %}">Esqueci minha senha</a>! :(</p>
 </section>
 {% endblock content_content %}

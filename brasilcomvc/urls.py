@@ -17,7 +17,7 @@ urlpatterns = (
     url(r'^guideline/',
         include('brasilcomvc.guideline.urls', namespace='guideline')),
 
-    url(r'', include('brasilcomvc.accounts.urls')),
+    url(r'', include('brasilcomvc.accounts.urls', namespace='accounts')),
 
     url(r'', include('brasilcomvc.projects.urls', namespace='projects')),
 )
