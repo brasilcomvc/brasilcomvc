@@ -26,6 +26,7 @@ class Project(models.Model):
     how_to_help = models.TextField()
     requirements = models.TextField()
     tags = models.ManyToManyField('Tag', blank=True)
+    agenda = models.TextField(null=True, blank=True)
     img = ProcessedImageField(
         format='JPEG',
         options={'quality': 80},

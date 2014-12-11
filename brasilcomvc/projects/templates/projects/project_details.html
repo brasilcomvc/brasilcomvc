@@ -57,6 +57,10 @@
 			<h1>Organizador</h1>
 			{{ project.owner.get_full_name }}
 		</section>
+		<section class="agenda">
+			<h1>Agenda</h1>
+			{{ project.agenda|linebreaks }}
+		</section>
 	</section>
 </section>
 {% endblock content_content %}
