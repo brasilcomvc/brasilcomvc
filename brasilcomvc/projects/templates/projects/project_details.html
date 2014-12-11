@@ -19,8 +19,9 @@
 
 	<section id="main-info">
 		{% if project.img %}
-		<figure class="img">
-			<img src="{{ project.img.url }}" alt="imagem do {{ project.name }}">
+		<figure class="img"
+		{% if project.video %}data-video="{{ project.video }}"{% endif %}>
+			<img id="project-video" src="{{ project.img.url }}" alt="imagem do {{ project.name }}">
 		</figure>
 		{% endif %}
 
@@ -64,3 +65,9 @@
 	</section>
 </section>
 {% endblock content_content %}
+
+
+{% block js %}
+	{{ block.super }}
+	<script src="//www.youtube.com/iframe_api"></script>
+{% endblock js %}
