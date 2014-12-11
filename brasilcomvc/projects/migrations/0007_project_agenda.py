@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='project',
             name='agenda',
-            field=models.TextField(null=True, blank=True),
+            field=models.TextField(default='', blank=True),
             preserve_default=True,
         ),
     ]
