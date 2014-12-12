@@ -190,4 +190,5 @@ class DeleteUser(LoginRequiredMixin, FormView):
 
         # Put deleted_email into session for feedback form consumption
         self.request.session['deleted_email'] = email
-        return HttpResponseRedirect(reverse('feedback:create'))
+        return HttpResponseRedirect('{}?next={}'.format(
+            reverse('feedback:create'), reverse('accounts:login')))

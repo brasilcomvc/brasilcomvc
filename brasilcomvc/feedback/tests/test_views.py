@@ -37,8 +37,9 @@ class CreateViewTestCase(TestCase):
             'comments': 'A nice comment',
         }
 
-        resp = self.client.post(self.url, data=data)
-        self.assertRedirects(resp, reverse('feedback:confirm'))
+        next_url = reverse('feedback:create')
+        resp = self.client.post('{}?next={}'.format(self.url, next_url), data)
+        self.assertRedirects(resp, next_url)
 
         self.assertEqual(Feedback.objects.count(), 1)
         feedback = Feedback.objects.get()
@@ -51,14 +52,3 @@ class CreateViewTestCase(TestCase):
         self.assertEqual(feedback.comments, 'A nice comment')
         self.assertNotIn('deleted_email', self.client.session,
                          'Session wasn\'t properly cleaned')
-
-
-class ConfirmViewTestCase(TestCase):
-
-    url = reverse('feedback:confirm')
-
-    def test_template_used(self):
-        resp = self.client.get(self.url)
-        self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'feedback/confirm.html')
-
