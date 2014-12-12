@@ -14,6 +14,7 @@ def project_img_upload_to(instance, filename):
     return 'projects/{}/img.jpeg'.format(instance.slug)
 
 
+@python_2_unicode_compatible
 class Project(models.Model):
 
     owner = models.ForeignKey(
@@ -51,7 +52,7 @@ class Project(models.Model):
         verbose_name = 'Projeto'
         verbose_name_plural = 'Projetos'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
