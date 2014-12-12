@@ -70,3 +70,18 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ProjectApply(models.Model):
+
+    volunteer = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='applications', editable=False)
+    project = models.ForeignKey(
+        'Project', related_name='applications', editable=False)
+    message = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    message.verbose_name = 'mensagem'
+
+    class Meta:
+        unique_together = ('project', 'volunteer',)
