@@ -53,6 +53,7 @@ class ProjectApplyTestCase(TestCase):
         self.client.login(username=self.volunteer.email, password='123')
         resp = self.client.get(self.url)
         self.assertTemplateUsed(resp, 'projects/project_apply.html')
+        self.assertContains(resp, self.project.name)
 
     def test_volunteer_is_able_to_apply(self):
         self.client.login(username=self.volunteer.email, password='123')

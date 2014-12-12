@@ -47,3 +47,8 @@ class ProjectApply(LoginRequiredMixin, CreateView):
         application.send_volunteer_email()
 
         return super(ProjectApply, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        return dict(
+            super(ProjectApply, self).get_context_data(**kwargs),
+            project=self.get_project())
