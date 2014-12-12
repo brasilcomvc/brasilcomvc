@@ -1,0 +1,24 @@
+{% extends 'projects/base.html' %}
+{% load form_utils %}
+
+
+{% block title %}
+	Participar do projeto
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} project-apply
+{% endblock body_classes %}
+
+
+{% block content_content %}
+<section id="content">
+	<h1>Participar do projeto</h1>
+
+	<form method="POST">
+		{% form_full form %}
+		<button type="submit">Participar</button>
+	</form>
+</section>
+{% endblock content_content %}
