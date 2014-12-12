@@ -9,6 +9,8 @@ from django.utils.text import slugify
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
 
+from brasilcomvc.common.email import send_template_email
+
 
 def project_img_upload_to(instance, filename):
     return 'projects/{}/img.jpeg'.format(instance.slug)
@@ -85,3 +87,22 @@ class ProjectApply(models.Model):
 
     class Meta:
         unique_together = ('project', 'volunteer',)
+
+    def _get_email_context(self):
+        return {
+            attr: getattr(self, attr)
+            for attr in ('message', 'project', 'volunteer',)}
+
+    def send_owner_email(self):
+        send_template_email(
+            subject='Alguém se inscreveu no seu projeto!',
+            to=self.project.owner.email,
+            template_name='emails/project_apply_owner.html',
+            context=self._get_email_context())
+
+    def send_volunteer_email(self):
+        send_template_email(
+            subject='Você se inscreveu num projeto!',
+            to=self.volunteer.email,
+            template_name='emails/project_apply_volunteer.html',
+            context=self._get_email_context())

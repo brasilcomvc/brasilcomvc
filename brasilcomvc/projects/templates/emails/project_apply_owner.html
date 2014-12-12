@@ -1,0 +1,10 @@
+{% extends 'emails/base.html' %}
+
+
+{% block body %}
+	Parabéns, <strong>{{ volunteer.get_short_name }}</strong> se inscreveu no
+	projeto {{ project.name }}!
+	<br>
+	<br>
+	<strong>Mensagem:</strong> {{ message }}
+{% endblock body %}

@@ -42,4 +42,8 @@ class ProjectApply(LoginRequiredMixin, CreateView):
         application.volunteer = form.volunteer
         application.save()
 
+        # Send emails to the involved parts
+        application.send_owner_email()
+        application.send_volunteer_email()
+
         return super(ProjectApply, self).form_valid(form)
