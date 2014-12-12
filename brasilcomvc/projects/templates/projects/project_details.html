@@ -53,6 +53,11 @@
 			{% endfor %}
 			</ul>
 		</section>
+		<section class="apply">
+			<p>
+				<a class="button" href="{% url 'projects:project_apply' slug=project.slug %}">Participar</a>
+			</p>
+		</section>
 		<section class="owner">
 			<h1>Organizador</h1>
 			{{ project.owner.get_full_name }}
