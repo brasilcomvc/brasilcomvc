@@ -13,12 +13,14 @@ box-sizing-reset()
 	@import 'res-common/*'
 
 +media-query(breakpoint_smartphone)
+	#main-header
 	#main-content
 	#main-footer > section > div
 		gs('fluid', 4, 17%)
 	@import 'res-smartphone/*'
 
 +media-query(breakpoint_desktop)
+	#main-header
 	#main-content
 	#main-footer > section > div
 		gs('fixed', 12, 50px, 30px)
