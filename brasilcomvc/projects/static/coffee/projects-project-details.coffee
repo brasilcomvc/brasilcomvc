@@ -11,6 +11,7 @@ $(document).on 'click', '#main-content figure.img[data-video]', ->
 		playerVars:
 			autoplay: 1,
 			modestbranding: 1,
+			rel: 0,
 			theme: 'light',
 
 	# Drop `data-video` attribute
