@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.views.generic import CreateView
 
 from .forms import FeedbackForm
@@ -12,6 +13,10 @@ class Create(CreateView):
         return self.request.GET['next']
 
     def form_valid(self, form):
+        message = self.request.session.pop('feedback_success_message', None)
+        if message:
+            messages.success(self.request, message)
+
         self.request.session.pop('deleted_email')
         return super(Create, self).form_valid(form)
 
