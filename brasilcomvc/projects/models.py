@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_text, python_2_unicode_compatible
 from django.utils.text import slugify
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
@@ -63,6 +63,10 @@ class Project(models.Model):
         super(Project, self).save(**kwargs)
 
 
+@python_2_unicode_compatible
 class Tag(models.Model):
 
     name = models.CharField(max_length=24)
+
+    def __str__(self):
+        return self.name
