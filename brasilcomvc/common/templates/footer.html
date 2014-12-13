@@ -1,9 +1,15 @@
 <section id="footer-content">
-	<div>
-		<p class="logo">
-			<img alt="Logo do Brasil.com.vc" src="https://brasil-com-vc.s3.amazonaws.com/img/logo-s.png">
-		</p>
-	</div>
+<div>
+	<p class="logo">
+		<img alt="Logo do Brasil.com.vc" src="https://brasil-com-vc.s3.amazonaws.com/img/logo-s.png">
+	</p>
+	<section id="sitemap">
+		<ul>
+			<li><a href="{% url 'portal:about' %}">Sobre</a></li>
+			<li><a href="{% url 'portal:how_it_works' %}">Como Funciona</a></li>
+		</ul>
+	</section>
+</div>
 </section>
 
 <section id="bottomline">
