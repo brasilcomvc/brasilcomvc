@@ -1,3 +1,6 @@
+# coding: utf8
+from __future__ import unicode_literals
+
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import authenticate, login as login_user
 from django.contrib.auth import logout as logout_user
@@ -8,6 +11,7 @@ from django.contrib.auth.views import (
     password_reset_done as django_password_reset_done,
     password_reset_confirm as django_password_reset_confirm,
 )
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 
 from django.views.generic import (
@@ -48,6 +52,12 @@ class Signup(AnonymousRequiredMixin, CreateView):
 
         # Send welcome email upon signup
         user.send_welcome_email()
+
+        # Display a welcome message
+        messages.info(
+            self.request,
+            'Parabéns! Você agora está cadastrado e já pode buscar projetos '
+            'para participar. Bem vindo e mãos à obra!')
 
         return response
 
@@ -99,10 +109,15 @@ class BaseEditUser(LoginRequiredMixin):
     Base class for User Edit views.
     '''
 
+    success_message = 'Dados alterados com sucesso!'
     success_url = reverse_lazy('accounts:edit_dashboard')
 
     def get_object(self):
         return self.request.user
+
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return super(BaseEditUser, self).form_valid(form)
 
 
 class EditDashboard(BaseEditUser, DetailView):
@@ -131,6 +146,7 @@ class EditNotifications(BaseEditUser, UpdateView):
 class EditSecuritySettings(BaseEditUser, UpdateView):
 
     form_class = PasswordChangeForm
+    success_message = 'Configurações de segurança atualizadas com sucesso!'
     template_name = 'accounts/edit_security_settings.html'
 
     def get_form_kwargs(self):
@@ -174,4 +190,7 @@ class DeleteUser(LoginRequiredMixin, FormView):
 
         # Put deleted_email into session for feedback form consumption
         self.request.session['deleted_email'] = email
-        return HttpResponseRedirect(reverse('feedback:create'))
+        self.request.session['feedback_success_message'] = (
+            'Sua conta foi excluída. Até logo! :(')
+        return HttpResponseRedirect('{}?next={}'.format(
+            reverse('feedback:create'), reverse('accounts:login')))

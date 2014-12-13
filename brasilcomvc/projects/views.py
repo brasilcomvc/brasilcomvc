@@ -1,3 +1,7 @@
+# coding: utf8
+from __future__ import unicode_literals
+
+from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DetailView, ListView
 
@@ -45,6 +49,12 @@ class ProjectApply(LoginRequiredMixin, CreateView):
         # Send emails to the involved parts
         application.send_owner_email()
         application.send_volunteer_email()
+
+        # Display a message
+        messages.success(
+            self.request,
+            'Inscrição realizada com sucesso! Você agora está participando '
+            'deste projeto.')
 
         return super(ProjectApply, self).form_valid(form)
 

@@ -28,6 +28,16 @@
 		</header>
 		{% endblock header %}
 
+		{% block messages %}
+		<section id="messages">
+			<ul>
+			{% for message in messages %}
+				<li class="message {{ message.tags }}">{{ message }}</li>
+			{% endfor %}
+			</ul>
+		</section>
+		{% endblock messages %}
+
 		{% block content %}
 		<section id="main-content">
 			{% block content_content %}

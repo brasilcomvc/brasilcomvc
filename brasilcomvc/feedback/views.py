@@ -1,5 +1,5 @@
-from django.core.urlresolvers import reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.contrib import messages
+from django.views.generic import CreateView
 
 from .forms import FeedbackForm
 
@@ -7,10 +7,16 @@ from .forms import FeedbackForm
 class Create(CreateView):
 
     form_class = FeedbackForm
-    success_url = reverse_lazy('feedback:confirm')
     template_name = 'feedback/create.html'
 
+    def get_success_url(self):
+        return self.request.GET['next']
+
     def form_valid(self, form):
+        message = self.request.session.pop('feedback_success_message', None)
+        if message:
+            messages.success(self.request, message)
+
         self.request.session.pop('deleted_email')
         return super(Create, self).form_valid(form)
 
@@ -22,7 +28,3 @@ class Create(CreateView):
                 'email': self.request.session['deleted_email'],
             })
         return kwargs
-
-
-class Confirm(TemplateView):
-    template_name = 'feedback/confirm.html'
