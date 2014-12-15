@@ -7,7 +7,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
-from imagekit.models import ProcessedImageField
+from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
 
 from brasilcomvc.common.email import send_template_email
@@ -48,6 +48,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         options={'quality': 80},
         processors=[ResizeToFill(256, 256)],
         upload_to=user_picture_upload_to)
+    picture_medium = ImageSpecField(
+        format='JPEG',
+        options={'quality': 80},
+        processors=[ResizeToFill(128, 128)],
+        source='picture')
+    picture_small = ImageSpecField(
+        format='JPEG',
+        options={'quality': 80},
+        processors=[ResizeToFill(50, 50)],
+        source='picture')
 
     # Professional Info
     job_title = models.CharField(max_length=80, null=True, blank=True)
