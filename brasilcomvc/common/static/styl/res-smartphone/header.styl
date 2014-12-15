@@ -13,6 +13,8 @@ body
 			transform: translate(-50%, -50%)
 
 		.main-nav
+			user-picture-size = 5rem
+
 			background: color_text_lighter
 			fixed: 0 false 0 0
 			transition: time_animation
@@ -20,9 +22,16 @@ body
 
 			ul
 				margin: 1em
+				padding-top: user-picture-size + 2rem
 
 			a
 				display: block !important
+
+			figure.user-picture
+				absolute: 0 false false 50%
+				margin-top: 1rem
+				size: user-picture-size
+				transform: translateX(-50%)
 
 			// trigger button
 			&:before
