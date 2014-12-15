@@ -19,6 +19,11 @@
 
 	<section class="page-content" id="personal_info">
 		<h1>Informações Pessoais</h1>
+		{% if object.picture %}
+		<figure class="user-picture">
+			<img src="{{ object.picture_medium.url }}" alt="foto de {{ object.get_short_name }}">
+		</figure>
+		{% endif %}
 		<dl>
 			<dt>Nome</dt>
 			<dd>{{ object.get_full_name }}</dd>
