@@ -6,10 +6,15 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-
 from django.db import models
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 from brasilcomvc.common.email import send_template_email
+
+
+def user_picture_upload_to(instance, filename):
+    return 'users/{email[0]}/{email}.png'.format(email=instance.email)
 
 
 class UserManager(BaseUserManager):
@@ -37,6 +42,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     full_name = models.CharField('Nome Completo', max_length=255)
     username = models.SlugField(max_length=30, null=True, blank=True)
+    picture = ProcessedImageField(
+        null=True, blank=True,
+        format='PNG',
+        processors=[ResizeToFill(256, 256)],
+        upload_to=user_picture_upload_to)
 
     # Professional Info
     job_title = models.CharField(max_length=80, null=True, blank=True)

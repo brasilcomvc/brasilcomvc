@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..models import User
+from ..models import User, user_picture_upload_to
 
 
 class UserManagerTestCase(TestCase):
@@ -40,3 +40,9 @@ class UserTestCase(TestCase):
     def test_short_name_with_no_name(self):
         user = User(full_name='')
         self.assertEqual(user.get_short_name(), '')
+
+    def test_user_picture_upload_to(self):
+        user = User(email='user@example.com')
+        filename = 'wat.png'
+        expected = 'users/u/user@example.com.png'
+        self.assertEqual(user_picture_upload_to(user, filename), expected)
