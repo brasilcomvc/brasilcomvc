@@ -28,6 +28,8 @@ form
 			font-weight: bold
 
 	label
+		clearfix()
+
 		label
 		strong
 			font-weight: normal
@@ -63,6 +65,7 @@ form
 	input[type='password']
 	input[type='search']
 	input[type='text']
+	input[type='file']
 	select
 	textarea
 		@extend $text-input
@@ -77,6 +80,17 @@ form
 	textarea
 		min-height: 7rem
 		padding: 1rem
+
+	input[type='file']
+		display: block
+		width: calc(100% \- 9em)
+		padding: 1rem
+
+		&::-webkit-file-upload-button
+			background: none
+			border: none
+			padding: 0
+			width: 0
 
 	input[type='checkbox']
 	input[type='radio']
@@ -138,4 +152,12 @@ form
 			background: color_text_lighter
 			size: base-size * 0.5
 			transform: translate(-50%, -50%)
+
+	figure.image-preview
+		float: right
+		text-align: right
+
+		img
+			margin-bottom: 1em
+			width: 8em
 
