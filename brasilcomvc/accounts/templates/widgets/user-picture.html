@@ -1,0 +1,13 @@
+{% if user.picture %}
+<figure class="user-picture">
+	<img
+		{% if size == 'small' %}
+			src="{{ user.picture_small.url }}"
+		{% elif size == 'medium' %}
+			src="{{ user.picture_medium.url }}"
+		{% elif size == 'big' or size == None %}
+			src="{{ user.picture.url }}"
+		{% endif %}
+		alt="foto de {{ user.get_short_name }}">
+</figure>
+{% endif %}

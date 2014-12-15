@@ -10,13 +10,9 @@
 		{% if request.user.is_authenticated %}
 			<li><a href="{% url 'accounts:edit_dashboard' %}">Minha Conta</a></li>
 			<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
-			{% if object.picture %}
 			<li>
-				<figure class="user-picture">
-					<img src="{{ request.user.picture_small.url }}" alt="foto de {{ request.user.get_short_name }}">
-				</figure>
+				{% include 'widgets/user-picture.html' with user=request.user size='small' %}
 			</li>
-			{% endif %}
 		{% else %}
 			<li><a class="proceed" href="{% url 'accounts:signup' %}">Cadastre-se</a></li>
 			<li><a href="{% url 'accounts:login' %}">Login</a></li>
