@@ -188,7 +188,8 @@ class EditPersonalInfoTestCase(TestCase):
 
     def test_form_should_have_right_fields_only(self):
         self.assertEqual(
-            EditPersonalInfo.fields, ('full_name', 'username', 'email',))
+            EditPersonalInfo.fields,
+            ('full_name', 'username', 'email', 'picture',))
 
     def test_correct_form_submit_should_update_data(self):
         data = {

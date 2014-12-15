@@ -65,6 +65,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email.verbose_name = 'e-mail'
     full_name.verbose_name = 'nome completo'
     username.verbose_name = 'nome de usuário'
+    picture.verbose_name = 'foto do usuário'
     job_title.verbose_name = 'profissão'
     bio.verbose_name = 'biografia'
 

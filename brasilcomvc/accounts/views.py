@@ -128,7 +128,7 @@ class EditDashboard(BaseEditUser, DetailView):
 class EditPersonalInfo(BaseEditUser, UpdateView):
 
     template_name = 'accounts/edit_personal_info.html'
-    fields = ('full_name', 'username', 'email',)
+    fields = ('full_name', 'username', 'email', 'picture',)
 
 
 class EditProfessionalInfo(BaseEditUser, UpdateView):
