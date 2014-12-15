@@ -44,5 +44,5 @@ class UserTestCase(TestCase):
     def test_user_picture_upload_to(self):
         user = User(email='user@example.com')
         filename = 'wat.png'
-        expected = 'users/u/user@example.com.png'
+        expected = 'users/u/user@example.com.jpg'
         self.assertEqual(user_picture_upload_to(user, filename), expected)

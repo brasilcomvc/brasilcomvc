@@ -14,7 +14,7 @@ from brasilcomvc.common.email import send_template_email
 
 
 def user_picture_upload_to(instance, filename):
-    return 'users/{email[0]}/{email}.png'.format(email=instance.email)
+    return 'users/{email[0]}/{email}.jpg'.format(email=instance.email)
 
 
 class UserManager(BaseUserManager):
@@ -44,7 +44,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.SlugField(max_length=30, null=True, blank=True)
     picture = ProcessedImageField(
         null=True, blank=True,
-        format='PNG',
+        format='JPEG',
+        options={'quality': 80},
         processors=[ResizeToFill(256, 256)],
         upload_to=user_picture_upload_to)
 
