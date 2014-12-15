@@ -67,7 +67,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'usuário'
 
     def get_short_name(self):
-        return self.full_name.split()[0]
+        return self.full_name.split()[0] if self.full_name else ''
 
     def get_full_name(self):
         return self.full_name
