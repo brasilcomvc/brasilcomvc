@@ -14,7 +14,7 @@ from brasilcomvc.common.email import send_template_email
 
 
 def user_picture_upload_to(instance, filename):
-    return 'users/{email[0]}/{email}.jpg'.format(email=instance.email)
+    return 'users/{}/picture.jpg'.format(instance.pk)
 
 
 class UserManager(BaseUserManager):
