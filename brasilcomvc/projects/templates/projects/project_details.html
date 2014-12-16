@@ -13,10 +13,11 @@
 
 
 {% block content_content %}
-<section id="content">
-	<h1>{{ project.name }}</h1>
+	<header class="page-title">
+		<h1>{{ project.name }}</h1>
+	</header>
 
-	<section id="main-info">
+	<section class="page-content" id="main-info">
 		{% if project.img %}
 		<figure class="img"
 		{% if project.video %}data-video="{{ project.video }}"{% endif %}>
@@ -41,7 +42,7 @@
 		</section>
 	</section>
 
-	<section id="extra-info">
+	<section class="page-content" id="extra-info">
 		<section class="short-description">
 			<h1>Resumo</h1>
 			{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
@@ -74,7 +75,6 @@
 			{{ project.agenda|linebreaks }}
 		</section>
 	</section>
-</section>
 {% endblock content_content %}
 
 

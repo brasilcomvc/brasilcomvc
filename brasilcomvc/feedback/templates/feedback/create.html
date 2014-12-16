@@ -12,20 +12,25 @@
 
 
 {% block content_content %}
-	<h1>Ajude-nos a melhorar!</h1>
-	<p>
-		Conte pra gente quais foram os motivos que te levaram a apagar sua conta! Utilizaremos estes dados para melhorar nosso serviço. As informações preenchidas aqui são enviadas anonimamente.
-	</p>
-	<br>
-	<br>
+	<header class="page-title">
+		<h1>Ajude-nos a melhorar!</h1>
+	</header>
 
-	<form method="POST">
-		<h2>Dê seu feedback</h2>
+	<section class="page-content">
+		<p>
+			Conte pra gente quais foram os motivos que te levaram a apagar sua conta! Utilizaremos estes dados para melhorar nosso serviço. As informações preenchidas aqui são enviadas anonimamente.
+		</p>
+		<br>
 		<br>
 
-		{% form_full form %}
+		<form method="POST">
+			<h2>Dê seu feedback</h2>
+			<br>
 
-		<button type="submit">Enviar</submit>
+			{% form_full form %}
 
-	</form>
+			<button type="submit">Enviar</submit>
+
+		</form>
+	</section>
 {% endblock content_content %}
