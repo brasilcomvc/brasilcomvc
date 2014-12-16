@@ -4,10 +4,13 @@ font_family_sans = 'Merriweather Sans', sans-serif
 
 
 // Sizes
-font_size_main = 14px
-font_size_s = .8571428571428571em
-font_size_m = 1em
-font_size_l = 1.1428571429em
-font_size_xl = 1.4285714285714286em
-font_size_xxl = 1.5714285714285714em
-font_size_xxxl = 3.4285714285714283em
+font_size_main = 0.875em
+
+
+// Proportional sizes; uses perfect fourth modular scale
+// http://kouto-swiss.io/docs.html#modular-scale
+font_size_s = modular-scale(1em, -1, ks-perfect-fourth)
+font_size_m = modular-scale(1em, 0, ks-perfect-fourth)
+font_size_l = modular-scale(1em, 1, ks-perfect-fourth)
+font_size_xl = modular-scale(1em, 2, ks-perfect-fourth)
+font_size_xxl = modular-scale(1em, 4, ks-perfect-fourth)
