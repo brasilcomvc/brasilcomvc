@@ -1,0 +1,18 @@
+{% load static %}
+
+
+<figure class="user-picture">
+{% if user.picture %}
+	<img
+		{% if size == 'small' %}
+			src="{{ user.picture_small.url }}"
+		{% elif size == 'medium' %}
+			src="{{ user.picture_medium.url }}"
+		{% elif size == 'big' or size == None %}
+			src="{{ user.picture.url }}"
+		{% endif %}
+		alt="foto de {{ user.get_short_name }}">
+{% else %}
+	<img src="{% static 'img/user-picture-default.png' %}" alt="foto vazia" title="{{ user.get_short_name }} não tem foto ainda">
+{% endif %}
+</figure>

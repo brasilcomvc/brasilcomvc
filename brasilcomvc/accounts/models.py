@@ -6,10 +6,15 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-
 from django.db import models
+from imagekit.models import ImageSpecField, ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 from brasilcomvc.common.email import send_template_email
+
+
+def user_picture_upload_to(instance, filename):
+    return 'users/{}/picture.jpg'.format(instance.pk)
 
 
 class UserManager(BaseUserManager):
@@ -37,6 +42,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     full_name = models.CharField('Nome Completo', max_length=255)
     username = models.SlugField(max_length=30, null=True, blank=True)
+    picture = ProcessedImageField(
+        null=True, blank=True,
+        format='JPEG',
+        options={'quality': 80},
+        processors=[ResizeToFill(256, 256)],
+        upload_to=user_picture_upload_to)
+    picture_medium = ImageSpecField(
+        format='JPEG',
+        options={'quality': 80},
+        processors=[ResizeToFill(128, 128)],
+        source='picture')
+    picture_small = ImageSpecField(
+        format='JPEG',
+        options={'quality': 80},
+        processors=[ResizeToFill(50, 50)],
+        source='picture')
 
     # Professional Info
     job_title = models.CharField(max_length=80, null=True, blank=True)
@@ -55,6 +76,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email.verbose_name = 'e-mail'
     full_name.verbose_name = 'nome completo'
     username.verbose_name = 'nome de usuário'
+    picture.verbose_name = 'foto do usuário'
     job_title.verbose_name = 'profissão'
     bio.verbose_name = 'biografia'
 

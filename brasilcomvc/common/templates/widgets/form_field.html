@@ -8,6 +8,22 @@ class="{{ classes|join:' ' }}">
 	{{ field }} <strong>{{ field.label }}</strong>
 	{% if field.errors %}{{ field.errors }}{% endif %}
 	{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
+{% elif field.field|type == 'ImageField' %}
+	<strong>{{ field.label }}</strong>
+	{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
+	{% if field.value %}
+		<figure class="image-preview">
+			<img src="{{ field.value.url }}">
+			<figcaption>
+				<label>
+					<input type="checkbox" name="{{ field.name }}-clear">
+					<span>Remover</span>
+				</label>
+			</figcaption>
+		</figure>
+	{% endif %}
+	<input type="file" name="{{ field.name }}">
+	{% if field.errors %}{{ field.errors }}{% endif %}
 {% else %}
 	<strong>{{ field.label }}</strong>
 	{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
