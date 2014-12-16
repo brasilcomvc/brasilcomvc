@@ -4,24 +4,23 @@ html
 
 body
 	color color_text_dark
-	font 300 1rem font_family_sans
-	padding: 1em 0
-
+	font-family: font_family_sans
+	font-weight: lighter
+	line-height: 1.45
 
 em
 	font-style: italic
 
-
 strong
 	font-weight: bold
 
-
 a[href]
-		color color_main1_default
-		text-decoration none
+	color color_main1_default
+	text-decoration none
 
-		&:hover
-			text-decoration underline
+	&:hover
+		text-decoration underline
+
 
 
 section#messages
@@ -48,36 +47,47 @@ section#messages
 		color: color_main4_dark
 
 
-#main-content
-	padding 2rem 0
+section#main-content
+	padding: 2rem 0
 
-	> header
-		border-bottom: 1px solid color_text_light
-		margin-bottom: 2rem
+	.page-title
+		margin-bottom: 3rem
+		text-align: center
 
-	h1
-		font font_size_xxxl font_family_sans
+		// Pull things together
+		> *
+			margin-bottom: 0
 
-	h2
-		font font_size_xxl font_family_sans
+		h1
+			font-size: font_size_xxl
 
-	section h1
-		font-size font_size_xxl
+		h2, p
+			color: color_text_medium
+			font-size: font_size_m
 
-	button
-	a.button
-		button()
+	.page-content
+		h1
+			font-size: font_size_xl
 
-	dl dt
-		font-weight 400
+		dl dt
+			font-weight: normal
 
-	figure
-	form
-	section
+		figure, form, section
+			margin-bottom: 2em
+
+		blockquote, dl, dd, p, ul, li
+			font-size: font_size_m
+			margin-bottom: 1em
+
+		p
+			text-align: justify
+
+		dt, h1, h2
+			margin-bottom 0.5em
+
+		button
+		a.button
+			button()
+
+	.page-content:not(:last-child)
 		margin-bottom: 2em
-
-	blockquote, dl, dl dd, p, ul, ul li
-		margin-bottom 1em
-
-	h1, h2, dl dt
-		margin-bottom 0.5em
