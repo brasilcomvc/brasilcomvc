@@ -13,13 +13,15 @@
 
 
 {% block content_content %}
-<section id="content">
-	<h1>Participar do projeto</h1>
-	<p>Você está se inscrevendo no projeto <strong>{{ project.name }}</strong>.</p>
+	<header class="page-title">
+		<h1>Participar do projeto</h1>
+		<p>Você está se inscrevendo no projeto <strong>{{ project.name }}</strong>.</p>
+	</header>
 
-	<form method="POST">
-		{% form_full form %}
-		<button type="submit">Participar</button>
-	</form>
-</section>
+	<section class="page-content">
+		<form method="POST">
+			{% form_full form %}
+			<button type="submit">Participar</button>
+		</form>
+	</section>
 {% endblock content_content %}

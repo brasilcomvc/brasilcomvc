@@ -13,12 +13,11 @@
 
 
 {% block content_content %}
-<section id="content">
-	<header>
+	<header class="page-title">
 		<h1>Minha conta</h1>
 	</header>
 
-	<section id="personal_info">
+	<section class="page-content" id="personal_info">
 		<h1>Informações Pessoais</h1>
 		<dl>
 			<dt>Nome</dt>
@@ -35,7 +34,7 @@
 		</p>
 	</section>
 
-	<section id="professional_info">
+	<section class="page-content" id="professional_info">
 		<h1>Informações Profissionais</h1>
 		<dl>
 			<dt>Profissão</dt>
@@ -49,7 +48,7 @@
 		</p>
 	</section>
 
-	<section id="notifications">
+	<section class="page-content" id="notifications">
 		<h1>Notificações</h1>
 		<ul>
 			<li class="{% if object.email_newsletter %}on{% endif %}">Receber novidades sobre o Brasil.com.vc.</li>
@@ -59,7 +58,7 @@
 		</p>
 	</section>
 
-	<section id="security_settings">
+	<section class="page-content" id="security_settings">
 		<h1>Segurança</h1>
 		<dl>
 			<dt>Senha</dt>
@@ -70,7 +69,7 @@
 		</p>
 	</section>
 
-	<section id="user_address">
+	<section class="page-content" id="user_address">
 	{% with user.address as address %}
 		<h1>Endereço</h1>
 		{% if address %}
@@ -101,12 +100,11 @@
 	{% endwith %}
 	</section>
 
-	<section id="delete_user">
+	<section class="page-content" id="delete_user">
 		<h1>Remover Conta</h1>
 		<p>Apagar minha conta no Brasil.com.vc</p>
 		<p>
 			<a class="button danger" href="{% url 'accounts:delete_user' %}">Remover Conta</a>
 		</p>
 	</section>
-</section>
 {% endblock content_content %}

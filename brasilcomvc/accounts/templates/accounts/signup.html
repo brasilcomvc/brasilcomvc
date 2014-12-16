@@ -13,16 +13,17 @@
 
 
 {% block content_content %}
-<section id="content">
-	<h1>Cadastro</h1>
-	<p>
-		<a href="{% url 'social:begin' 'facebook' %}" class="button facebook">Cadastrar com Facebook</a>
-	</p>
-	<p class="or">ou</p>
-	<form method="POST">
-		{% form_full form %}
-		<button type="submit">Cadastrar</button>
-	</form>
-	<p>Já é cadastrado? Faça <a href="{% url 'accounts:login' %}">login</a>.</p>
-</section>
+	<header class="page-title">
+		<h1>Cadastro</h1>
+	</header>
+
+	<section class="page-content">
+		<form method="POST">
+			<p><a href="{% url 'social:begin' 'facebook' %}" class="button facebook">Cadastrar com Facebook</a></p>
+			<p class="or">ou</p>
+			{% form_full form %}
+			<button type="submit">Cadastrar</button>
+		</form>
+		<p>Já é cadastrado? Faça <a href="{% url 'accounts:login' %}">login</a>.</p>
+	</section>
 {% endblock content_content %}
