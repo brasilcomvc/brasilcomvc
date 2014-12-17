@@ -57,7 +57,7 @@
 		</section>
 		<section class="apply">
 			<p>
-				<a class="button" href="{% url 'projects:project_apply' slug=project.slug %}">Participar</a>
+				<a class="button" href="{% url 'projects:project_apply' slug=project.slug %}">Quero participar</a>
 			</p>
 			{% with applications=project.applications.all %}
 				{% if applications %}
