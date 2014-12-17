@@ -12,9 +12,6 @@
 		{% if request.user.is_authenticated %}
 			<li><a href="{% url 'accounts:edit_dashboard' %}">Minha Conta</a></li>
 			<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
-			<li>
-				{% include 'widgets/user-picture.html' with user=request.user size='small' %}
-			</li>
 		{% else %}
 			<li><a class="proceed" href="{% url 'accounts:signup' %}">Cadastre-se</a></li>
 			<li><a href="{% url 'accounts:login' %}">Login</a></li>
