@@ -24,14 +24,18 @@ specific values, as defined below:
 - `DATABASE_URL` - Database connection URL (eg. `postgres://user:pass@server:port/db`)
 - `DEBUG` - Set debug mode (`'true'` or `'false'`)
 - `DEFAULT_FROM_EMAIL` - Email address to identify outcoming transactional emails
+- `EMAIL_HOST_PASSWORD` - Password to authenticate on the SMTP server
+- `EMAIL_HOST_USER` - Username to authenticate on the SMTP server
 - `EMAIL_HOST` - SMTP host name to be used for email sending
 - `EMAIL_PORT` - SMTP port to be used for email sending
-- `EMAIL_HOST_USER` - Username to authenticate on the SMTP server
-- `EMAIL_HOST_PASSWORD` - Password to authenticate on the SMTP server
 - `FACEBOOK_APP_KEY` - Facebook app key (used for registration)
 - `FACEBOOK_APP_SECRET` - Facebook app secret (used for registration)
+- `MAILING_ADDRESS` - Physical address of the organization running the project
 - `SECRET_KEY` - Unique and secret salt for passwords, hashes and session keys
 - `SENTRY_DSN` - Optional. Use this to configure your Sentry DSN.
+- `SNS_FACEBOOK` - URL of the Facebook fan page
+- `SNS_GOOGLEPLUS` - URL of the Google+ page
+- `SNS_TWITTER` - URL of the Twitter profile
 
 
 Setup static files

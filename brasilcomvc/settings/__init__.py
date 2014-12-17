@@ -19,14 +19,19 @@ from .staticfiles import *
 # Env-specific
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
+BASE_URL = os.environ.get('BASE_URL', '')
 DATABASES = {'default': dj_database_url.config(default='sqlite:///dev.sqlite')}
 DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
-SECRET_KEY = os.environ['SECRET_KEY']
 DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
 EMAIL_HOST = os.environ['EMAIL_HOST']
-EMAIL_PORT = os.environ['EMAIL_PORT']
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_PORT = os.environ['EMAIL_PORT']
+MAILING_ADDRESS = os.environ.get('MAILING_ADDRESS', '')
+SECRET_KEY = os.environ['SECRET_KEY']
+SNS_FACEBOOK = os.environ.get('SNS_FACEBOOK', '')
+SNS_GOOGLEPLUS = os.environ.get('SNS_GOOGLEPLUS', '')
+SNS_TWITTER = os.environ.get('SNS_TWITTER', '')
 
 
 # Application definition
