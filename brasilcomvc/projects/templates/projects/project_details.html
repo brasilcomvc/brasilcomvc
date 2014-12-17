@@ -36,10 +36,12 @@
 			<h1>Como ajudar</h1>
 			{{ project.how_to_help|linebreaks }}
 		</section>
+		{% if project.requirements %}
 		<section class="requirements">
 			<h1>Requisitos</h1>
 			{{ project.requirements|linebreaks }}
 		</section>
+		{% endif %}
 	</section>
 
 	<section class="page-content" id="extra-info">

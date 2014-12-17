@@ -27,7 +27,7 @@ class Project(models.Model):
     about = models.TextField()
     short_description = models.TextField(null=True, blank=True)
     how_to_help = models.TextField()
-    requirements = models.TextField()
+    requirements = models.TextField(blank=True)
     tags = models.ManyToManyField('Tag', blank=True)
     agenda = models.TextField(default='', blank=True)
     img = ProcessedImageField(
