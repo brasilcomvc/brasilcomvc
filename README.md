@@ -20,7 +20,7 @@ Environment settings
 Before running the Django server locally, you should set some environment-
 specific values, as defined below:
 
-- `BASE_URL` - Main URL where the app will be available
+- `BASE_URL` - Main URL where the app will be available (NO TRAILING SLASH!)
 - `DATABASE_URL` - Database connection URL (eg. `postgres://user:pass@server:port/db`)
 - `DEBUG` - Set debug mode (`'true'` or `'false'`)
 - `DEFAULT_FROM_EMAIL` - Email address to identify outcoming transactional emails
