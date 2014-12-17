@@ -1,10 +1,75 @@
+{% load static %}
+
+
+<!doctype html>
 <html>
 	<head>
 	{% block head %}
+		<meta charset="UTF-8">
+		<title>{{ subject }}</title>
 	{% endblock head %}
 	</head>
-	<body>
-	{% block body %}
-	{% endblock body %}
+	<body style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #505050">
+		<table style="background: #f2f2f2; border: none; border-collapse: collapse; min-width: 640px; width: 100%;">
+		<tbody>
+			<!-- header -->
+			<tr>
+				<td style="text-align: center; padding: 2em" colspan="3">
+					<img src="{% static 'img/logo.png' %}" alt="Brasil.com.vc">
+				</td>
+			</tr>
+
+			<!-- body -->
+			<tr>
+				<td></td>  <!-- left margin -->
+				<td style="background: #fff; border-bottom: 3px solid #e1e1e1; padding: 0; width: 600px">
+
+					<!-- colored bar -->
+					<table style="background: #f2f2f2; border: none; border-collapse: collapse; height: 8px; width: 100%;">
+					<tbody>
+						<tr>
+							<td style="background: #27a9e1"></td>
+							<td style="background: #7fc241"></td>
+							<td style="background: #fff100"></td>
+						</tr>
+					</tbody>
+					</table>
+
+					<!-- email content -->
+					<div style="padding: 2em">
+						{% block body %}
+						{% endblock body %}
+
+						<p style="margin-top: 2em">
+							<span style="font-weight: bold">Abraços</span>,
+							<br><span style="font-style: italic">Brasil.com.vc</span>
+						</p>
+					</div>
+				</td>
+				<td></td>  <!-- right margin -->
+			</tr>
+
+			<!-- footer -->
+			<tr>
+				<td></td>  <!-- left margin -->
+				<td style="color: #7a7a7a; font-size: 11px; padding: 2em 0 2em 0">
+				{% block footer %}
+					<p>Procurando por projetos interessantes perto de você para participar?<br>
+					Siga-nos
+						{% if site_url %}· <a style="color: #27a9e1; text-decoration: none" href="{{ site_url }}">Brasil.com.vc</a>{% endif %}
+						{% if sns_facebook %}· <a style="color: #27a9e1; text-decoration: none" href="{{ sns_facebook }}">Facebook</a>{% endif %}
+						{% if sns_googleplus %}· <a style="color: #27a9e1; text-decoration: none" href="{{ sns_googleplus }}">Google+</a>{% endif %}
+						{% if sns_twitter %}· <a style="color: #27a9e1; text-decoration: none" href="{{ sns_twitter }}">Twitter</a>{% endif %}
+					</p>
+					<p>
+						Enviado por Brasil.com.vc
+						{% if mailing_address %}/ {{ mailing_address }}{% endif %}
+					</p>
+				{% endblock footer %}
+				</td>
+				<td></td>  <!-- right margin -->
+			</tr>
+		</tbody>
+		</table>
 	</body>
 </html>

@@ -2,9 +2,18 @@
 
 
 {% block body %}
-	Parabéns, <strong>{{ volunteer.get_short_name }}</strong> se inscreveu no
-	projeto {{ project.name }}!
-	<br>
-	<br>
-	<strong>Mensagem:</strong> {{ message }}
+	<h1 style="color: #7fc241;">Olá, {{ project.owner.get_short_name }}!</h1>
+	<p>
+		A ajuda está vindo. Mais um apoiador quer participar do seu projeto.
+		Leia abaixo o que ele diz sobre como ele pode te ajudar. Depois entre
+		em contato com o apoiador explicando quais serão os próximos passos
+		dele.
+	</p>
+	<div style="border: 1px solid #ccc; border-left: none; border-right: none; padding: 1em;">
+		<h2>{{ volunteer.get_short_name }}</h2>
+		<p><strong>Mensagem:</strong> {{ message }}</p>
+	</div>
+	<p style="text-align: center;">
+		<a href="mailto:{{ volunteer.email }}" style="background: #69ae29; border-radius: 3px; color: #fff; display: inline-block; font-size: 1.5em; padding: 1em; text-decoration: none;">Falar com o apoiador</a>
+	</p>
 {% endblock body %}

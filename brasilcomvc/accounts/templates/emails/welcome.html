@@ -2,5 +2,14 @@
 
 
 {% block body %}
-	Bem vindo, {{ user.get_short_name }}!
+	<h1 style="color: #7fc241;">Bem vindo, {{ user.get_short_name }}!</h1>
+	<p>
+		Você acaba de dar o primeiro passo para fazer o bem, seja ajudando a
+		realizar um projeto ou encontrando pessoas para apoiar o seu projeto.
+	</p>
+	<h2 style="text-align: center;">Agora dê o segundo passo:</h2>
+	<p style="text-align: center;">
+		<a href="{{ site_url }}" style="background: #0a8dc6; border-radius: 3px; color: #fff; display: inline-block; font-size: 1.5em; padding: 1em; text-decoration: none;">Apoie um projeto</a>
+	</p>
+	<p>Te esperamos lá para ajudar a mudar o Brasil.</p>
 {% endblock body %}

@@ -2,5 +2,14 @@
 
 
 {% block body %}
-	Parabéns, você se inscreveu no projeto <strong>{{ project.name }}</strong>!
+	<h1 style="color: #7fc241;">Parabéns, {{ volunteer.get_short_name }}!</h1>
+	<p>
+		Você se inscreveu no projeto <strong>{{ project.name }}</strong>. Em
+		breve você receberá o contato do organizador do projeto explicando como
+		você deve agir para ajuda-lo.
+	</p>
+	<p style="text-align: center;">
+		<a href="{{ site_url }}{{ project.get_absolute_url }}" style="background: #0a8dc6; border-radius: 3px; color: #fff; display: inline-block; font-size: 1.5em; padding: 1em; text-decoration: none;">Visualizar projeto</a>
+		<a href="mailto:{{ project.owner.email }}" style="background: #69ae29; border-radius: 3px; color: #fff; display: inline-block; font-size: 1.5em; padding: 1em; text-decoration: none;">Falar com o organizador</a>
+	</p>
 {% endblock body %}

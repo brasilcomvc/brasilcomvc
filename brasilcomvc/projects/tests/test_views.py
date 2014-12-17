@@ -69,7 +69,6 @@ class ProjectApplyTestCase(TestCase):
             set([self.volunteer.email, self.project.owner.email]))
         owner_email = emails_sent[self.project.owner.email]
         self.assertIn(self.volunteer.get_short_name(), owner_email.body)
-        self.assertIn(self.project.name, owner_email.body)
         self.assertIn(message, owner_email.body)
         volunteer_email = emails_sent[self.volunteer.email]
         self.assertIn(self.project.name, volunteer_email.body)
