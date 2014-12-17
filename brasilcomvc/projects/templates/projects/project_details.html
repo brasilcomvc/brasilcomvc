@@ -65,7 +65,7 @@
 			{% with applications=project.applications.all %}
 				<p class="applications">
 				{% if applications %}
-					<strong>{{ applications|length }}</strong> pessoas estão participando.
+					<strong>{{ applications|length }}</strong> pessoa{{ applications|length|pluralize }} est{{ applications|length|pluralize:"á,ão" }} participando.
 				{% else %}
 					Ninguém participando ainda. :(
 				{% endif %}
