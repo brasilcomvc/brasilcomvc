@@ -25,10 +25,13 @@
 		</figure>
 		{% endif %}
 
+		{% if project.relevant_fact %}
 		<blockquote class="relevant-fact">
 			<strong class="title">Você sabia?</strong>
 			{{ project.relevant_fact }}
 		</blockquote>
+		{% endif %}
+
 		<section class="about">
 			<h1>Sobre o projeto</h1>
 			{{ project.about|linebreaks }}
