@@ -7,6 +7,8 @@
  	</a>
  	<nav class="main-nav">
 		<ul>
+			<li><a href="{% url 'projects:project_list' %}">Projetos</a></li>
+			<li><a href="{% url 'portal:how_it_works' %}">Como Funciona</a></li>
 		{% if request.user.is_authenticated %}
 			<li><a href="{% url 'accounts:edit_dashboard' %}">Minha Conta</a></li>
 			<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
