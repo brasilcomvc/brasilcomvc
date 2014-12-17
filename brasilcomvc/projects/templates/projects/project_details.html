@@ -13,10 +13,6 @@
 
 
 {% block content_content %}
-	<header class="page-title">
-		<h1>{{ project.name }}</h1>
-	</header>
-
 	<section class="page-content" id="main-info">
 		{% if project.img %}
 		<figure class="img"
@@ -47,8 +43,10 @@
 	</section>
 
 	<section class="page-content" id="extra-info">
+
+		<h1 class="name">{{ project.name }}</h1>
+
 		<section class="short-description">
-			<h1>Resumo</h1>
 			{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
 		</section>
 		<section class="tags">
