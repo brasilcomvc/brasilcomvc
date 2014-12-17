@@ -1,15 +1,19 @@
 {% load static %}
 
+
 <section id="footer-content">
 <div>
 	<p class="logo">
 		<img alt="Logo do Brasil.com.vc" src="{% static 'img/logo-s.png' %}">
 	</p>
 	<section id="sitemap">
-		<ul>
-			<li><a href="{% url 'portal:about' %}">Sobre</a></li>
-			<li><a href="{% url 'portal:how_it_works' %}">Como Funciona</a></li>
-		</ul>
+		<div>
+			<h1>Brasil.com.vc</h1>
+			<ul>
+				<li><a href="{% url 'portal:about' %}">Sobre</a></li>
+				<li><a href="{% url 'portal:how_it_works' %}">Como Funciona</a></li>
+			</ul>
+		</div>
 	</section>
 </div>
 </section>
