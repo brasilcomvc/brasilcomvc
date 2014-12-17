@@ -61,11 +61,13 @@
 				<a class="button" href="{% url 'projects:project_apply' slug=project.slug %}">Quero participar</a>
 			</p>
 			{% with applications=project.applications.all %}
+				<p class="applications">
 				{% if applications %}
-					<p><strong>{{ applications|length }}</strong> pessoas estão participando.</p>
+					<strong>{{ applications|length }}</strong> pessoas estão participando.
 				{% else %}
-					<p>Ninguém participando ainda. :(</p>
+					Ninguém participando ainda. :(
 				{% endif %}
+				</p>
 			{% endwith %}
 		</section>
 		<section class="owner">
