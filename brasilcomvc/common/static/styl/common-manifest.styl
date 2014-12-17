@@ -20,6 +20,14 @@ box-sizing-reset()
 		gs('fluid', 4, 17%)
 	@import 'res-smartphone/*'
 
++media-query(breakpoint_tablet)
+	#main-header
+	#messages
+	#main-content
+	#main-footer > section > div
+		gs('fluid', 6, 12%)
+	@import 'res-tablet/*'
+
 +media-query(breakpoint_desktop)
 	#main-header
 	#messages
