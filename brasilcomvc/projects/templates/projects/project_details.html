@@ -72,6 +72,7 @@
 		</section>
 		<section class="owner">
 			<h1>Organizador</h1>
+			{% include 'widgets/user-picture.html' with user=project.owner size='small' %}
 			{{ project.owner.get_full_name }}
 		</section>
 		<section class="agenda">
