@@ -75,6 +75,7 @@ class Tag(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class ProjectApply(models.Model):
 
     volunteer = models.ForeignKey(
@@ -87,6 +88,9 @@ class ProjectApply(models.Model):
 
     class Meta:
         unique_together = ('project', 'volunteer',)
+
+    def __str__(self):
+        return '{}: {}'.format(self.project.name, self.volunteer.full_name)
 
     def _get_email_context(self):
         return {
