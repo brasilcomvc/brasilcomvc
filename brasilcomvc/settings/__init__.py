@@ -75,6 +75,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
+    'brasilcomvc.common.context_processors.social_auth_facebook_key',
 )
 
 TEMPLATE_DEBUG = DEBUG
