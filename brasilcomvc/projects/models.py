@@ -30,6 +30,9 @@ class Project(models.Model):
     requirements = models.TextField(blank=True)
     tags = models.ManyToManyField('Tag', blank=True)
     agenda = models.TextField(default='', blank=True)
+    address = models.CharField(max_length=255, verbose_name='Endereço')
+    location = models.CharField(max_length=255, verbose_name='Local',
+        help_text='Nome do local ou cidade/UF. E.g. Teatro Municipal ou São Paulo, SP')
     img = ProcessedImageField(
         format='JPEG',
         options={'quality': 80},

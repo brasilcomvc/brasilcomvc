@@ -42,6 +42,10 @@
 			{{ project.requirements|linebreaks }}
 		</section>
 		{% endif %}
+		<section class="address">
+			<h1>Endereço</h1>
+			{{ project.address }}
+		</section>
 	</section>
 
 	<section class="page-content" id="extra-info">
@@ -80,6 +84,10 @@
 		<section class="agenda">
 			<h1>Agenda</h1>
 			{{ project.agenda|linebreaks }}
+		</section>
+		<section class="location">
+			<h1>Local</h1>
+			{{ project.location }}
 		</section>
 	</section>
 {% endblock content_content %}
