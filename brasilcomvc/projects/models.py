@@ -81,10 +81,9 @@ class ProjectApply(models.Model):
         settings.AUTH_USER_MODEL, related_name='applications', editable=False)
     project = models.ForeignKey(
         'Project', related_name='applications', editable=False)
-    message = models.TextField()
+    message = models.TextField(
+        verbose_name='Conte-nos brevemente como você pode nos ajudar')
     created = models.DateTimeField(auto_now_add=True)
-
-    message.verbose_name = 'mensagem'
 
     class Meta:
         unique_together = ('project', 'volunteer',)
