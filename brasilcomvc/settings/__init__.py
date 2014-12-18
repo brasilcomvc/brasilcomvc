@@ -75,6 +75,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
+    'brasilcomvc.context_processors.sns_links',
 )
 
 TEMPLATE_DEBUG = DEBUG
