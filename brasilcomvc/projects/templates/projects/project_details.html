@@ -42,6 +42,11 @@
 			{{ project.requirements|linebreaks }}
 		</section>
 		{% endif %}
+		<section class="comments">
+			<h1>Comentários</h1>
+			<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5" data-colorscheme="light"></div>
+			</div>
+		</section>
 	</section>
 
 	<section class="page-content" id="extra-info">
@@ -88,4 +93,5 @@
 {% block js %}
 	{{ block.super }}
 	<script src="//www.youtube.com/iframe_api"></script>
+	<script src="//connect.facebook.net/pt_BR/sdk.js#xfbml=1&appId={{ SOCIAL_AUTH_FACEBOOK_KEY }}&version=v2.0"></script>
 {% endblock js %}
