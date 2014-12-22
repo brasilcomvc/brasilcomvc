@@ -15,6 +15,13 @@
 			</ul>
 		</div>
 	</section>
+	<section class="sns-links">
+		<ul>
+			{% if sns_facebook %}<li><a class="facebook" href="{{ sns_facebook }}">Facebook</a></li>{% endif %}
+			{% if sns_googleplus %}<li><a class="google-plus" href="{{ sns_googleplus }}">Google+</a></li>{% endif %}
+			{% if sns_twitter %}<li><a class="twitter" href="{{ sns_twitter }}">Twitter</a></li>{% endif %}
+		</ul>
+	</section>
 	<p class="copyright">
 		© Copyright 2014 - Todos os Direitos Reservados a Brasil.com.vc -
 		Mantido por <strong>The Brand Machine</strong>
