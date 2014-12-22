@@ -104,3 +104,32 @@ section#main-content
 
 	.page-content:not(:last-child)
 		margin-bottom: 2em
+
+
+.sns-links
+	ul li
+		display: inline
+
+	a
+		display: inline-block
+		overflow: hidden
+		size: 2.4em
+
+		&:before
+			background-color: color_text_light
+			background-origin: content-box
+			background-repeat: no-repeat
+			background-size: cover
+			content: ''
+			display: inline-block
+			padding: 0.5em
+			size: 100%
+			transition: time_animation
+
+		for sns in ('facebook' color_facebook) ('google-plus' color_googleplus) ('twitter' color_twitter)
+			&.{sns}:before
+				background-image: url('glyphs/'sns[0]'.png')
+
+			&.{sns}:hover:before
+				background-color: sns[1]
+
