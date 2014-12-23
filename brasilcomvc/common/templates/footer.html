@@ -1,21 +1,30 @@
 {% load static %}
 
+
 <section id="footer-content">
 <div>
 	<p class="logo">
 		<img alt="Logo do Brasil.com.vc" src="{% static 'img/logo-s.png' %}">
 	</p>
 	<section id="sitemap">
+		<div>
+			<h1>Brasil.com.vc</h1>
+			<ul>
+				<li><a href="{% url 'portal:about' %}">Sobre</a></li>
+				<li><a href="{% url 'portal:how_it_works' %}">Como Funciona</a></li>
+			</ul>
+		</div>
+	</section>
+	<section class="sns-links">
 		<ul>
-			<li><a href="{% url 'portal:about' %}">Sobre</a></li>
-			<li><a href="{% url 'portal:how_it_works' %}">Como Funciona</a></li>
+			{% if sns_facebook %}<li><a class="facebook" href="{{ sns_facebook }}">Facebook</a></li>{% endif %}
+			{% if sns_googleplus %}<li><a class="google-plus" href="{{ sns_googleplus }}">Google+</a></li>{% endif %}
+			{% if sns_twitter %}<li><a class="twitter" href="{{ sns_twitter }}">Twitter</a></li>{% endif %}
 		</ul>
 	</section>
+	<p class="copyright">
+		© Copyright 2014 - Todos os Direitos Reservados a Brasil.com.vc -
+		Mantido por <strong>The Brand Machine</strong>
+	</p>
 </div>
-</section>
-
-<section id="bottomline">
-	<div>
-		<p class="copyright">Copyright 2014 - Todos os Direitos Reservados a Brasil.com.vc - Mantido por <strong>The Brand Machine</strong></p>
-	</div>
 </section>
