@@ -29,6 +29,13 @@
 				<div class="short-description">
 					{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
 				</div>
+				<p class="applications">
+				{% if project.application_count %}
+					<strong>{{ project.application_count }}</strong> pessoa{{ project.application_count|pluralize }} est{{ project.application_count|pluralize:"á,ão" }} participando.
+				{% else %}
+					Ninguém participando ainda. :(
+				{% endif %}
+				</p>
 				<div class="tags">
 					<ul>
 					{% for tag in project.tags.all %}

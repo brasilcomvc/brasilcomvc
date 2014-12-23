@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import messages
+from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DetailView, ListView
 
@@ -13,8 +14,11 @@ from .models import Project
 
 class ProjectList(ListView):
 
-    model = Project
     template_name = 'projects/project_list.html'
+
+    def get_queryset(self):
+        return Project.objects.annotate(
+            application_count=Count('applications'))
 
 
 class ProjectDetails(DetailView):
