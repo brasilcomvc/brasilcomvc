@@ -29,6 +29,7 @@
 				<div class="short-description">
 					{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
 				</div>
+				<p class="location">{{ project.location }}</p>
 				<div class="tags">
 					<ul>
 					{% for tag in project.tags.all %}

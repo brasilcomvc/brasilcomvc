@@ -1,4 +1,4 @@
-body.projects
+body.projects #main-content
 
 	figure.img
 		overflow: hidden
@@ -6,6 +6,19 @@ body.projects
 		img
 			float: left
 			width: 100%
+
+	p.location
+		font-size: 0.8em
+
+		&:before
+			background: url('glyphs/location.png') no-repeat
+			background-size: 1.5em
+			content: ''
+			display: inline-block
+			margin-right: 0.5em
+			opacity: 0.5
+			size: @background-size
+			vertical-align: bottom
 
 	.tags
 		ul li
