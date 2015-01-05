@@ -51,9 +51,9 @@
 			<h1>Endereço</h1>
 			<p>{{ project.address }}</p>
 
-			{% if google_api_key %}
+			{% if GOOGLE_API_KEY %}
 				<iframe width="100%" height="450" frameborder="0" style="border:0"
-					src="https://www.google.com/maps/embed/v1/place?q={{ project.address|urlencode }}&amp;key={{ google_api_key }}"></iframe>
+					src="https://www.google.com/maps/embed/v1/place?q={{ project.address|urlencode }}&amp;key={{ GOOGLE_API_KEY }}"></iframe>
 			{% endif %}
 		</section>
 	</section>
@@ -106,5 +106,5 @@
 {% block js %}
 	{{ block.super }}
 	<script src="//www.youtube.com/iframe_api"></script>
-	<script src="//connect.facebook.net/pt_BR/sdk.js#xfbml=1&appId={{ SOCIAL_AUTH_FACEBOOK_KEY }}&version=v2.0"></script>
+	<script src="//connect.facebook.net/pt_BR/sdk.js#xfbml=1&appId={{ FACEBOOK_API_KEY }}&version=v2.0"></script>
 {% endblock js %}

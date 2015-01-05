@@ -28,15 +28,15 @@ specific values, as defined below:
 - `EMAIL_HOST_USER` - Username to authenticate on the SMTP server
 - `EMAIL_HOST` - SMTP host name to be used for email sending
 - `EMAIL_PORT` - SMTP port to be used for email sending
-- `FACEBOOK_APP_KEY` - Facebook app key (used for registration)
-- `FACEBOOK_APP_SECRET` - Facebook app secret (used for registration)
+- `FACEBOOK_API_KEY` - Facebook app key (used for registration)
+- `FACEBOOK_API_SECRET` - Facebook app secret (used for registration)
+- `GOOGLE_API_KEY` - Google services API key
 - `MAILING_ADDRESS` - Physical address of the organization running the project
 - `SECRET_KEY` - Unique and secret salt for passwords, hashes and session keys
 - `SENTRY_DSN` - Optional. Use this to configure your Sentry DSN.
 - `SNS_FACEBOOK` - URL of the Facebook fan page
 - `SNS_GOOGLEPLUS` - URL of the Google+ page
 - `SNS_TWITTER` - URL of the Twitter profile
-- `GOOGLE_API_KEY` - Google services API key
 
 
 Setup static files
