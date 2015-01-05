@@ -54,6 +54,10 @@
 		{% endblock footer %}
 
 		{% block js %}
+			{% if FACEBOOK_API_KEY %}
+				<script src="//connect.facebook.net/pt_BR/sdk.js#xfbml=1&amp;appId={{ FACEBOOK_API_KEY }}&version=v2.0"></script>
+			{% endif %}
+
 			{% compressed_js '3rdparty' %}
 			{% compressed_js 'common' %}
 			{% compressed_js 'accounts' %}
