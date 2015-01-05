@@ -36,6 +36,7 @@ specific values, as defined below:
 - `SNS_FACEBOOK` - URL of the Facebook fan page
 - `SNS_GOOGLEPLUS` - URL of the Google+ page
 - `SNS_TWITTER` - URL of the Twitter profile
+- `GOOGLE_API_KEY` - Google services API key
 
 
 Setup static files
