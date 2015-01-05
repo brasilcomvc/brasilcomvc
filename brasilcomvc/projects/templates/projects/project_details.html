@@ -47,6 +47,15 @@
 			<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5" data-colorscheme="light"></div>
 			</div>
 		</section>
+		<section class="address">
+			<h1>Endereço</h1>
+			<p>{{ project.address }}</p>
+
+			{% if google_api_key %}
+				<iframe width="100%" height="450" frameborder="0" style="border:0"
+					src="https://www.google.com/maps/embed/v1/place?q={{ project.address|urlencode }}&amp;key={{ google_api_key }}"></iframe>
+			{% endif %}
+		</section>
 	</section>
 
 	<section class="page-content" id="extra-info">
@@ -85,6 +94,10 @@
 		<section class="agenda">
 			<h1>Agenda</h1>
 			{{ project.agenda|linebreaks }}
+		</section>
+		<section class="location">
+			<h1>Local</h1>
+			{{ project.location }}
 		</section>
 	</section>
 {% endblock content_content %}

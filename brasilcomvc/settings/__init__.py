@@ -27,6 +27,7 @@ EMAIL_HOST = os.environ['EMAIL_HOST']
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY', '')
 MAILING_ADDRESS = os.environ.get('MAILING_ADDRESS', '')
 SECRET_KEY = os.environ['SECRET_KEY']
 SNS_FACEBOOK = os.environ.get('SNS_FACEBOOK', '')
@@ -75,6 +76,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
+    'brasilcomvc.common.context_processors.api_keys',
     'brasilcomvc.common.context_processors.social_auth_facebook_key',
     'brasilcomvc.context_processors.sns_links',
 )
