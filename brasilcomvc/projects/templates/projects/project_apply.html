@@ -23,7 +23,16 @@
 	<section class="page-content">
 		<form method="POST">
 			{% form_full form %}
-			<button type="submit">Participar</button>
+			<button class="proceed" type="submit">Participar</button>
 		</form>
+
+		<section class="requirements">
+			<h1>Requisitos</h1>
+			{% if project.requirements %}
+				{{ project.requirements|linebreaks }}
+			{% else %}
+				Nada especificado no projeto.
+			{% endif %}
+		</section>
 	</section>
 {% endblock content_content %}
