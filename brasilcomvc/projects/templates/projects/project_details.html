@@ -64,7 +64,11 @@
 		</section>
 		<section class="apply">
 			<p>
+			{% if not user_is_participating %}
 				<a class="proceed button" href="{% url 'projects:project_apply' slug=project.slug %}">Quero participar</a>
+			{% else %}
+				<button disabled>Estou participando</button>
+			{% endif %}
 			</p>
 			{% with applications=project.applications.all %}
 				<p class="applications">

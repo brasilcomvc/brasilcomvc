@@ -26,6 +26,15 @@ class ProjectDetails(DetailView):
     model = Project
     template_name = 'projects/project_details.html'
 
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+
+        return dict(
+            super(ProjectDetails, self).get_context_data(**kwargs),
+            user_is_participating=(
+                user.is_authenticated() and
+                self.object.applications.filter(volunteer=user).exists()))
+
 
 class ProjectApply(LoginRequiredMixin, CreateView):
 
