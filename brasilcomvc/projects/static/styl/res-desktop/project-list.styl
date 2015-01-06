@@ -1,4 +1,16 @@
-body.projects.project-list
+body.projects.project-list #main-content
 
 	li.project
 		col(4)
+
+		figure
+			overflow: hidden
+
+			img
+				transition: time_animation
+
+		&:hover
+			box-shadow: inset 0 0 0 1px color_text_light
+
+			figure img
+				transform: scale(1.1)
