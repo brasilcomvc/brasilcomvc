@@ -28,6 +28,7 @@ from .forms import (
     EditNotificationsForm,
     DeleteUserForm,
     LoginForm,
+    PasswordResetForm,
     SignupForm,
     UserAddressForm,
 )
@@ -84,10 +85,8 @@ def password_reset(request):
     return django_password_reset(
         request,
         template_name='accounts/password_reset.html',
-        post_reset_redirect=reverse('accounts:password_reset_sent'),
-        subject_template_name='emails/password_reset_subject.txt',
-        email_template_name='emails/password_reset.txt',
-        html_email_template_name='emails/password_reset.html')
+        password_reset_form=PasswordResetForm,
+        post_reset_redirect=reverse('accounts:password_reset_sent'))
 
 
 def password_reset_sent(request):
