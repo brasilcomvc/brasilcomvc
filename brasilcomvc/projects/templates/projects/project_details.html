@@ -73,7 +73,19 @@
 			{% with applications=project.applications.all %}
 				<p class="applications">
 				{% if applications %}
-					<strong>{{ applications|length }}</strong> pessoa{{ applications|length|pluralize }} est{{ applications|length|pluralize:"á,ão" }} participando.
+					{% if user_is_participating %}
+					{% with count=applications|length|add:-1 %}
+						{% if count %}
+							<strong>Você e {{ count }}</strong> pessoa{{ count|pluralize }} est{{ count|pluralize:"á,ão" }} participando.
+						{% else %}
+							Apenas você está participando.
+						{% endif %}
+					{% endwith %}
+					{% else %}
+					{% with count=applications|length %}
+						<strong>{{ count }}</strong> pessoa{{ count|pluralize }} est{{ count|pluralize:"á,ão" }} participando.
+					{% endwith %}
+					{% endif %}
 				{% else %}
 					Ninguém participando ainda. :(
 				{% endif %}
