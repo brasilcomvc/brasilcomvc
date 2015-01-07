@@ -16,7 +16,7 @@
 	<section id="search-results" class="page-content">
 		<ul>
 		{% for project in project_list %}
-			<li class="project">
+			<li class="project" data-lat="{{ project.latlng.y }}" data-lng="{{ project.latlng.x }}">
 				{% include 'widgets/project.html' %}
 			</li>
 		{% empty %}

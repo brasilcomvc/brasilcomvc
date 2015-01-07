@@ -20,3 +20,10 @@ user_marker = new google.maps.Marker
 	map: map,
 	position: map.center,
 	icon: window._user_location_icon,
+
+# Mark projects' locations
+$('.project').each ->
+	new google.maps.Marker
+		map: map,
+		position: new google.maps.LatLng(
+			+@getAttribute('data-lat'), +@getAttribute('data-lng'))
