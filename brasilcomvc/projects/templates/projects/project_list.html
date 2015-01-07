@@ -21,30 +21,7 @@
 		<ul>
 		{% for project in project_list %}
 			<li class="project">
-			<a href="{{ project.get_absolute_url }}">
-				<figure>
-					<img src="{{ project.img_thumbnail.url }}" alt="imagem do {{ project.name }}">
-				</figure>
-				<h2>{{ project.name }}</h2>
-				<div class="short-description">
-					{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
-				</div>
-				<p class="applications">
-				{% if project.application_count %}
-					<strong>{{ project.application_count }}</strong> pessoa{{ project.application_count|pluralize }} est{{ project.application_count|pluralize:"á,ão" }} participando.
-				{% else %}
-					Ninguém participando ainda. :(
-				{% endif %}
-				</p>
-				<p class="location">{{ project.location }}</p>
-				<div class="tags">
-					<ul>
-					{% for tag in project.tags.all %}
-						<li>{{ tag.name }}</li>
-					{% endfor %}
-					</ul>
-				</div>
-			</a>
+				{% include 'widgets/project.html' %}
 			</li>
 		{% empty %}
 			<p>Nenhum projeto disponível. :(</p>
