@@ -14,3 +14,9 @@ $('#map').append(map_canvas)
 map = new google.maps.Map map_canvas,
 	center: new google.maps.LatLng(+_get('lat'), +_get('lng')),
 	zoom: 13,
+
+# Mark the user location
+user_marker = new google.maps.Marker
+	map: map,
+	position: map.center,
+	icon: window._user_location_icon,

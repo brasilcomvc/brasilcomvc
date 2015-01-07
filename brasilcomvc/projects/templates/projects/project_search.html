@@ -28,3 +28,12 @@
 	<section id="map" class="page-content">
 	</section>
 {% endblock content_content %}
+
+
+{% block js %}
+	<script>
+	window._user_location_icon = "{% static 'styl/glyphs/user-location.png' %}";
+	</script>
+
+{{ block.super }}
+{% endblock js %}
