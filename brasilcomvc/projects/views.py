@@ -23,6 +23,11 @@ class ProjectList(ListView):
             application_count=Count('applications'))
 
 
+class ProjectSearch(ProjectList):
+
+    template_name = 'projects/project_search.html'
+
+
 class ProjectDetails(DetailView):
 
     model = Project

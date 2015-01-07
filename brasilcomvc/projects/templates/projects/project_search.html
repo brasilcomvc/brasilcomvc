@@ -1,0 +1,30 @@
+{% extends 'projects/base.html' %}
+{% load static %}
+
+
+{% block title %}
+	Pesquisa de projetos
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} project-search
+{% endblock body_classes %}
+
+
+{% block content_content %}
+	<section id="search-results" class="page-content">
+		<ul>
+		{% for project in project_list %}
+			<li class="project">
+				{% include 'widgets/project.html' %}
+			</li>
+		{% empty %}
+			<p>Nenhum projeto encontrado. :(</p>
+		{% endfor %}
+		</ul>
+	</section>
+
+	<section id="map" class="page-content">
+	</section>
+{% endblock content_content %}

@@ -17,6 +17,10 @@ urlpatterns = (
     url(r'^$',
         ProjectList.as_view(), name='project_list'),
 
+    # Project Search
+    url(r'^pesquisa/$',
+        ProjectSearch.as_view(), name='project_search'),
+
     # Project Details
     url(r'^(?P<slug>[\w-]+)/$',
         ProjectDetails.as_view(), name='project_details'),
