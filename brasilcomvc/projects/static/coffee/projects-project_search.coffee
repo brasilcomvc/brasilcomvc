@@ -32,7 +32,7 @@ $('.project').each ->
 			+@getAttribute('data-lat'), +@getAttribute('data-lng'))
 
 # Initialize a geocode autocomplete on the search form
-autocomplete = new google.maps.places.Autocomplete search_form.location,
+autocomplete = new google.maps.places.Autocomplete search_form.q,
 	types: ['geocode'],
 
 # Fill latitude and longitude fields with geocode from the autocomplete

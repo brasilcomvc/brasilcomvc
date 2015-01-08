@@ -29,6 +29,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
 FACEBOOK_API_KEY = os.environ.get('FACEBOOK_API_KEY', None)
 GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY', None)
+GOOGLE_MAPS_API_KEY = GOOGLE_API_KEY  # Used by django.contrib.gis
 MAILING_ADDRESS = os.environ.get('MAILING_ADDRESS', '')
 SECRET_KEY = os.environ['SECRET_KEY']
 SNS_FACEBOOK = os.environ.get('SNS_FACEBOOK', '')

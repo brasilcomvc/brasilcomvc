@@ -6,13 +6,6 @@ from django import forms
 from .models import ProjectApply
 
 
-class ProjectSearchForm(forms.Form):
-
-    location = forms.CharField(label='', required=False)
-    lat = forms.FloatField(widget=forms.HiddenInput)
-    lng = forms.FloatField(widget=forms.HiddenInput)
-
-
 class ProjectApplyForm(forms.ModelForm):
 
     class Meta:
@@ -35,10 +28,11 @@ class ProjectApplyForm(forms.ModelForm):
 
 
 class ProjectSearchForm(forms.Form):
-    lat = forms.FloatField()
-    lng = forms.FloatField()
-    q = forms.CharField()
-    radius = forms.IntegerField(required=False)
+    lat = forms.FloatField(widget=forms.HiddenInput())
+    lng = forms.FloatField(widget=forms.HiddenInput())
+    q = forms.CharField(label='')
+    radius = forms.IntegerField(required=False,
+            widget=forms.HiddenInput())
 
     def clean_radius(self):
         cleaned_data = self.cleaned_data

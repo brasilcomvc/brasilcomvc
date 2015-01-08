@@ -1,5 +1,6 @@
 {% extends 'projects/base.html' %}
 {% load form_utils %}
+{% load l10n %}
 {% load static %}
 
 
@@ -21,8 +22,8 @@
 		</form>
 
 		<ul>
-		{% for project in project_list %}
-			<li class="project" data-lat="{{ project.latlng.y }}" data-lng="{{ project.latlng.x }}">
+		{% for project in projects %}
+			<li class="project" {% localize off %} data-lat="{{ project.latlng.y }}" data-lng="{{ project.latlng.x }}" {% endlocalize %}>
 				{% include 'widgets/project.html' %}
 			</li>
 		{% empty %}
