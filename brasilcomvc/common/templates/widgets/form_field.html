@@ -25,7 +25,7 @@ class="{{ classes|join:' ' }}">
 	<input type="file" name="{{ field.name }}">
 	{% if field.errors %}{{ field.errors }}{% endif %}
 {% else %}
-	<strong>{{ field.label }}</strong>
+	{% if field.label %}<strong>{{ field.label }}</strong>{% endif %}
 	{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
 	{{ field }}
 	{% if field.errors %}{{ field.errors }}{% endif %}
