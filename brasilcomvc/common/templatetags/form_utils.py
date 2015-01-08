@@ -18,7 +18,7 @@ def form_full(form, csrf_token=True):
     Shortcut to render all the form fields
     '''
     return {
-        'csrf_token': csrf_token,
+        'include_csrf_token': csrf_token,
         'form': form,
     }
 

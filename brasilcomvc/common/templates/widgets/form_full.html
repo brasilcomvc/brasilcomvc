@@ -1,7 +1,7 @@
 {% load form_utils %}
 
 
-{% if csrf_token %}
+{% if include_csrf_token %}
 	{% csrf_token %}
 {% endif %}
 
