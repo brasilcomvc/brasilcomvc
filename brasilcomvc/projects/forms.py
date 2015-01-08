@@ -6,6 +6,13 @@ from django import forms
 from .models import ProjectApply
 
 
+class ProjectSearchForm(forms.Form):
+
+    location = forms.CharField(label='', required=False)
+    lat = forms.FloatField(widget=forms.HiddenInput)
+    lng = forms.FloatField(widget=forms.HiddenInput)
+
+
 class ProjectApplyForm(forms.ModelForm):
 
     class Meta:

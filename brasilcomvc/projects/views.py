@@ -27,6 +27,11 @@ class ProjectSearch(ProjectList):
 
     template_name = 'projects/project_search.html'
 
+    def get_context_data(self, **kwargs):
+        return dict(
+            super(ProjectSearch, self).get_context_data(**kwargs),
+            form=ProjectSearchForm(data=self.request.GET))
+
 
 class ProjectDetails(DetailView):
 

@@ -4,7 +4,15 @@ body.project-search
 		margin-left: 0
 
 	#search-results
-		float: left
+		form
+			clearfix()
+
+			#projectsearchform_location
+				col(10)
+				overflow: visible  // Unhide input's bottom border
+
+			button[type="submit"]
+				col(2)
 
 	#map
 		offset(12)

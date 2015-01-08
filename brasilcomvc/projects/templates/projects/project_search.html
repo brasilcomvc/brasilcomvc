@@ -1,4 +1,5 @@
 {% extends 'projects/base.html' %}
+{% load form_utils %}
 {% load static %}
 
 
@@ -14,6 +15,11 @@
 
 {% block content_content %}
 	<section id="search-results" class="page-content">
+		<form method="GET">
+			{% form_full form csrf_token=False %}
+			<button type="submit">Pesquisar</button>
+		</form>
+
 		<ul>
 		{% for project in project_list %}
 			<li class="project" data-lat="{{ project.latlng.y }}" data-lng="{{ project.latlng.x }}">
