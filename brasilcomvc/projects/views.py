@@ -2,13 +2,15 @@
 from __future__ import unicode_literals
 
 from django.contrib import messages
+from django.contrib.gis.geos import Point
+from django.contrib.gis.measure import D
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DetailView, ListView
 
 from brasilcomvc.common.views import LoginRequiredMixin
 
-from .forms import ProjectApplyForm
+from .forms import ProjectApplyForm, ProjectSearchForm
 from .models import Project
 
 
@@ -75,3 +77,34 @@ class ProjectApply(LoginRequiredMixin, CreateView):
         return dict(
             super(ProjectApply, self).get_context_data(**kwargs),
             project=self.get_project())
+
+
+class ProjectSearch(ListView):
+
+    context_object_name = 'projects'
+    form_class = ProjectSearchForm
+    template_name = 'projects/project_search.html'
+
+    def get(self, request, *args, **kwargs):
+        self.form = ProjectSearchForm(request.GET)
+        return super(ListView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectSearch, self).get_context_data(**kwargs)
+        context['form'] = self.form
+        return context
+
+    def get_queryset(self):
+        projects = Project.objects.none()
+
+        if self.form.is_valid():
+            # Filter by distance
+            lat = self.form.cleaned_data['lat']
+            lng = self.form.cleaned_data['lng']
+            radius = self.form.cleaned_data['radius'] or 30
+
+            user_location = Point(lng, lat, srid=4326)
+            projects = Project.objects.filter(
+                latlng__distance_lte=(user_location, D(km=radius)))
+
+        return projects

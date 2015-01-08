@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.core import mail
 from django.core.files import File
 from django.core.urlresolvers import reverse
+from django.contrib.gis.geos import Point
 from django.test import TestCase
 
 from brasilcomvc.common.views import LoginRequiredMixin
@@ -111,3 +112,67 @@ class ProjectApplyTestCase(ProjectTestMixin, TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertFalse(self.project.applications.exists())
         self.assertFalse(mail.outbox)
+
+
+class ProjectSearchViewTestCase(TestCase):
+
+    def setUp(self):
+        self.user_raw_passwd = 'pass'
+        self.user = User.objects.create_user(email='user@test.net',
+                                             password=self.user_raw_passwd)
+
+        self.sp = Point(-46.6333093, -23.5505199, srid=4326)
+        self.rj = Point(-43.1970773, -22.9082998, srid=4326)
+
+    def create_project(self, **kwargs):
+        options = {
+            'name': 'test',
+            'owner': self.user,
+            'latlng': self.sp,
+        }
+        options.update(kwargs)
+        return Project.objects.create(**options)
+
+    def test_search_within_default_range(self):
+        p = self.create_project()
+
+        resp = self.client.get(reverse('projects:project_search'), data={
+            'q': 'some place',
+            'lat': self.sp.y,
+            'lng': self.sp.x
+        })
+        self.assertEquals(resp.status_code, 200)
+        self.assertEquals(list(resp.context_data['projects']), [p])
+
+    def test_search_within_specified_range(self):
+        p = self.create_project()
+
+        resp = self.client.get(reverse('projects:project_search'), data={
+            'q': 'some place',
+            'lat': self.rj.y,
+            'lng': self.rj.x,
+            'radius': 10000,
+        })
+        self.assertEquals(resp.status_code, 200)
+        self.assertEquals(list(resp.context_data['projects']), [p])
+
+    def test_search_out_of_range(self):
+        p = self.create_project(latlng=self.rj)
+
+        resp = self.client.get(reverse('projects:project_search'), data={
+            'q': 'some place',
+            'lat': self.sp.y,
+            'lng': self.sp.x,
+        })
+        self.assertEquals(resp.status_code, 200)
+        self.assertEquals(list(resp.context_data['projects']), [])
+
+    def test_search_without_params(self):
+        p = self.create_project()
+
+        resp = self.client.get(reverse('projects:project_search'))
+        self.assertEquals(resp.status_code, 200)
+        self.assertEquals(list(resp.context_data['projects']), [])
+        self.assertIsNotNone(resp.context_data['form'].errors.get('q'))
+        self.assertIsNotNone(resp.context_data['form'].errors.get('lat'))
+        self.assertIsNotNone(resp.context_data['form'].errors.get('lng'))

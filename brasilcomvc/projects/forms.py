@@ -25,3 +25,18 @@ class ProjectApplyForm(forms.ModelForm):
         if self.project.applications.filter(volunteer=self.volunteer).exists():
             raise forms.ValidationError(
                 'Você já está participando desse projeto.')
+
+
+class ProjectSearchForm(forms.Form):
+    lat = forms.FloatField()
+    lng = forms.FloatField()
+    q = forms.CharField()
+    radius = forms.IntegerField(required=False)
+
+    def clean_radius(self):
+        cleaned_data = self.cleaned_data
+
+        if 'radius' not in cleaned_data or not cleaned_data['radius']:
+            return 30
+
+        return cleaned_data['radius']
