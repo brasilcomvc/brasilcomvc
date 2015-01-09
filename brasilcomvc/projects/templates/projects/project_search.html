@@ -16,8 +16,10 @@
 
 {% block content_content %}
 	<section id="search-results" class="page-content">
-		<form method="GET">
-			{% form_full form csrf_token=False %}
+		<form action="{% url 'projects:project_search' %}" method="GET">
+			<input type="hidden" name="lat">
+			<input type="hidden" name="lng">
+			{% form_field form.q %}
 			<button type="submit">Pesquisar</button>
 		</form>
 
