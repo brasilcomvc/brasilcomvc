@@ -1,21 +1,22 @@
-body.project-details
+body.project-details #main-content
 
 	.page-title
-		display: none !important
+		col(4)
+		float: right
+		margin-bottom: 0 !important
+		text-align: left
 
-	#main-info
+		h1
+			font-size: 1.5em !important
+
+	figure.img
 		col(8)
 
-	#extra-info
+		+ div
+			col(4)
+
+	.page-content#project-text
+		col(8)
+
+	.page-content#extra-info
 		col(4)
-
-	// Fixed sidebar
-	&.past-header
-		#extra-info
-			position: fixed
-
-			.short-description
-			.tags
-			.applications
-			.owner
-				display: none

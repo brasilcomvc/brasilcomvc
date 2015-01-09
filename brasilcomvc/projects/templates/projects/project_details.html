@@ -13,18 +13,69 @@
 
 
 {% block content_content %}
-	<header class="page-title">
-		<h1>{{ project.name }}</h1>
-	</header>
+	<section class="page-content">
+		<header class="page-title">
+			<h1>{{ project.name }}</h1>
+		</header>
 
-	<section class="page-content" id="main-info">
-		{% if project.img %}
 		<figure class="img"
 		{% if project.video %}data-video="{{ project.video }}"{% endif %}>
 			<img id="project-video" src="{{ project.img.url }}" alt="imagem do {{ project.name }}">
 		</figure>
-		{% endif %}
 
+		<div>
+			<section class="short-description">
+				{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
+			</section>
+
+			<section class="tags">
+				<ul>
+				{% for tag in project.tags.all %}
+					<li>{{ tag.name }}</li>
+				{% endfor %}
+				</ul>
+			</section>
+
+			<section class="apply">
+				<p>
+				{% if not user_is_participating %}
+					<a class="proceed button" href="{% url 'projects:project_apply' slug=project.slug %}">Quero participar</a>
+				{% else %}
+					<button disabled>Estou participando</button>
+				{% endif %}
+				</p>
+				{% with applications=project.applications.all %}
+					<p class="applications">
+					{% if applications %}
+						{% if user_is_participating %}
+						{% with count=applications|length|add:-1 %}
+							{% if count %}
+								<strong>Você e {{ count }}</strong> pessoa{{ count|pluralize }} est{{ count|pluralize:"á,ão" }} participando.
+							{% else %}
+								Apenas você está participando.
+							{% endif %}
+						{% endwith %}
+						{% else %}
+						{% with count=applications|length %}
+							<strong>{{ count }}</strong> pessoa{{ count|pluralize }} est{{ count|pluralize:"á,ão" }} participando.
+						{% endwith %}
+						{% endif %}
+					{% else %}
+						Ninguém participando ainda. :(
+					{% endif %}
+					</p>
+				{% endwith %}
+			</section>
+
+			<section class="owner">
+				<h1>Organizador</h1>
+				{% include 'widgets/user-picture.html' with user=project.owner size='small' %}
+				{{ project.owner.get_full_name }}
+			</section>
+		</div>
+	</section>
+
+	<section class="page-content" id="project-text">
 		{% if project.relevant_fact %}
 		<blockquote class="relevant-fact">
 			<strong class="title">Você sabia?</strong>
@@ -53,53 +104,6 @@
 	</section>
 
 	<section class="page-content" id="extra-info">
-		<h1 class="name">{{ project.name }}</h1>
-
-		<section class="short-description">
-			{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
-		</section>
-		<section class="tags">
-			<ul>
-			{% for tag in project.tags.all %}
-				<li>{{ tag.name }}</li>
-			{% endfor %}
-			</ul>
-		</section>
-		<section class="apply">
-			<p>
-			{% if not user_is_participating %}
-				<a class="proceed button" href="{% url 'projects:project_apply' slug=project.slug %}">Quero participar</a>
-			{% else %}
-				<button disabled>Estou participando</button>
-			{% endif %}
-			</p>
-			{% with applications=project.applications.all %}
-				<p class="applications">
-				{% if applications %}
-					{% if user_is_participating %}
-					{% with count=applications|length|add:-1 %}
-						{% if count %}
-							<strong>Você e {{ count }}</strong> pessoa{{ count|pluralize }} est{{ count|pluralize:"á,ão" }} participando.
-						{% else %}
-							Apenas você está participando.
-						{% endif %}
-					{% endwith %}
-					{% else %}
-					{% with count=applications|length %}
-						<strong>{{ count }}</strong> pessoa{{ count|pluralize }} est{{ count|pluralize:"á,ão" }} participando.
-					{% endwith %}
-					{% endif %}
-				{% else %}
-					Ninguém participando ainda. :(
-				{% endif %}
-				</p>
-			{% endwith %}
-		</section>
-		<section class="owner">
-			<h1>Organizador</h1>
-			{% include 'widgets/user-picture.html' with user=project.owner size='small' %}
-			{{ project.owner.get_full_name }}
-		</section>
 		<section class="agenda">
 			<h1>Agenda</h1>
 			{{ project.agenda|linebreaks }}
