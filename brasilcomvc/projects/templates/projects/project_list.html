@@ -1,5 +1,6 @@
 {% extends 'projects/base.html' %}
 {% load firstof from future %}
+{% load static %}
 
 
 {% block title %}
@@ -11,6 +12,29 @@
 	{{ block.super }} project-list
 {% endblock body_classes %}
 
+
+{% block header %}
+	{{ block.super }}
+
+	<section id="home-banner">
+		<figure>
+			<img src="{% static 'img/banner.jpg' %}" alt="banner">
+			<figcaption>
+				<p>Doe um pouco do seu tempo para ajudar uma boa ideia e a transformar o Brasil num país melhor.</p>
+
+				<form id="project_search" action="{% url 'projects:project_search' %}" method="GET">
+					<input type="hidden" name="lat">
+					<input type="hidden" name="lng">
+					<label for="project_search_q">
+						Encontre projetos próximos de você:
+						<input type="text" name="q" placeholder="Digite seu endereço">
+					</label>
+					<button type="submit">Procurar</button>
+				</form>
+			</figcaption>
+		</figure>
+	</section>
+{% endblock header %}
 
 {% block content_content %}
 	<header class="page-title">
