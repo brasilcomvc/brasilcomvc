@@ -22,6 +22,11 @@ class ProjectList(ListView):
         return Project.objects.annotate(
             application_count=Count('applications'))
 
+    def get_context_data(self, **kwargs):
+        return dict(
+            super(ProjectList, self).get_context_data(**kwargs),
+            search_form=ProjectSearchForm(self.request.GET))
+
 
 class ProjectDetails(DetailView):
 
