@@ -13,6 +13,10 @@
 
 
 {% block content_content %}
+	<header class="page-title">
+		<h1>{{ project.name }}</h1>
+	</header>
+
 	<section class="page-content" id="main-info">
 		{% if project.img %}
 		<figure class="img"
@@ -49,7 +53,6 @@
 	</section>
 
 	<section class="page-content" id="extra-info">
-
 		<h1 class="name">{{ project.name }}</h1>
 
 		<section class="short-description">
