@@ -8,7 +8,7 @@ class ProjectSearchFormTest(TestCase):
     def test_required(self):
         f = ProjectSearchForm({})
         self.assertFalse(f.is_valid())
-        self.assertIn('q', f.errors)
+        self.assertNotIn('q', f.errors)
         self.assertIn('lat', f.errors)
         self.assertIn('lng', f.errors)
         self.assertNotIn('radius', f.errors)
