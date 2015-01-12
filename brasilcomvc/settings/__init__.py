@@ -20,7 +20,10 @@ from .staticfiles import *
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 BASE_URL = os.environ.get('BASE_URL', '')
-DATABASES = {'default': dj_database_url.config(default='sqlite:///dev.sqlite')}
+DATABASES = {
+    'default': dj_database_url.config(default='spatialite:///dev.sqlite'),
+}
+SPATIALITE_LIBRARY_PATH = os.environ.get('SPATIALITE_LIBRARY_PATH', None)
 DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
 DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
 EMAIL_HOST = os.environ['EMAIL_HOST']

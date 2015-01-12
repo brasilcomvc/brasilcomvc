@@ -39,6 +39,24 @@ specific values, as defined below:
 - `SNS_TWITTER` - URL of the Twitter profile
 
 
+Setup the database
+------------------
+
+As for we use a geospatial database to work on, you must
+[pick one option](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/#spatial-database)
+and set it up properly. Although we highly recommend PostGIS for production,
+SpatiaLite gives best results when it comes to testing on a local development
+environment. **Skip this section if you're setting up a production server**.
+
+1. [Set up SpatiaLite](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/spatialite/) on your system.
+2. Set a new env var `SPATIALITE_LIBRARY_PATH` with your OS' library path.
+
+Note the following:
+
+- You should create the database using the SpatiaLite bin **before** running migrations.
+- The built-in `DATABASE_URL` value expects a SpatiaLite database by default.
+
+
 Setup static files
 ------------------
 
