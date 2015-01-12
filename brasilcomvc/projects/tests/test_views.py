@@ -1,5 +1,10 @@
+import os.path
+import shutil
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
+from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -9,6 +14,29 @@ from ..models import Project
 from ..views import ProjectApply
 
 User = get_user_model()
+
+
+class ProjectTestMixin(object):
+    '''
+    Ease the Project creation process, given the need to save/delete
+    an image to the instance.
+    '''
+
+    def setUp(self):
+        self.project = Project.objects.create(
+            owner=User.objects.create_user('owner@example.com', '123'),
+            name='Test Project')
+
+        # Save Project img
+        img_path = os.path.join(os.path.dirname(__file__), 'empty_img.png')
+        self.project.img.save(
+            os.path.basename(img_path), File(open(img_path, 'rb')))
+        self.project.save()
+
+    def tearDown(self):
+        # Drop the Project img and its generated thumbnails
+        shutil.rmtree(os.path.join(
+            settings.MEDIA_ROOT, os.path.dirname(self.project.img.name)))
 
 
 class ProjectListTestCase(TestCase):
@@ -21,12 +49,10 @@ class ProjectListTestCase(TestCase):
         self.assertTemplateUsed(resp, 'projects/project_list.html')
 
 
-class ProjectDetailsTestCase(TestCase):
+class ProjectDetailsTestCase(ProjectTestMixin, TestCase):
 
     def setUp(self):
-        self.project = Project.objects.create(
-            owner=User.objects.create_user('test@example.com', '123'),
-            name='Test Project')
+        super(ProjectDetailsTestCase, self).setUp()
         self.url = self.project.get_absolute_url()
 
     def test_page_opens_successfully(self):
@@ -35,14 +61,12 @@ class ProjectDetailsTestCase(TestCase):
         self.assertTemplateUsed(resp, 'projects/project_details.html')
 
 
-class ProjectApplyTestCase(TestCase):
+class ProjectApplyTestCase(ProjectTestMixin, TestCase):
 
     def setUp(self):
+        super(ProjectApplyTestCase, self).setUp()
         self.volunteer = User.objects.create_user(
             'volunteer@example.com', '123', full_name='John Doe')
-        self.project = Project.objects.create(
-            owner=User.objects.create_user('owner@example.com', '123'),
-            name='Test Project')
         self.url = reverse(
             'projects:project_apply', kwargs={'slug': self.project.slug})
 
