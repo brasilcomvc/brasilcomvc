@@ -25,7 +25,7 @@ class ProjectSearch
 		@map_parent = $('#map')
 		map_canvas = $('<div/>')[0]
 		@map_parent.append(map_canvas)
-		map = @map = new google.maps.Map map_canvas, center: center, zoom: 13
+		@map = map = new google.maps.Map map_canvas, center: center
 
 		# Mark the user into it
 		@user_marker = new google.maps.Marker
@@ -34,11 +34,18 @@ class ProjectSearch
 			icon: PIN_USER,
 
 		# Mark projects' locations
+		@results_markers = results_markers = []
+		results_bounds = new google.maps.LatLngBounds
 		search_results.children('.project').each ->
-			new google.maps.Marker
+			marker = new google.maps.Marker
 				map: map,
 				position: new google.maps.LatLng(
 					+@getAttribute('data-lat'), +@getAttribute('data-lng'))
+			results_markers.push marker
+			results_bounds.extend marker.getPosition()
+
+		# Zoom the map to wrap all search results
+		@map.fitBounds results_bounds
 
 		# Initialize a geocode autocomplete on the search form
 		autocomplete = new google.maps.places.Autocomplete form.q,
