@@ -60,6 +60,7 @@
 
 			<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&amp;libraries=places&amp;language=pt-br"></script>
 
+			<script>STATIC_URL = '{% get_static_prefix %}'</script>
 			{% compressed_js '3rdparty' %}
 			{% compressed_js 'common' %}
 			{% compressed_js 'accounts' %}
