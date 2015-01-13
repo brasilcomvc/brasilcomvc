@@ -30,8 +30,9 @@ class ProjectApplyForm(forms.ModelForm):
 class ProjectSearchForm(forms.Form):
     lat = forms.FloatField(widget=forms.HiddenInput())
     lng = forms.FloatField(widget=forms.HiddenInput())
-    q = forms.CharField(label='', required=False)
-    radius = forms.IntegerField(required=False, widget=forms.HiddenInput())
+    q = forms.CharField(label='')
+    radius = forms.IntegerField(required=False,
+            widget=forms.HiddenInput())
 
     def clean_radius(self):
         cleaned_data = self.cleaned_data

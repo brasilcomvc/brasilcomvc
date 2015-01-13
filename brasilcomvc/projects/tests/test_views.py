@@ -134,7 +134,6 @@ class ProjectSearchViewTestCase(ProjectTestMixin, TestCase):
         resp = self.client.get(reverse('projects:project_search'))
         self.assertEquals(resp.status_code, 200)
         self.assertEquals(list(resp.context_data['projects']), [])
-        self.assertIsNone(resp.context_data['form'].errors.get('q'))
+        self.assertIsNotNone(resp.context_data['form'].errors.get('q'))
         self.assertIsNotNone(resp.context_data['form'].errors.get('lat'))
         self.assertIsNotNone(resp.context_data['form'].errors.get('lng'))
-        self.assertIsNone(resp.context_data['form'].errors.get('radius'))
