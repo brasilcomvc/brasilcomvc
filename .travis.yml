@@ -4,6 +4,7 @@ python:
   - 3.4
 env:
   global:
+    - DATABASE_URL=postgis://postgres:@localhost/travis_ci_test
     - DEFAULT_FROM_EMAIL=test@domain.net
     - EMAIL_HOST=localhost
     - EMAIL_PORT=25
@@ -13,6 +14,10 @@ env:
 install:
   - pip install -r requirements.txt
   - pip install -r requirements-test.txt
+before_script:
+  - psql -U postgres -c 'create database travis_ci_test'
+  - psql -U postgres -c 'create extension postgis' -d travis_ci_test
+  - psql -U postgres -c 'create extension postgis_topology' -d travis_ci_test
   - python manage.py migrate
 script:
   - python manage.py test
