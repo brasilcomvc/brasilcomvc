@@ -54,11 +54,9 @@
 		{% endblock footer %}
 
 		{% block js %}
-			{% if FACEBOOK_API_KEY %}
-				<script src="//connect.facebook.net/pt_BR/sdk.js#xfbml=1&amp;appId={{ FACEBOOK_API_KEY }}&version=v2.0"></script>
-			{% endif %}
-
-			<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&amp;libraries=places&amp;language=pt-br"></script>
+			{# 3rd parties #}
+			{% if FACEBOOK_API_KEY %}<script src="//connect.facebook.net/pt_BR/sdk.js#xfbml=1&amp;appId={{ FACEBOOK_API_KEY }}&version=v2.0"></script>{% endif %}
+			{% if GOOGLE_API_KEY %}<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&amp;libraries=places&amp;language=pt-br"></script>{% endif %}
 
 			<script>STATIC_URL = '{% get_static_prefix %}'</script>
 			{% compressed_js '3rdparty' %}
