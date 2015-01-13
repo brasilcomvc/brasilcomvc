@@ -1,62 +1,63 @@
 return if not $('body').hasClass('project-search')
 
 
-search_form = $('#search-results form')[0]
-
-
 _get = (name) ->
 	# Retrieve the value of a GET parameter
 	(new RegExp("[?&]#{name}=([^&$]*)").exec(location.search) or [0, null])[1]
 
+# Pin images
+PIN_USER = "#{STATIC_URL}styl/glyphs/user-location.png"
 
-# Create a <div> to contain the map
-map_canvas = $('<div/>')[0]
-$('#map').append(map_canvas)
+# Cache some elements for better performance
+form = $('#search-results form')[0]
+search_results = $('#search-results ul')
 
-# Initialize the map widget
-map = new google.maps.Map map_canvas,
-	center: new google.maps.LatLng(+_get('lat'), +_get('lng')),
-	zoom: 13,
 
-# Mark the user location
-user_marker = new google.maps.Marker
-	map: map,
-	position: map.center,
-	icon: window._user_location_icon,
+class ProjectSearch
 
-# Mark projects' locations
-$('.project').each ->
-	new google.maps.Marker
-		map: map,
-		position: new google.maps.LatLng(
-			+@getAttribute('data-lat'), +@getAttribute('data-lng'))
+	constructor: (user_lat, user_lng) ->
+		center = new google.maps.LatLng(user_lat, user_lng)
 
-# Initialize a geocode autocomplete on the search form
-autocomplete = new google.maps.places.Autocomplete search_form.q,
-	types: ['geocode'],
+		# Create and render the Google Maps widget
+		map_canvas = $('<div/>')[0]
+		$('#map').append(map_canvas)
+		map = @map = new google.maps.Map map_canvas, center: center, zoom: 13
 
-# Fill latitude and longitude fields with geocode from the autocomplete
-google.maps.event.addListener autocomplete, 'place_changed', ->
-	location = autocomplete.getPlace().geometry.location
-	search_form.lat.value = location.lat()
-	search_form.lng.value = location.lng()
+		# Mark the user into it
+		@user_marker = new google.maps.Marker
+			map: map,
+			position: center,
+			icon: PIN_USER,
 
-# Geocode on submit
-$(search_form).submit( (e) ->
-	if search_form.lat.value != "" && search_form.lng.value != ""
-		return true
+		# Mark projects' locations
+		search_results.children('.project').each ->
+			new google.maps.Marker
+				map: map,
+				position: new google.maps.LatLng(
+					+@getAttribute('data-lat'), +@getAttribute('data-lng'))
 
-	address = $("input[name=q]", this).val()
-	geocoder = new google.maps.Geocoder()
+		# Initialize a geocode autocomplete on the search form
+		autocomplete = new google.maps.places.Autocomplete form.q,
+			types: ['geocode'],
 
-	geocoder.geocode( { 'address': address }, (results, status) ->
-		if status == google.maps.GeocoderStatus.OK
-			location = results[0].geometry.location
-			search_form.lat.value = location.lat()
-			search_form.lng.value = location.lng()
-			search_form.submit()
-		else
-			alert('Endereço não encontrado: ' + status)
-	)
-	return false
-)
+		# Fill latitude and longitude fields with geocode
+		$(form).on 'submit', (e) ->
+			if @lat.value and @lng.value
+				return
+
+			e.preventDefault()  # Stop the submit
+
+			geocoder = new google.maps.Geocoder()
+			geocoder.geocode address: @q.value, (results, status) =>
+				if status != google.maps.GeocoderStatus.OK
+					alert('Endereço não encontrado: ' + status)
+					return
+
+				location = results[0].geometry.location
+				@lat.value = location.lat()
+				@lng.value = location.lng()
+				@submit()
+
+
+# Initialize ProjectSearch with geo coords from URL
+new ProjectSearch +_get('lat'), +_get('lng')
