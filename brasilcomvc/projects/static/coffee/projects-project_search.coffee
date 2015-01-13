@@ -10,7 +10,10 @@ PIN_USER = "#{STATIC_URL}styl/glyphs/user-location.png"
 
 # Cache some elements for better performance
 form = $('#search-results form')[0]
+main_header = $('#main-header')
+main_footer = $('#main-footer')
 search_results = $('#search-results ul')
+window_ = $(window)
 
 
 class ProjectSearch
@@ -19,8 +22,9 @@ class ProjectSearch
 		center = new google.maps.LatLng(user_lat, user_lng)
 
 		# Create and render the Google Maps widget
+		@map_parent = $('#map')
 		map_canvas = $('<div/>')[0]
-		$('#map').append(map_canvas)
+		@map_parent.append(map_canvas)
 		map = @map = new google.maps.Map map_canvas, center: center, zoom: 13
 
 		# Mark the user into it
@@ -57,6 +61,17 @@ class ProjectSearch
 				@lat.value = location.lat()
 				@lng.value = location.lng()
 				@submit()
+
+		# Lock the map into the screen viewport
+		@lock_viewport()
+		window_.on 'scroll', => @lock_viewport()
+
+	lock_viewport: ->
+		scroll_bottom = window_.scrollTop() + window_.height()
+		footer_top = main_footer[0].offsetTop
+		@map_parent.css
+			top: main_header.height(),
+			bottom: Math.max(scroll_bottom - footer_top, 0),
 
 
 # Initialize ProjectSearch with geo coords from URL
