@@ -42,11 +42,40 @@ specific values, as defined below:
 Setup the database
 ------------------
 
-As for we use a geospatial database to work on, you must
-[pick one option](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/#spatial-database)
-and set it up properly. Although we highly recommend PostGIS for production,
-SpatiaLite gives best results when it comes to testing on a local development
-environment. **Skip this section if you're setting up a production server**.
+Brasil.com.vc is a GeoDjango application. We use PostGIS as our database, so
+you'll need to install some geospatial libraries, for that refer to the
+[GeoDjango manual](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/geolibs/) or follow the steps below.
+
+
+## PostGIS
+
+Setup your PostGIS database:
+
+0. Install your PostgreSQL environment. Although you can easily setup a
+   PostGIS-enabled PostgreSQL database through your OS' package manager, we
+   recommend using Docker for this:
+
+    `docker run -d -p 5432:5432 --name bcv_db jamesbrink/postgresql`
+
+0. Install Geospatial libraries on [Linux](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/geolibs/#installing-geospatial-libraries) or [Mac OS X](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/#homebrew)
+0. Create the database:
+
+    docker exec bcv_db psql -U postgres -c "create database bcv;"
+
+0. Turn on PostGIS extensions:
+
+    docker exec bcv_db psql -U postgres bcv -c "create extension postgis; create extension postgis_topology;"
+
+0. Export the `DATABASE_URL` environment
+
+    export DATABASE_URL="postgis://postgres:@$(docker port bcv_db 5432)/bcv"
+
+
+## SpatialLite
+
+
+:warning: **Skip this section if you're setting up a production server**.
+
 
 1. [Set up SpatiaLite](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/spatialite/) on your system.
 2. Set a new env var `SPATIALITE_LIBRARY_PATH` with your OS' library path.
