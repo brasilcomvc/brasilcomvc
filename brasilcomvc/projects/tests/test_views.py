@@ -1,42 +1,17 @@
-import os.path
-import shutil
-
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
-from django.core.files import File
+
 from django.core.urlresolvers import reverse
+from django.contrib.gis.geos import Point
 from django.test import TestCase
 
 from brasilcomvc.common.views import LoginRequiredMixin
 
 from ..models import Project
 from ..views import ProjectApply
+from . import ProjectTestMixin
 
 User = get_user_model()
-
-
-class ProjectTestMixin(object):
-    '''
-    Ease the Project creation process, given the need to save/delete
-    an image to the instance.
-    '''
-
-    def setUp(self):
-        self.project = Project.objects.create(
-            owner=User.objects.create_user('owner@example.com', '123'),
-            name='Test Project')
-
-        # Save Project img
-        img_path = os.path.join(os.path.dirname(__file__), 'empty_img.png')
-        self.project.img.save(
-            os.path.basename(img_path), File(open(img_path, 'rb')))
-        self.project.save()
-
-    def tearDown(self):
-        # Drop the Project img and its generated thumbnails
-        shutil.rmtree(os.path.join(
-            settings.MEDIA_ROOT, os.path.dirname(self.project.img.name)))
 
 
 class ProjectListTestCase(TestCase):
@@ -111,3 +86,54 @@ class ProjectApplyTestCase(ProjectTestMixin, TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertFalse(self.project.applications.exists())
         self.assertFalse(mail.outbox)
+
+
+class ProjectSearchViewTestCase(ProjectTestMixin, TestCase):
+
+    def setUp(self):
+        super(ProjectSearchViewTestCase, self).setUp()
+        self.sp = Point(-46.6333093, -23.5505199, srid=4326)
+        self.rj = Point(-43.1970773, -22.9082998, srid=4326)
+
+        # Set a default latlng to the created project
+        self.project.latlng = self.sp
+        self.project.save()
+
+    def test_search_within_default_range(self):
+        resp = self.client.get(reverse('projects:project_search'), data={
+            'q': 'some place',
+            'lat': self.sp.y,
+            'lng': self.sp.x
+        })
+        self.assertEquals(resp.status_code, 200)
+        self.assertEquals(list(resp.context_data['projects']), [self.project])
+
+    def test_search_within_specified_range(self):
+        resp = self.client.get(reverse('projects:project_search'), data={
+            'q': 'some place',
+            'lat': self.rj.y,
+            'lng': self.rj.x,
+            'radius': 10000,
+        })
+        self.assertEquals(resp.status_code, 200)
+        self.assertEquals(list(resp.context_data['projects']), [self.project])
+
+    def test_search_out_of_range(self):
+        self.project.latlng = self.rj
+        self.project.save()
+
+        resp = self.client.get(reverse('projects:project_search'), data={
+            'q': 'some place',
+            'lat': self.sp.y,
+            'lng': self.sp.x,
+        })
+        self.assertEquals(resp.status_code, 200)
+        self.assertEquals(list(resp.context_data['projects']), [])
+
+    def test_search_without_params(self):
+        resp = self.client.get(reverse('projects:project_search'))
+        self.assertEquals(resp.status_code, 200)
+        self.assertEquals(list(resp.context_data['projects']), [])
+        self.assertIsNotNone(resp.context_data['form'].errors.get('q'))
+        self.assertIsNotNone(resp.context_data['form'].errors.get('lat'))
+        self.assertIsNotNone(resp.context_data['form'].errors.get('lng'))

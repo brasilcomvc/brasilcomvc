@@ -1,24 +1,41 @@
 body.projects #main-content
 
-	figure.img
-		overflow: hidden
+	// widgets/project.html
+	.project
+		box-shadow: inset 0 0 0 1px color_text_lighter
+		margin-bottom: 2em !important
+		padding: 1rem
 
-		img
-			float: left
-			width: 100%
+		a
+			color: color_text_dark
+			text-decoration: none
 
-	p.location
-		font-size: 0.8em
+		.img
+			font-size: 0
+			margin: -1rem
+			margin-bottom: 1rem
+			overflow: hidden
 
-		&:before
-			background: url('glyphs/location.png') no-repeat
-			background-size: 1.5em
-			content: ''
-			display: inline-block
-			margin-right: 0.5em
-			opacity: 0.5
-			size: @background-size
-			vertical-align: bottom
+			img
+				float: left
+				width: 100%
+
+		.location
+			font-size: 0.8em
+
+			&:before
+				background: url('glyphs/location.png') no-repeat
+				background-size: 1.5em
+				content: ''
+				display: inline-block
+				margin-right: 0.5em
+				opacity: 0.5
+				size: @background-size
+				vertical-align: bottom
+
+		.tags
+			&, *
+				margin-bottom: 0
 
 	.tags
 		ul li

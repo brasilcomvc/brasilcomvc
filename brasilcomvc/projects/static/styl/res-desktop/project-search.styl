@@ -1,0 +1,25 @@
+body.project-search
+
+	#main-content
+		margin-left: 0
+
+	#search-results
+		form
+			clearfix()
+
+			#projectsearchform_q
+				col(10)
+				overflow: visible  // Unhide input's bottom border
+
+			button[type="submit"]
+				col(2)
+
+	#map
+		offset(12)
+		background: color_text_light
+		fixed: 0 0 0 @margin-left
+		margin-left: 0
+		overflow: hidden
+
+		> div
+			height: 100%  // Stretch map

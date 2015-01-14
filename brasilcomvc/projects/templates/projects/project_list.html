@@ -1,5 +1,6 @@
 {% extends 'projects/base.html' %}
 {% load firstof from future %}
+{% load static %}
 
 
 {% block title %}
@@ -12,6 +13,31 @@
 {% endblock body_classes %}
 
 
+{% block header %}
+	{{ block.super }}
+
+	<section id="home-banner">
+		<figure>
+			<img src="{% static 'img/banner.jpg' %}" alt="banner">
+			<figcaption>
+				<h1>Ajudar as pessoas e ganhar gratidão</h1>
+				<p>Doe um pouco do seu tempo para ajudar uma boa ideia e a transformar o Brasil num país melhor.</p>
+
+				<form id="project_search" action="{% url 'projects:project_search' %}" method="GET">
+					{# XXX: these fields must always init empty so our JS work properly #}
+					<input type="hidden" name="lat">
+					<input type="hidden" name="lng">
+					<label for="project_search_q">
+					       Encontre projetos próximos de você:
+					       <input type="text" name="q" placeholder="Digite seu endereço, CEP ou Cidade">
+					</label>
+					<button type="submit">Procurar</button>
+				</form>
+			</figcaption>
+		</figure>
+	</section>
+{% endblock header %}
+
 {% block content_content %}
 	<header class="page-title">
 		<h1>Projetos</h1>
@@ -21,30 +47,7 @@
 		<ul>
 		{% for project in project_list %}
 			<li class="project">
-			<a href="{{ project.get_absolute_url }}">
-				<figure>
-					<img src="{{ project.img_thumbnail.url }}" alt="imagem do {{ project.name }}">
-				</figure>
-				<h2>{{ project.name }}</h2>
-				<div class="short-description">
-					{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
-				</div>
-				<p class="applications">
-				{% if project.application_count %}
-					<strong>{{ project.application_count }}</strong> pessoa{{ project.application_count|pluralize }} est{{ project.application_count|pluralize:"á,ão" }} participando.
-				{% else %}
-					Ninguém participando ainda. :(
-				{% endif %}
-				</p>
-				<p class="location">{{ project.location }}</p>
-				<div class="tags">
-					<ul>
-					{% for tag in project.tags.all %}
-						<li>{{ tag.name }}</li>
-					{% endfor %}
-					</ul>
-				</div>
-			</a>
+				{% include 'widgets/project.html' %}
 			</li>
 		{% empty %}
 			<p>Nenhum projeto disponível. :(</p>

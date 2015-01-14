@@ -20,7 +20,10 @@ from .staticfiles import *
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 BASE_URL = os.environ.get('BASE_URL', '')
-DATABASES = {'default': dj_database_url.config(default='sqlite:///dev.sqlite')}
+DATABASES = {
+    'default': dj_database_url.config(default='spatialite:///dev.sqlite'),
+}
+SPATIALITE_LIBRARY_PATH = os.environ.get('SPATIALITE_LIBRARY_PATH', None)
 DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
 DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
 EMAIL_HOST = os.environ['EMAIL_HOST']
@@ -29,6 +32,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
 FACEBOOK_API_KEY = os.environ.get('FACEBOOK_API_KEY', None)
 GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY', None)
+GOOGLE_MAPS_API_KEY = GOOGLE_API_KEY  # Used by django.contrib.gis
 MAILING_ADDRESS = os.environ.get('MAILING_ADDRESS', '')
 SECRET_KEY = os.environ['SECRET_KEY']
 SNS_FACEBOOK = os.environ.get('SNS_FACEBOOK', '')
@@ -42,6 +46,7 @@ DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.gis',
     'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',

@@ -1,0 +1,40 @@
+{% extends 'projects/base.html' %}
+{% load form_utils %}
+{% load l10n %}
+{% load static %}
+
+
+{% block title %}
+	Pesquisa de projetos
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} project-search
+{% endblock body_classes %}
+
+
+{% block content_content %}
+	<section id="search-results" class="page-content">
+		<form action="{% url 'projects:project_search' %}" method="GET">
+			{# XXX: these fields must always init empty so our JS work properly #}
+			<input type="hidden" name="lat">
+			<input type="hidden" name="lng">
+			{% form_field form.q %}
+			<button type="submit">Pesquisar</button>
+		</form>
+
+		<ul>
+		{% for project in projects %}
+			<li class="project" {% localize off %} data-lat="{{ project.latlng.y }}" data-lng="{{ project.latlng.x }}" {% endlocalize %}>
+				{% include 'widgets/project.html' %}
+			</li>
+		{% empty %}
+			<p>Nenhum projeto encontrado. :(</p>
+		{% endfor %}
+		</ul>
+	</section>
+
+	<section id="map" class="page-content">
+	</section>
+{% endblock content_content %}

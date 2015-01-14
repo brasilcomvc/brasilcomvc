@@ -15,3 +15,4 @@ __pycache__/
 /.env
 .DS_Store
 /_deploy
+.*.sw[po]

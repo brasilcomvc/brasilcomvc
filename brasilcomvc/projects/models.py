@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.db import models
+from django.contrib.gis.db import models
 from django.utils.encoding import smart_text, python_2_unicode_compatible
 from django.utils.text import slugify
 from imagekit.models import ImageSpecField, ProcessedImageField
@@ -33,6 +33,9 @@ class Project(models.Model):
     address = models.TextField(verbose_name='endereço')
     location = models.TextField(verbose_name='local', help_text=(
         'Local ou cidade. E.g. "Teatro Municipal" ou "São Paulo, SP".'))
+    latlng = models.PointField(null=True, srid=4326, db_index=True,
+        help_text='Formato: SRID=4326;POINT(longitude latitude)')
+
     img = ProcessedImageField(
         format='JPEG',
         options={'quality': 80},
