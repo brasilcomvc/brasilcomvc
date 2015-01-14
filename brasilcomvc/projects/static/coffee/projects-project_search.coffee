@@ -51,6 +51,12 @@ class ProjectSearch
 		autocomplete = new google.maps.places.Autocomplete form.q,
 			types: ['geocode'],
 
+		# Fill latitude and longitude fields with geocode from the autocomplete
+		google.maps.event.addListener autocomplete, 'place_changed', ->
+			location = autocomplete.getPlace().geometry.location
+			form.lat.value = location.lat()
+			form.lng.value = location.lng()
+
 		# Fill latitude and longitude fields with geocode
 		$(form).on 'submit', (e) ->
 			if @lat.value and @lng.value
