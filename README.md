@@ -31,6 +31,7 @@ specific values, as defined below:
 - `FACEBOOK_API_KEY` - Facebook app key (used for registration)
 - `FACEBOOK_API_SECRET` - Facebook app secret (used for registration)
 - `GOOGLE_API_KEY` - Google services API key
+- `GOOGLE_ANALYTICS_ID` - Google Analytics tracking ID
 - `MAILING_ADDRESS` - Physical address of the organization running the project
 - `SECRET_KEY` - Unique and secret salt for passwords, hashes and session keys
 - `SENTRY_DSN` - Optional. Use this to configure your Sentry DSN.
