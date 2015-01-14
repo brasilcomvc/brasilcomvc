@@ -2,35 +2,30 @@
 from __future__ import unicode_literals
 
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.auth import authenticate, login as login_user
-from django.contrib.auth import logout as logout_user
+from django.contrib.auth import (
+    authenticate,
+    login as login_user,
+    logout as logout_user)
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import (
     login as auth_login,
     password_reset as django_password_reset,
-    password_reset_done as django_password_reset_done,
     password_reset_confirm as django_password_reset_confirm,
-)
+    password_reset_done as django_password_reset_done)
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-
 from django.views.generic import (
     CreateView,
-    DetailView,
     FormView,
-    TemplateView,
-    UpdateView,
-)
+    UpdateView)
 
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
-
 from .forms import (
     EditNotificationsForm,
     DeleteUserForm,
     LoginForm,
     SignupForm,
-    UserAddressForm,
-)
+    UserAddressForm)
 
 
 class Signup(AnonymousRequiredMixin, CreateView):
