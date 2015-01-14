@@ -17,6 +17,7 @@
 {% block content_content %}
 	<section id="search-results" class="page-content">
 		<form action="{% url 'projects:project_search' %}" method="GET">
+			{# XXX: these fields must always init empty so our JS work properly #}
 			<input type="hidden" name="lat">
 			<input type="hidden" name="lng">
 			{% form_field form.q %}

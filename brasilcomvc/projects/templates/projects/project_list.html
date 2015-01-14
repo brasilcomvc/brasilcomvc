@@ -24,6 +24,7 @@
 				<p>Doe um pouco do seu tempo para ajudar uma boa ideia e a transformar o Brasil num país melhor.</p>
 
 				<form id="project_search" action="{% url 'projects:project_search' %}" method="GET">
+					{# XXX: these fields must always init empty so our JS work properly #}
 					<input type="hidden" name="lat">
 					<input type="hidden" name="lng">
 					<label for="project_search_q">
