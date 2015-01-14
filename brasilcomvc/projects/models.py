@@ -33,8 +33,8 @@ class Project(models.Model):
     address = models.TextField(verbose_name='endereço')
     location = models.TextField(verbose_name='local', help_text=(
         'Local ou cidade. E.g. "Teatro Municipal" ou "São Paulo, SP".'))
-    latlng = models.PointField(null=True, srid=4326, help_text=(
-        'Formato: SRID=4326;POINT(longitude latitude)'))
+    latlng = models.PointField(null=True, srid=4326, db_index=True,
+        help_text='Formato: SRID=4326;POINT(longitude latitude)')
 
     img = ProcessedImageField(
         format='JPEG',
