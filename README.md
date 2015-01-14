@@ -64,7 +64,8 @@ Setup your PostGIS database:
 
 0. Turn on PostGIS extensions:
 
-    docker exec bcv_db psql -U postgres bcv -c "create extension postgis; create extension postgis_topology;"
+    docker exec bcv_db psql -U postgres -c "create extension postgis;" bcv
+    docker exec bcv_db psql -U postgres -c "create extension postgis_topology;" bcv
 
 0. Export the `DATABASE_URL` environment
 
