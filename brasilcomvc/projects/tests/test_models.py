@@ -1,3 +1,7 @@
+# coding: utf8
+from __future__ import unicode_literals
+
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -25,3 +29,16 @@ class ProjectTestCase(TestCase):
         filename = 'wat.png'
         expected = 'projects/wat-is-a-slug/img.jpeg'
         self.assertEqual(project_img_upload_to(project, filename), expected)
+
+    def test_auto_geocode_should_fail_with_invalid_address(self):
+        project = Project(address='Th1s iz such an 1nv4l1d @ddress')
+        self.assertRaises(ValidationError, lambda: project.clean())
+        self.assertIsNone(project.latlng)
+
+    def test_auto_geocode_should_work_with_valid_address(self):
+        project = Project(address='Sé, São Paulo, Brasil')
+        project.clean()
+        self.assertIsNotNone(project.latlng)
+        # Test approximate geo coordinates
+        self.assertEqual(int(project.latlng.x), -23)
+        self.assertEqual(int(project.latlng.y), -46)
