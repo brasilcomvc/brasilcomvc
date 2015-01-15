@@ -1,26 +1,24 @@
-{% extends "accounts/base.html" %}
+{% extends "accounts/edit.html" %}
 {% load form_utils %}
 
 
 {% block title %}
-	Minha Conta - Segurança
+	Minha Conta - {{ view.title }}
 {% endblock title %}
 
 
 {% block body_classes %}
-	{{ block.super }} edit edit_security_settings
+	{{ block.super }} edit
 {% endblock body_classes %}
 
 
 {% block content_content %}
-	<header class="page-title">
-		<h1>Segurança</h1>
-	</header>
-
-	<section class="page-content">
-		<form method="POST">
-			{% form_full form %}
-			<button type="submit">Salvar Alterações</button>
-		</form>
+{{ block.super }}
+	<section class="page-content" id="delete_user">
+		<h1>Remover Conta</h1>
+		<p>Apagar minha conta no Brasil.com.vc</p>
+		<p>
+			<a class="button danger" href="{% url 'accounts:delete_user' %}">Remover Conta</a>
+		</p>
 	</section>
 {% endblock content_content %}

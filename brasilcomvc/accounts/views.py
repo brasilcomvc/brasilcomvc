@@ -2,36 +2,31 @@
 from __future__ import unicode_literals
 
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.auth import authenticate, login as login_user
-from django.contrib.auth import logout as logout_user
+from django.contrib.auth import (
+    authenticate,
+    login as login_user,
+    logout as logout_user)
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import (
     login as auth_login,
     password_reset as django_password_reset,
-    password_reset_done as django_password_reset_done,
     password_reset_confirm as django_password_reset_confirm,
-)
+    password_reset_done as django_password_reset_done)
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-
 from django.views.generic import (
     CreateView,
-    DetailView,
     FormView,
-    TemplateView,
-    UpdateView,
-)
+    UpdateView)
 
 from brasilcomvc.common.views import AnonymousRequiredMixin, LoginRequiredMixin
-
 from .forms import (
     EditNotificationsForm,
     DeleteUserForm,
     LoginForm,
     PasswordResetForm,
     SignupForm,
-    UserAddressForm,
-)
+    UserAddressForm)
 
 
 class Signup(AnonymousRequiredMixin, CreateView):
@@ -109,7 +104,7 @@ class BaseEditUser(LoginRequiredMixin):
     '''
 
     success_message = 'Dados alterados com sucesso!'
-    success_url = reverse_lazy('accounts:edit_dashboard')
+    template_name = 'accounts/edit.html'
 
     def get_object(self):
         return self.request.user
@@ -118,28 +113,36 @@ class BaseEditUser(LoginRequiredMixin):
         messages.success(self.request, self.success_message)
         return super(BaseEditUser, self).form_valid(form)
 
+    def get_success_url(self):
+        return reverse(self.url_pattern)
 
-class EditDashboard(BaseEditUser, DetailView):
-
-    template_name = 'accounts/edit_dashboard.html'
+    def get_navigation(self):
+        return [
+            (view.url_pattern.split(':')[1],
+                view.title,
+                reverse(view.url_pattern),)
+            for view in BaseEditUser.__subclasses__()]
 
 
 class EditPersonalInfo(BaseEditUser, UpdateView):
 
-    template_name = 'accounts/edit_personal_info.html'
     fields = ('full_name', 'username', 'email', 'picture',)
+    title = 'Informações Pessoais'
+    url_pattern = 'accounts:edit_personal_info'
 
 
 class EditProfessionalInfo(BaseEditUser, UpdateView):
 
-    template_name = 'accounts/edit_professional_info.html'
     fields = ('job_title', 'bio',)
+    title = 'Informações Profissionais'
+    url_pattern = 'accounts:edit_professional_info'
 
 
 class EditNotifications(BaseEditUser, UpdateView):
 
     form_class = EditNotificationsForm
-    template_name = 'accounts/edit_notifications.html'
+    title = 'Notificações'
+    url_pattern = 'accounts:edit_notifications'
 
 
 class EditSecuritySettings(BaseEditUser, UpdateView):
@@ -147,6 +150,8 @@ class EditSecuritySettings(BaseEditUser, UpdateView):
     form_class = PasswordChangeForm
     success_message = 'Configurações de segurança atualizadas com sucesso!'
     template_name = 'accounts/edit_security_settings.html'
+    title = 'Segurança'
+    url_pattern = 'accounts:edit_security_settings'
 
     def get_form_kwargs(self):
         kwargs = super(EditSecuritySettings, self).get_form_kwargs()
@@ -157,7 +162,8 @@ class EditSecuritySettings(BaseEditUser, UpdateView):
 class EditUserAddress(BaseEditUser, UpdateView):
 
     form_class = UserAddressForm
-    template_name = 'accounts/edit_user_address.html'
+    title = 'Editar Endereço'
+    url_pattern = 'accounts:edit_user_address'
 
     def get_object(self):
         # If the user already has an address, make it the edition target

@@ -3,19 +3,30 @@
 
 
 {% block title %}
-	Minha Conta - Informações Pessoais
+	Minha Conta - {{ view.title }}
 {% endblock title %}
 
 
 {% block body_classes %}
-	{{ block.super }} edit edit_personal_info
+	{{ block.super }} edit
 {% endblock body_classes %}
 
 
 {% block content_content %}
-	<header class="page-title">
-		<h1>Informações Pessoais</h1>
-	</header>
+	<section id="edit-links">
+		<nav class="content-menu">
+		<ul>
+		{% for name, title, url in view.get_navigation %}
+			<li>
+				<a href="{{ url }}" class="{{ name }}
+				{% if url == request.path %}active{% endif %}">
+					{{ title }}
+				</a>
+			</li>
+		{% endfor %}
+		</ul>
+		</nav>
+	</section>
 
 	<section class="page-content">
 		<form method="POST" enctype="multipart/form-data">

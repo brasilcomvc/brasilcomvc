@@ -1,0 +1,16 @@
+.content-menu
+	a
+		button(color: transparent, hovercolor: transparent)
+		color: color_text_medium
+		display: block
+		text-align: left
+
+		&:hover
+			color: color_text_darker
+
+		&.active
+			font-weight: bold
+
+			&:before
+				content: '\25ba'
+				margin-right: 0.5em

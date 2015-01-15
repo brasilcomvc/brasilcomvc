@@ -1,0 +1,33 @@
+body.accounts.edit #main-content
+
+	#edit-links
+		margin-bottom: 2em
+		text-align: center
+
+		li
+			display: inline
+
+		a
+			background-origin: content-box
+			background-position: center
+			background-repeat: no-repeat
+			background-size: 2rem
+			color: transparent
+			display: inline-block
+			size: 4rem
+			font-size: 0
+			opacity: 0.5
+
+			&.active
+				opacity: 1
+
+			links = {
+				edit_personal_info: user,
+				edit_professional_info: briefcase,
+				edit_notifications: bell,
+				edit_security_settings: lock,
+				edit_user_address: home
+			}
+			for class, glyph in links
+				&.{class}
+					background-image: url('glyphs/'glyph'.png')
