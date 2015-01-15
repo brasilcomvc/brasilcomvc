@@ -177,8 +177,7 @@ class EditPersonalInfoTestCase(TestCase):
             'username': 'new_username',
         }
         resp = self.client.post(self.url, data)
-        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
-            reverse('accounts:edit_dashboard')))
+        self.assertRedirects(resp, self.url)
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
@@ -207,8 +206,7 @@ class EditProfessionalInfoTestCase(TestCase):
             'bio': 'I am an unusual person who does not like to write bios',
         }
         resp = self.client.post(self.url, data)
-        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
-            reverse('accounts:edit_dashboard')))
+        self.assertRedirects(resp, self.url)
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
@@ -236,8 +234,7 @@ class EditNotificationsTestCase(TestCase):
             'email_newsletter': True,
         }
         resp = self.client.post(self.url, data)
-        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
-            reverse('accounts:edit_dashboard')))
+        self.assertRedirects(resp, self.url)
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
@@ -263,8 +260,7 @@ class EditSecuritySettingsTestCase(TestCase):
             'new_password2': 'newpwd',
         }
         resp = self.client.post(self.url, data)
-        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
-            reverse('accounts:edit_dashboard')))
+        self.assertRedirects(resp, self.url)
         user = User.objects.get(pk=self.user_id)
         self.assertTrue(user.check_password(data['new_password1']))
 
@@ -294,8 +290,7 @@ class EditUserAddressTestCase(TestCase):
             'city': city.id,
         }
         resp = self.client.post(self.url, data)
-        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
-            reverse('accounts:edit_dashboard')))
+        self.assertRedirects(resp, self.url)
         address = UserAddress.objects.get(user_id=self.user_id)
         self.assertEqual(address.address_line1, data['address_line1'])
         self.assertEqual(address.address_line2, data['address_line2'])
@@ -320,8 +315,7 @@ class EditUserAddressTestCase(TestCase):
             'zipcode': '33333-333',
         }
         resp = self.client.post(self.url, data)
-        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
-            reverse('accounts:edit_dashboard')))
+        self.assertRedirects(resp, self.url)
         address = UserAddress.objects.get(id=address.id)
         self.assertEqual(address.zipcode, data['zipcode'])
         self.assertEqual(address.address_line2, data['address_line2'])

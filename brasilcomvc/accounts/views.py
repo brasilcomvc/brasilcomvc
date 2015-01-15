@@ -105,7 +105,6 @@ class BaseEditUser(LoginRequiredMixin):
     '''
 
     success_message = 'Dados alterados com sucesso!'
-    success_url = reverse_lazy('accounts:edit_dashboard')
     template_name = 'accounts/edit.html'
 
     def get_object(self):
@@ -114,6 +113,9 @@ class BaseEditUser(LoginRequiredMixin):
     def form_valid(self, form):
         messages.success(self.request, self.success_message)
         return super(BaseEditUser, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse(self.url_pattern)
 
     def get_navigation(self):
         return [
