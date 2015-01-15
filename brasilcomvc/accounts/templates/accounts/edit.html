@@ -1,0 +1,38 @@
+{% extends "accounts/base.html" %}
+{% load form_utils %}
+
+
+{% block title %}
+	Minha Conta - {{ view.title }}
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} edit
+{% endblock body_classes %}
+
+
+{% block content_content %}
+	<header class="page-title">
+		<h1>{{ view.title }}</h1>
+	</header>
+
+	<section id="edit-links">
+		<nav>
+		<ul>
+			<li><a href="{% url 'accounts:edit_personal_info' %}">Informações Pessoais</a></li>
+			<li><a href="{% url 'accounts:edit_professional_info' %}">Informações Profissionais</a></li>
+			<li><a href="{% url 'accounts:edit_notifications' %}">Notificações</a></li>
+			<li><a href="{% url 'accounts:edit_security_settings' %}">Segurança</a></li>
+			<li><a href="{% url 'accounts:edit_user_address' %}">Editar Endereço</a></li>
+		</ul>
+		</nav>
+	</section>
+
+	<section class="page-content">
+		<form method="POST" enctype="multipart/form-data">
+			{% form_full form %}
+			<button type="submit">Salvar Alterações</button>
+		</form>
+	</section>
+{% endblock content_content %}

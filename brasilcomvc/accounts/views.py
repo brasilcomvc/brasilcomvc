@@ -106,6 +106,7 @@ class BaseEditUser(LoginRequiredMixin):
 
     success_message = 'Dados alterados com sucesso!'
     success_url = reverse_lazy('accounts:edit_dashboard')
+    template_name = 'accounts/edit.html'
 
     def get_object(self):
         return self.request.user
@@ -117,27 +118,27 @@ class BaseEditUser(LoginRequiredMixin):
 
 class EditPersonalInfo(BaseEditUser, UpdateView):
 
-    template_name = 'accounts/edit_personal_info.html'
     fields = ('full_name', 'username', 'email', 'picture',)
+    title = 'Informações Pessoais'
 
 
 class EditProfessionalInfo(BaseEditUser, UpdateView):
 
-    template_name = 'accounts/edit_professional_info.html'
     fields = ('job_title', 'bio',)
+    title = 'Informações Profissionais'
 
 
 class EditNotifications(BaseEditUser, UpdateView):
 
     form_class = EditNotificationsForm
-    template_name = 'accounts/edit_notifications.html'
+    title = 'Notificações'
 
 
 class EditSecuritySettings(BaseEditUser, UpdateView):
 
     form_class = PasswordChangeForm
     success_message = 'Configurações de segurança atualizadas com sucesso!'
-    template_name = 'accounts/edit_security_settings.html'
+    title = 'Segurança'
 
     def get_form_kwargs(self):
         kwargs = super(EditSecuritySettings, self).get_form_kwargs()
@@ -148,7 +149,7 @@ class EditSecuritySettings(BaseEditUser, UpdateView):
 class EditUserAddress(BaseEditUser, UpdateView):
 
     form_class = UserAddressForm
-    template_name = 'accounts/edit_user_address.html'
+    title = 'Editar Endereço'
 
     def get_object(self):
         # If the user already has an address, make it the edition target
