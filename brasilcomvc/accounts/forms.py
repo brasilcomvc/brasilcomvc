@@ -4,8 +4,17 @@ from itertools import groupby
 
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordResetForm as djangoPasswordResetForm,
+)
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.urlresolvers import reverse
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
+from brasilcomvc.common.email import send_template_email
 from cities_light.models import City, Region
 
 from .models import UserAddress
@@ -33,6 +42,50 @@ class LoginForm(AuthenticationForm):
 
     # this is named username so we can use Django's login view
     username = forms.EmailField(required=True)
+
+
+class PasswordResetForm(djangoPasswordResetForm):
+    '''
+    Override the built-in form to customize email sending
+    '''
+
+    def save(
+            self, use_https=False, token_generator=default_token_generator,
+            from_email=None, domain_override=None, request=None, **kwargs):
+        try:
+            user = User.objects.get(email=self.cleaned_data['email'])
+        except User.DoesNotExist:
+            return
+
+        if not user.has_usable_password():
+            return
+
+        if domain_override:
+            site_name = domain = domain_override
+        else:
+            current_site = get_current_site(request)
+            site_name = current_site.name
+            domain = current_site.domain
+
+        context = {
+            'email': user.email,
+            'domain': domain,
+            'site_name': site_name,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'user': user,
+            'token': token_generator.make_token(user),
+            'protocol': 'https' if use_https else 'http',
+        }
+        context['reset_link'] = '{protocol}://{domain}{url}'.format(
+            url=reverse('accounts:password_reset_confirm', kwargs={
+                'uidb64': context['uid'], 'token': context['token']}),
+            **context)
+
+        send_template_email(
+            subject='Redefinição de senha',
+            to=self.cleaned_data['email'],
+            template_name='emails/password_reset.html',
+            context=context)
 
 
 class SignupForm(forms.ModelForm):
