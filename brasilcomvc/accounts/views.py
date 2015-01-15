@@ -146,6 +146,7 @@ class EditSecuritySettings(BaseEditUser, UpdateView):
 
     form_class = PasswordChangeForm
     success_message = 'Configurações de segurança atualizadas com sucesso!'
+    template_name = 'accounts/edit_security_settings.html'
     title = 'Segurança'
     url_pattern = 'accounts:edit_security_settings'
 

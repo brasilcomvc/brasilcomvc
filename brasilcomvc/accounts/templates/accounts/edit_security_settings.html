@@ -1,0 +1,24 @@
+{% extends "accounts/edit.html" %}
+{% load form_utils %}
+
+
+{% block title %}
+	Minha Conta - {{ view.title }}
+{% endblock title %}
+
+
+{% block body_classes %}
+	{{ block.super }} edit
+{% endblock body_classes %}
+
+
+{% block content_content %}
+{{ block.super }}
+	<section class="page-content" id="delete_user">
+		<h1>Remover Conta</h1>
+		<p>Apagar minha conta no Brasil.com.vc</p>
+		<p>
+			<a class="button danger" href="{% url 'accounts:delete_user' %}">Remover Conta</a>
+		</p>
+	</section>
+{% endblock content_content %}
