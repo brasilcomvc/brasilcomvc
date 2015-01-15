@@ -115,11 +115,6 @@ class BaseEditUser(LoginRequiredMixin):
         return super(BaseEditUser, self).form_valid(form)
 
 
-class EditDashboard(BaseEditUser, DetailView):
-
-    template_name = 'accounts/edit_dashboard.html'
-
-
 class EditPersonalInfo(BaseEditUser, UpdateView):
 
     template_name = 'accounts/edit_personal_info.html'

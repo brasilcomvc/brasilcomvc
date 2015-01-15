@@ -12,7 +12,6 @@ from cities_light.models import City
 from ..models import UserAddress
 from ..views import (
     DeleteUser,
-    EditDashboard,
     EditNotifications,
     EditPersonalInfo,
     EditProfessionalInfo,
@@ -42,8 +41,9 @@ class SignupTestCase(TestCase):
             'full_name': 'Test User',
             'password': '123',
         }
-        response = self.client.post(self.url, data)
-        self.assertRedirects(response, reverse('accounts:edit_dashboard'))
+        resp = self.client.post(self.url, data)
+        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
+            reverse('accounts:edit_dashboard')))
         self.assertTrue(User.objects.filter(email=data['email']).exists())
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'Bem vindo!')
@@ -68,20 +68,21 @@ class LoginTestCase(TestCase):
     def test_login_success(self):
         data = {'email': 'user@example.com', 'password': '123'}
         User.objects.create_user(**data)
-        response = self.client.post(self.url, data={
+        resp = self.client.post(self.url, data={
             'username': data['email'],
             'password': data['password'],
         })
-        self.assertRedirects(response, reverse('accounts:edit_dashboard'))
+        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
+            reverse('accounts:edit_dashboard')))
 
     def test_logged_user_should_be_redirected_to_dashboard(self):
         data = {'email': 'user@example.com', 'password': '123'}
         User.objects.create_user(**data)
         self.assertTrue(self.client.login(
             username=data['email'], password=data['password']))
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('accounts:edit_dashboard'))
+        resp = self.client.get(self.url)
+        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
+            reverse('accounts:edit_dashboard')))
 
 
 class LogoutTestCase(TestCase):
@@ -151,28 +152,6 @@ class ResetPasswordConfirmTestCase(TestCase):
         self.assertTrue(user.check_password(new_pwd))
 
 
-class EditDashboardTestCase(TestCase):
-
-    url = reverse('accounts:edit_dashboard')
-
-    def setUp(self):
-        data = {'email': 'user@example.com', 'password': '123'}
-        User.objects.create_user(**data)
-        self.client.login(
-            username=data['email'], password=data['password'])
-
-    def test_inherits_login_required_mixin(self):
-        self.assertTrue(issubclass(EditDashboard, LoginRequiredMixin))
-
-    def test_template_used(self):
-        resp = self.client.get(self.url)
-        self.assertTemplateUsed(resp, 'accounts/edit_dashboard.html')
-
-    def test_page_should_not_display_None(self):
-        resp = self.client.get(self.url)
-        self.assertNotContains(resp, 'None')
-
-
 class EditPersonalInfoTestCase(TestCase):
 
     url = reverse('accounts:edit_personal_info')
@@ -198,7 +177,8 @@ class EditPersonalInfoTestCase(TestCase):
             'username': 'new_username',
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
+        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
+            reverse('accounts:edit_dashboard')))
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
@@ -227,7 +207,8 @@ class EditProfessionalInfoTestCase(TestCase):
             'bio': 'I am an unusual person who does not like to write bios',
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
+        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
+            reverse('accounts:edit_dashboard')))
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
@@ -255,7 +236,8 @@ class EditNotificationsTestCase(TestCase):
             'email_newsletter': True,
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
+        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
+            reverse('accounts:edit_dashboard')))
         user = User.objects.get(pk=self.user_id)
         for key, value in data.items():
             self.assertEqual(getattr(user, key), value)
@@ -281,7 +263,8 @@ class EditSecuritySettingsTestCase(TestCase):
             'new_password2': 'newpwd',
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
+        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
+            reverse('accounts:edit_dashboard')))
         user = User.objects.get(pk=self.user_id)
         self.assertTrue(user.check_password(data['new_password1']))
 
@@ -311,7 +294,8 @@ class EditUserAddressTestCase(TestCase):
             'city': city.id,
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
+        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
+            reverse('accounts:edit_dashboard')))
         address = UserAddress.objects.get(user_id=self.user_id)
         self.assertEqual(address.address_line1, data['address_line1'])
         self.assertEqual(address.address_line2, data['address_line2'])
@@ -336,7 +320,8 @@ class EditUserAddressTestCase(TestCase):
             'zipcode': '33333-333',
         }
         resp = self.client.post(self.url, data)
-        self.assertRedirects(resp, reverse('accounts:edit_dashboard'))
+        self.assertEqual(resp['Location'], 'http://testserver{}'.format(
+            reverse('accounts:edit_dashboard')))
         address = UserAddress.objects.get(id=address.id)
         self.assertEqual(address.zipcode, data['zipcode'])
         self.assertEqual(address.address_line2, data['address_line2'])

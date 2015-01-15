@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.views.generic import RedirectView
 
 from .views import (
     DeleteUser,
@@ -7,7 +8,6 @@ from .views import (
     password_reset,
     password_reset_confirm,
     password_reset_sent,
-    EditDashboard,
     EditNotifications,
     EditPersonalInfo,
     EditProfessionalInfo,
@@ -44,7 +44,8 @@ urlpatterns = (
 
     # Edit Dashboard
     url(r'^editar/$',
-        EditDashboard.as_view(), name='edit_dashboard'),
+        RedirectView.as_view(pattern_name='accounts:edit_personal_info'),
+        name='edit_dashboard'),
 
     # Edit Personal Info
     url(r'^editar/info_pessoal/$',
