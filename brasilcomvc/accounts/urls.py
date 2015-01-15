@@ -48,7 +48,7 @@ urlpatterns = (
         name='edit_dashboard'),
 
     # Edit Personal Info
-    url(r'^editar/info_pessoal/$',
+    url(r'^editar/info-pessoal/$',
         EditPersonalInfo.as_view(), name='edit_personal_info'),
 
     # Edit Professional Info
