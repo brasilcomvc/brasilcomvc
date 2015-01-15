@@ -119,7 +119,9 @@ class BaseEditUser(LoginRequiredMixin):
 
     def get_navigation(self):
         return [
-            (view.title, reverse(view.url_pattern))
+            (view.url_pattern.split(':')[1],
+                view.title,
+                reverse(view.url_pattern),)
             for view in BaseEditUser.__subclasses__()]
 
 

@@ -16,10 +16,10 @@
 	<section id="edit-links">
 		<nav>
 		<ul>
-		{% for title, url in view.get_navigation %}
+		{% for name, title, url in view.get_navigation %}
 			<li>
-				<a href="{{ url }}"
-				{% if url == request.path %}class="active"{% endif %}>
+				<a href="{{ url }}" class="{{ name }}
+				{% if url == request.path %}active{% endif %}">
 					{{ title }}
 				</a>
 			</li>

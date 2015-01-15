@@ -1,4 +1,30 @@
-body.accounts.edit
+body.accounts.edit #main-content
 
 	#edit-links
-		margin-bottom: 2em
+		col(1)
+
+		a
+			background-origin: content-box
+			background-position: center
+			background-repeat: no-repeat
+			background-size: 2em
+			color: transparent
+			opacity: 0.5
+			overflow: hidden
+
+			&.active
+				opacity: 1
+
+			links = {
+				edit_personal_info: user,
+				edit_professional_info: briefcase,
+				edit_notifications: bell,
+				edit_security_settings: lock,
+				edit_user_address: home
+			}
+			for class, glyph in links
+				&.{class}
+					background-image: url('glyphs/'glyph'.png')
+
+	.page-content
+		col(3)
