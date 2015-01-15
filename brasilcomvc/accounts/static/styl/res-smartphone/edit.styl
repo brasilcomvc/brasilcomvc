@@ -1,16 +1,22 @@
 body.accounts.edit #main-content
 
 	#edit-links
-		col(1)
+		margin-bottom: 2em
+		text-align: center
+
+		li
+			display: inline
 
 		a
 			background-origin: content-box
 			background-position: center
 			background-repeat: no-repeat
-			background-size: 2em
+			background-size: 2rem
 			color: transparent
+			display: inline-block
+			size: 4rem
+			font-size: 0
 			opacity: 0.5
-			overflow: hidden
 
 			&.active
 				opacity: 1
@@ -25,6 +31,3 @@ body.accounts.edit #main-content
 			for class, glyph in links
 				&.{class}
 					background-image: url('glyphs/'glyph'.png')
-
-	.page-content
-		col(3)
