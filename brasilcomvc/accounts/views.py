@@ -115,23 +115,31 @@ class BaseEditUser(LoginRequiredMixin):
         messages.success(self.request, self.success_message)
         return super(BaseEditUser, self).form_valid(form)
 
+    def get_navigation(self):
+        return [
+            (view.title, reverse(view.url_pattern))
+            for view in BaseEditUser.__subclasses__()]
+
 
 class EditPersonalInfo(BaseEditUser, UpdateView):
 
     fields = ('full_name', 'username', 'email', 'picture',)
     title = 'Informações Pessoais'
+    url_pattern = 'accounts:edit_personal_info'
 
 
 class EditProfessionalInfo(BaseEditUser, UpdateView):
 
     fields = ('job_title', 'bio',)
     title = 'Informações Profissionais'
+    url_pattern = 'accounts:edit_professional_info'
 
 
 class EditNotifications(BaseEditUser, UpdateView):
 
     form_class = EditNotificationsForm
     title = 'Notificações'
+    url_pattern = 'accounts:edit_notifications'
 
 
 class EditSecuritySettings(BaseEditUser, UpdateView):
@@ -139,6 +147,7 @@ class EditSecuritySettings(BaseEditUser, UpdateView):
     form_class = PasswordChangeForm
     success_message = 'Configurações de segurança atualizadas com sucesso!'
     title = 'Segurança'
+    url_pattern = 'accounts:edit_security_settings'
 
     def get_form_kwargs(self):
         kwargs = super(EditSecuritySettings, self).get_form_kwargs()
@@ -150,6 +159,7 @@ class EditUserAddress(BaseEditUser, UpdateView):
 
     form_class = UserAddressForm
     title = 'Editar Endereço'
+    url_pattern = 'accounts:edit_user_address'
 
     def get_object(self):
         # If the user already has an address, make it the edition target

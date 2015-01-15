@@ -13,18 +13,17 @@
 
 
 {% block content_content %}
-	<header class="page-title">
-		<h1>{{ view.title }}</h1>
-	</header>
-
 	<section id="edit-links">
 		<nav>
 		<ul>
-			<li><a href="{% url 'accounts:edit_personal_info' %}">Informações Pessoais</a></li>
-			<li><a href="{% url 'accounts:edit_professional_info' %}">Informações Profissionais</a></li>
-			<li><a href="{% url 'accounts:edit_notifications' %}">Notificações</a></li>
-			<li><a href="{% url 'accounts:edit_security_settings' %}">Segurança</a></li>
-			<li><a href="{% url 'accounts:edit_user_address' %}">Editar Endereço</a></li>
+		{% for title, url in view.get_navigation %}
+			<li>
+				<a href="{{ url }}"
+				{% if url == request.path %}class="active"{% endif %}>
+					{{ title }}
+				</a>
+			</li>
+		{% endfor %}
 		</ul>
 		</nav>
 	</section>
