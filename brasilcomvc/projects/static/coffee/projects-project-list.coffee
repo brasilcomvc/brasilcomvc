@@ -1,6 +1,7 @@
 return if not $('body').hasClass('project-list')
 
 search_form = $('#project_search')[0]
+return if not search_form
 
 # Initialize a geocode autocomplete on the search form
 autocomplete = new google.maps.places.Autocomplete search_form.q,
