@@ -20,14 +20,13 @@
 		<figure>
 			<img src="{{ banner.image.url }}" alt="banner">
 			<figcaption>
-				{{ banner.content|safe }}
+				<div>{{ banner.content|safe }}</div>
 
 				<form id="project_search" action="{% url 'projects:project_search' %}" method="GET">
 					{# XXX: these fields must always init empty so our JS work properly #}
 					<input type="hidden" name="lat">
 					<input type="hidden" name="lng">
-					<label for="project_search_q">
-						Encontre projetos próximos de você:
+					<label id="projectsearchform_q">
 						<input type="text" name="q" placeholder="Digite seu endereço, CEP ou Cidade">
 					</label>
 					<button type="submit">Procurar</button>
