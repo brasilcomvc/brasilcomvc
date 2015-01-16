@@ -11,4 +11,5 @@ python-social-auth==0.2.1
 psycopg2==2.5.4
 pygeocoder==1.2.5
 raven==5.1.1
+responses==0.3.0
 waitress==0.8.9
