@@ -21,6 +21,7 @@ class HomeBanner(models.Model):
         processors=[ResizeToFill(1400, 550)],
         upload_to=project_img_upload_to)
     content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
 
     image.verbose_name = 'imagem'
     image.help_text = 'Imagem de alta resolução; será cortada para 1400x550.'
