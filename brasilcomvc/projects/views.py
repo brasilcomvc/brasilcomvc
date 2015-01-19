@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DetailView, ListView
 
 from brasilcomvc.common.views import LoginRequiredMixin
+from brasilcomvc.portal.models import HomeBanner
 
 from .forms import ProjectApplyForm, ProjectSearchForm
 from .models import Project
@@ -21,6 +22,11 @@ class ProjectList(ListView):
     def get_queryset(self):
         return Project.objects.annotate(
             application_count=Count('applications'))
+
+    def get_context_data(self, **kwargs):
+        return dict(
+            super(ProjectList, self).get_context_data(**kwargs),
+            banner=(HomeBanner.objects.order_by('?')[:1] or (None,))[0])
 
 
 class ProjectDetails(DetailView):

@@ -4,20 +4,11 @@ body.projects.project-list
 		height: 500px
 
 		figcaption
-			width: 1000px
+			width: ks-grid-config['total-width']
 
-			*
-				margin-bottom: 1em
+	#project_search
+		#projectsearchform_q
+			col(10)
 
-		h1
-			font-size: 1.5em
-
-		form
-			clearfix()
-
-			#projectsearchform_q
-				col(10)
-				overflow: visible  // Unhide input's bottom border
-
-			button[type="submit"]
-				col(2)
+		button[type="submit"]
+			col(2)
