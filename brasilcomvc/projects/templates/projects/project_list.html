@@ -18,7 +18,15 @@
 	{% if banner %}
 	<section id="home-banner">
 		<figure>
-			<img src="{{ banner.image.url }}" alt="banner">
+			{% if banner.video %}
+				<video autoplay loop>
+					<source src="{{ banner.video.url }}">
+					<img src="{{ banner.image.url }}" alt="banner">
+				</video>
+			{% else %}
+				<img src="{{ banner.image.url }}" alt="banner">
+			{% endif %}
+
 			<figcaption>
 				<div>{{ banner.content|safe }}</div>
 
