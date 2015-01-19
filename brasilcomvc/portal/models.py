@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.template.defaultfilters import striptags, truncatechars
+from django.utils.timezone import now
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
@@ -29,7 +30,7 @@ class HomeBanner(models.Model):
     video = models.FileField(
         null=True, blank=True, upload_to=homebanner_video_upload_to)
     content = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=now, editable=False)
 
     image.verbose_name = 'imagem'
     image.help_text = 'Imagem de alta resolução; será cortada para 1400x550.'
