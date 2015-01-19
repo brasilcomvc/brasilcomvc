@@ -8,8 +8,8 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
 
-def project_img_upload_to(instance, filename):
-    return 'homebanners/{}/image.jpeg'.format(instance.id)
+def homebanner_image_upload_to(instance, filename):
+    return 'homebanners/{:%Y-%m-%d}/image.jpeg'.format(instance.created)
 
 
 def homebanner_video_upload_to(instance, filename):
@@ -25,7 +25,7 @@ class HomeBanner(models.Model):
         format='JPEG',
         options={'quality': 80},
         processors=[ResizeToFill(1400, 550)],
-        upload_to=project_img_upload_to)
+        upload_to=homebanner_image_upload_to)
     video = models.FileField(
         null=True, blank=True, upload_to=homebanner_video_upload_to)
     content = models.TextField()
