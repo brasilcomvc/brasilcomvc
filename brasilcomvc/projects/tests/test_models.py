@@ -61,6 +61,5 @@ class ProjectTestCase(TestCase):
         project = Project(address='Sé, São Paulo, Brasil')
         project.clean()
         self.assertIsNotNone(project.latlng)
-        # Test approximate geo coordinates
-        self.assertEqual(int(project.latlng.x), -23)
-        self.assertEqual(int(project.latlng.y), -46)
+        self.assertEqual(project.latlng.x, -23.5528)
+        self.assertEqual(project.latlng.y, -46.6307)
