@@ -9,5 +9,6 @@ jsmin==2.0.11
 Pillow==2.7.0
 python-social-auth==0.2.1
 psycopg2==2.5.4
+pygeocoder==1.2.5
 raven==5.1.1
 waitress==0.8.9

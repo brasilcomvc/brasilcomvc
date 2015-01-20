@@ -2,12 +2,15 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 from django.utils.encoding import smart_text, python_2_unicode_compatible
 from django.utils.text import slugify
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
+from pygeocoder import Geocoder, GeocoderError
 
 from brasilcomvc.common.email import send_template_email
 
@@ -33,8 +36,8 @@ class Project(models.Model):
     address = models.TextField(verbose_name='endereço')
     location = models.TextField(verbose_name='local', help_text=(
         'Local ou cidade. E.g. "Teatro Municipal" ou "São Paulo, SP".'))
-    latlng = models.PointField(null=True, srid=4326, db_index=True,
-        help_text='Formato: SRID=4326;POINT(longitude latitude)')
+    latlng = models.PointField(
+        null=True, srid=4326, db_index=True, editable=False)
 
     img = ProcessedImageField(
         format='JPEG',
@@ -65,6 +68,17 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse('projects:project_details', kwargs={'slug': self.slug})
+
+    def clean(self):
+        # Use Google Maps API to geocode `address` into `latlng`
+        try:
+            lat, lng = Geocoder.geocode(
+                ' '.join(self.address.splitlines()))[0].coordinates
+        except GeocoderError as err:
+            if err.status != GeocoderError.G_GEO_ZERO_RESULTS:
+                raise
+            raise ValidationError('Endereço não reconhecido no Google Maps.')
+        self.latlng = Point(lat, lng)
 
     def save(self, **kwargs):
         if self.pk is None:
