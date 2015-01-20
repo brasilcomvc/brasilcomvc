@@ -15,16 +15,15 @@ from ..models import Project, project_img_upload_to
 User = get_user_model()
 
 
-def _tamper_gmaps_geocode(plain_json):
-    responses.add(
-        responses.GET,
-        re.compile(Geocoder.GEOCODE_QUERY_URL),
-        body=json.dumps(plain_json),
-        content_type='application/json',
-        status=200)
-
-
 class ProjectTestCase(TestCase):
+
+    def _mock_pygeocoder_request(self, plain_json):
+        responses.add(
+            responses.GET,
+            re.compile(Geocoder.GEOCODE_QUERY_URL),
+            body=json.dumps(plain_json),
+            content_type='application/json',
+            status=200)
 
     def test_project_slug_gets_generated_correctly(self):
         project = Project(
@@ -46,7 +45,7 @@ class ProjectTestCase(TestCase):
     @responses.activate
     def test_auto_geocode_should_fail_with_invalid_address(self):
         project = Project(address='Th1s iz such an 1nv4l1d @ddress')
-        _tamper_gmaps_geocode({
+        self._mock_pygeocoder_request({
             'results': [],
             'status': GeocoderError.G_GEO_ZERO_RESULTS})
         self.assertRaises(ValidationError, lambda: project.clean())
@@ -54,7 +53,7 @@ class ProjectTestCase(TestCase):
 
     @responses.activate
     def test_auto_geocode_should_work_with_valid_address(self):
-        _tamper_gmaps_geocode({
+        self._mock_pygeocoder_request({
             'results': [
                 {'geometry': {'location': {'lat': -23.5528, 'lng': -46.6307}}},
             ],
