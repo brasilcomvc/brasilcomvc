@@ -48,7 +48,7 @@ class ProjectTestCase(TestCase):
         self._mock_pygeocoder_request({
             'results': [],
             'status': GeocoderError.G_GEO_ZERO_RESULTS})
-        self.assertRaises(ValidationError, lambda: project.clean())
+        self.assertRaises(ValidationError, project.clean)
         self.assertIsNone(project.latlng)
 
     @responses.activate
