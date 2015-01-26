@@ -32,3 +32,17 @@ body.projects.project-list
 			#project_search
 				clearfix()
 				margin-bottom: 1em
+
+				#projectsearchform_q
+					margin-right: 0 !important
+
+				button[type="submit"]
+					font-size: 0
+					margin-left: 0 !important
+					position: relative
+
+					&:after
+						absolute: 0 0 0 0
+						background: url('glyphs/magnifier.png') no-repeat center
+						background-size: 2rem
+						content: ''
