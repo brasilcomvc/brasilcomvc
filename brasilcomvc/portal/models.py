@@ -24,8 +24,8 @@ class HomeBanner(models.Model):
 
     image = ProcessedImageField(
         format='JPEG',
-        options={'quality': 80},
-        processors=[ResizeToFill(1400, 550)],
+        options={'quality': 90},
+        processors=[ResizeToFill(2000, 550)],
         upload_to=homebanner_image_upload_to)
     video = models.FileField(
         null=True, blank=True, upload_to=homebanner_video_upload_to)
