@@ -3,12 +3,19 @@
 
 
 <!doctype html>
-<html>
+<html xmlns:og="http://ogp.me/ns#">
 	<head>
 	{% block head %}
 		<title>{% block title %}{% endblock title %} | Brasil.com.vc</title>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+		{% block opengraph %}
+			<meta property="og:title" content="Brasil.com.vc">
+			<meta property="og:type" content="website">
+			<meta property="og:url" content="{{ request.build_absolute_uri }}">
+			<meta property="og:image" content="{% static 'img/logo_opengraph.jpg' %}">
+		{% endblock opengraph %}
 
 		{% block css %}
 			{% compressed_css 'common' %}
