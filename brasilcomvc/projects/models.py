@@ -49,6 +49,11 @@ class Project(models.Model):
         options={'quality': 80},
         processors=[ResizeToFill(320, 240)],
         source='img')
+    img_opengraph = ImageSpecField(
+        format='JPEG',
+        options={'quality': 80},
+        processors=[ResizeToFill(800, 420)],
+        source='img')
     video = models.URLField(null=True, blank=True)
 
     name.verbose_name = 'nome'
