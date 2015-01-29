@@ -16,3 +16,13 @@ $(document).on 'click', '#main-content figure.img[data-video]', ->
 
 	# Drop `data-video` attribute
 	@removeAttribute 'data-video'
+
+
+### Fixed sidebar ###
+# This cannot be just a matter of style because the required elements are not
+# wrapped into a single container.
+sidebar = $('<section class="page-content sidebar"/>')
+sidebar.append $('.page-title').clone()
+sidebar.append $('.apply').clone()
+sidebar.append $('#extra-info').clone()
+$('#main-content').prepend sidebar

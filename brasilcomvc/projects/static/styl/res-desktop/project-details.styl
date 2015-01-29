@@ -1,9 +1,8 @@
-body.project-details #main-content
+body.project-details
 
-	.page-title
+	#main-content .page-title
 		col(4)
 		float: right
-		margin-bottom: 0 !important
 		text-align: left
 
 		h1
@@ -20,3 +19,19 @@ body.project-details #main-content
 
 	.page-content#extra-info
 		col(4)
+
+	.sidebar
+		offset(8)
+		position: fixed
+
+		> *
+			margin: 0 0 2em 0 !important
+
+	&.past-header
+		#main-content > :not(.sidebar) > .page-title
+		#main-content > :not(.sidebar) > .img + div
+		#main-content > #extra-info
+			display: none
+
+		.sidebar
+			display: block !important
