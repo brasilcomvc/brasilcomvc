@@ -1,5 +1,6 @@
 {% extends 'projects/base.html' %}
 {% load firstof from future %}
+{% load utils %}
 
 
 {% block title %}
@@ -36,7 +37,7 @@
 
 		<div>
 			<section class="short-description">
-				{% firstof project.short_description|linebreaks project.about|truncatechars:200 %}
+				{% firstof project.short_description|markdown project.about|truncatechars:200|markdown %}
 			</section>
 
 			<section class="tags">
@@ -90,22 +91,22 @@
 		{% if project.relevant_fact %}
 		<blockquote class="relevant-fact">
 			<strong class="title">Você sabia?</strong>
-			{{ project.relevant_fact }}
+			{{ project.relevant_fact|markdown }}
 		</blockquote>
 		{% endif %}
 
 		<section class="about">
 			<h1>Sobre o projeto</h1>
-			{{ project.about|linebreaks }}
+			{{ project.about|markdown }}
 		</section>
 		<section class="how-to-help">
 			<h1>Como ajudar</h1>
-			{{ project.how_to_help|linebreaks }}
+			{{ project.how_to_help|markdown }}
 		</section>
 		{% if project.requirements %}
 		<section class="requirements">
 			<h1>Requisitos</h1>
-			{{ project.requirements|linebreaks }}
+			{{ project.requirements|markdown }}
 		</section>
 		{% endif %}
 		<section class="comments">
@@ -117,7 +118,7 @@
 	<section class="page-content" id="extra-info">
 		<section class="agenda">
 			<h1>Agenda</h1>
-			{{ project.agenda|linebreaks }}
+			{{ project.agenda|markdown }}
 		</section>
 		<section class="location">
 			<h1>Local</h1>
