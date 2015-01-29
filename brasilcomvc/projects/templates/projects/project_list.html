@@ -3,6 +3,15 @@
 {% load static %}
 
 
+{% block opengraph %}
+{{ block.super }}
+	<meta property="og:image" content="{% static 'img/logo_opengraph.png' %}">
+	<meta property="og:title" content="Brasil.com.vc">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ request.build_absolute_uri }}">
+{% endblock opengraph %}
+
+
 {% block title %}
 	Projetos
 {% endblock title %}

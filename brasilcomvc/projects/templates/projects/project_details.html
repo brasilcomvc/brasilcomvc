@@ -8,9 +8,9 @@
 
 
 {% block opengraph %}
-	<meta property="og:title" content="{{ project.name }} | Brasil.com.vc">
-	<meta property="og:url" content="{{ request.build_absolute_uri }}">
+{{ block.super }}
 	<meta property="og:image" content="{{ project.img_opengraph.url }}">
+	<meta property="og:title" content="{{ project.name }} | Brasil.com.vc">
 	<meta property="og:type" content="place">
 	<meta property="place:location:latitude" content="{{ project.latlng.y }}">
 	<meta property="place:location:longitude" content="{{ project.latlng.x }}">

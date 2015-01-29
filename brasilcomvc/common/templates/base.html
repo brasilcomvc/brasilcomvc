@@ -3,18 +3,18 @@
 
 
 <!doctype html>
-<html xmlns:og="http://ogp.me/ns#">
-	<head>
+<html>
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# place: http://ogp.me/ns/place#">
 	{% block head %}
 		<title>{% block title %}{% endblock title %} | Brasil.com.vc</title>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
 		{% block opengraph %}
-			<meta property="og:title" content="Brasil.com.vc">
-			<meta property="og:type" content="website">
+			{% if FACEBOOK_API_KEY %}
+				<meta property="fb:app_id" content="{{ FACEBOOK_API_KEY }}">
+			{% endif %}
 			<meta property="og:url" content="{{ request.build_absolute_uri }}">
-			<meta property="og:image" content="{% static 'img/logo_opengraph.png' %}">
 		{% endblock opengraph %}
 
 		{% block css %}
