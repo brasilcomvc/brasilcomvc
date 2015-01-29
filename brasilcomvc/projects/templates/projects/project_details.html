@@ -9,6 +9,7 @@
 
 {% block opengraph %}
 {{ block.super }}
+	<meta property="og:description" name="description" content="{% firstof project.short_description project.about|truncatechars:200 %}">
 	<meta property="og:image" content="{{ project.img_opengraph.url }}">
 	<meta property="og:title" content="{{ project.name }} | Brasil.com.vc">
 	<meta property="og:type" content="place">
