@@ -22,10 +22,14 @@ body.project-details
 
 	.sidebar
 		offset(8)
+		margin-bottom: 0 !important
 		position: fixed
 
 		> *
-			margin: 0 0 2em 0 !important
+			margin: 0 !important
+
+			&:not(:last-child)
+				margin-bottom: 2rem !important
 
 	&.past-header
 		#main-content > :not(.sidebar) > .page-title
