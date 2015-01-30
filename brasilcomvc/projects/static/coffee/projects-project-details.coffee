@@ -30,13 +30,31 @@ sidebar.append $('#extra-info').clone()
 $('#main-content').prepend sidebar
 
 # Handle scrolling x map
-map = $('.map')
+map_parent = $('#map')
 sidebar_bottom = null
 $(window).on 'scroll', ->
 	sidebar_bottom or= sidebar[0].offsetTop + sidebar.height()
 	wh = $(window).height()
-	map_top = wh - ($(document).scrollTop() + wh - map.offset().top)
+	map_top = wh - ($(document).scrollTop() + wh - map_parent.offset().top)
 	if sidebar_bottom > map_top
 		sidebar.css bottom: wh - map_top
 	else
 		sidebar.css bottom: ''
+
+
+### Project location map ###
+project_location = new google.maps.LatLng PROJECT_LAT, PROJECT_LNG
+map_canvas = $('<div/>')[0]
+map_parent.append map_canvas
+map = new google.maps.Map map_canvas,
+	center: project_location
+	disableDefaultUI: true
+	scrollwheel: false
+	zoom: 13
+	zoomControl: true
+	zoomControlOptions:
+		position: google.maps.ControlPosition.LEFT_CENTER
+project_marker = new google.maps.Marker
+	map: map
+	position: project_location
+	title: PROJECT_NAME

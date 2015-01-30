@@ -137,18 +137,15 @@
 
 {% block content %}
 	{{ block.super }}
-	{% if GOOGLE_API_KEY %}
-	<section class="map">
-		<iframe width="100%" frameborder="0" style="border:0"
-			src="https://www.google.com/maps/embed/v1/place?
-				q={{ project.address|urlencode }}&amp;
-				key={{ GOOGLE_API_KEY }}
-			"></iframe>
-	</section>
-	{% endif %}
+	{% if GOOGLE_API_KEY %}<section id="map" class="page-content"></section>{% endif %}
 {% endblock content %}
 
 {% block js %}
-	{{ block.super }}
 	<script src="//www.youtube.com/iframe_api"></script>
+	<script>
+		window.PROJECT_LAT = {{ project.latlng.x|stringformat:'f' }};
+		window.PROJECT_LNG = {{ project.latlng.y|stringformat:'f' }};
+		window.PROJECT_NAME = '{{ project.name|escapejs }}';
+	</script>
+	{{ block.super }}
 {% endblock js %}
