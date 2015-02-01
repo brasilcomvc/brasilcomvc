@@ -92,8 +92,8 @@ class ProjectSearchViewTestCase(ProjectTestMixin, TestCase):
 
     def setUp(self):
         super(ProjectSearchViewTestCase, self).setUp()
-        self.sp = Point(-46.6333093, -23.5505199, srid=4326)
-        self.rj = Point(-43.1970773, -22.9082998, srid=4326)
+        self.sp = Point(x=-46.6333093, y=-23.5505199, srid=4326)
+        self.rj = Point(x=-43.1970773, y=-22.9082998, srid=4326)
 
         # Set a default latlng to the created project
         self.project.latlng = self.sp

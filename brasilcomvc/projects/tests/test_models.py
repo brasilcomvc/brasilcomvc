@@ -61,5 +61,5 @@ class ProjectTestCase(TestCase):
         project = Project(address='Sé, São Paulo, Brasil')
         project.clean()
         self.assertIsNotNone(project.latlng)
-        self.assertEqual(project.latlng.x, -23.5528)
-        self.assertEqual(project.latlng.y, -46.6307)
+        self.assertEqual(project.latlng.y, -23.5528)  # latitude
+        self.assertEqual(project.latlng.x, -46.6307)  # longitude

@@ -77,13 +77,13 @@ class Project(models.Model):
     def clean(self):
         # Use Google Maps API to geocode `address` into `latlng`
         try:
-            lat, lng = Geocoder.geocode(
-                ' '.join(self.address.splitlines()))[0].coordinates
+            addr = Geocoder.geocode(' '.join(self.address.splitlines()))[0]
+            self.latlng = Point(y=addr.latitude, x=addr.longitude, srid=4326)
+
         except GeocoderError as err:
             if err.status != GeocoderError.G_GEO_ZERO_RESULTS:
                 raise
             raise ValidationError('Endereço não reconhecido no Google Maps.')
-        self.latlng = Point(lat, lng)
 
     def save(self, **kwargs):
         if self.pk is None:
