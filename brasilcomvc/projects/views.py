@@ -109,7 +109,7 @@ class ProjectSearch(ListView):
             lng = self.form.cleaned_data['lng']
             radius = self.form.cleaned_data['radius'] or 30
 
-            user_location = Point(lng, lat, srid=4326)
+            user_location = Point(x=lng, y=lat, srid=4326)
             projects = Project.objects.filter(
                 latlng__distance_lte=(user_location, D(km=radius)))
 
