@@ -143,8 +143,8 @@
 {% block js %}
 	<script src="//www.youtube.com/iframe_api"></script>
 	<script>
-		window.PROJECT_LAT = {{ project.latlng.x|stringformat:'f' }};
-		window.PROJECT_LNG = {{ project.latlng.y|stringformat:'f' }};
+		window.PROJECT_LAT = {{ project.latlng.y|stringformat:'f' }};
+		window.PROJECT_LNG = {{ project.latlng.x|stringformat:'f' }};
 		window.PROJECT_NAME = '{{ project.name|escapejs }}';
 	</script>
 	{{ block.super }}
