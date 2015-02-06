@@ -110,11 +110,16 @@ class ProjectApply(models.Model):
     message = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
+    volunteer.verbose_name = 'voluntário'
+    project.verbose_name = 'projeto'
     message.verbose_name = 'mensagem ao organizador'
     message.help_text = 'Conte-nos brevemente como você pode ajudar.'
+    created.verbose_name = 'hora do registro'
 
     class Meta:
         unique_together = ('project', 'volunteer',)
+        verbose_name = 'inscrição em projeto'
+        verbose_name_plural = 'inscrições em projetos'
 
     def __str__(self):
         return '{}: {}'.format(self.project.name, self.volunteer.full_name)
