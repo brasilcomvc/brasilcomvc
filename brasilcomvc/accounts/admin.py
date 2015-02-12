@@ -11,7 +11,8 @@ class UserAdmin(admin.ModelAdmin):
     class UserAddressInline(admin.StackedInline):
         model = UserAddress
 
-    list_display = ('email', 'full_name', 'username',)
+    list_display = ('email', 'full_name', 'username', 'date_joined')
+    list_filter = ('date_joined',)
     fieldsets = (
         ('Informações Pessoais', {
             'fields': ('full_name', 'username', 'email',),
