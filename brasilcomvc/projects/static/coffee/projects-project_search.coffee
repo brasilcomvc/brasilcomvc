@@ -25,7 +25,7 @@ class ProjectSearch
 		@map_parent = $('#map')
 		map_canvas = $('<div/>')[0]
 		@map_parent.append(map_canvas)
-		@map = map = new google.maps.Map map_canvas, center: center
+		@map = map = new google.maps.Map map_canvas, center: center, zoom: 12
 
 		# Mark the user into it
 		@user_marker = new google.maps.Marker
@@ -45,7 +45,8 @@ class ProjectSearch
 			results_bounds.extend marker.getPosition()
 
 		# Zoom the map to wrap all search results
-		@map.fitBounds results_bounds
+		if results_markers.length
+			@map.fitBounds results_bounds
 
 		# Initialize a geocode autocomplete on the search form
 		autocomplete = new google.maps.places.Autocomplete form.q,
