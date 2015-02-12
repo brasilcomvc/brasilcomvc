@@ -8,8 +8,9 @@ from django.test import TestCase
 from brasilcomvc.common.views import LoginRequiredMixin
 
 from ..models import Project
-from ..views import ProjectApply
+from ..views import ProjectApply, ProjectList
 from . import ProjectTestMixin
+
 
 User = get_user_model()
 
@@ -22,6 +23,15 @@ class ProjectListTestCase(TestCase):
         resp = self.client.get(self.url)
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed(resp, 'projects/project_list.html')
+
+    def test_check_random_order(self):
+        p1 = Project.objects.create(name='project-1', owner=User.objects.create(email='p1@domain.net'))
+        p2 = Project.objects.create(name='project-2', owner=User.objects.create(email='p2@domain.net'))
+
+        qs_ids_1 = ProjectList().get_queryset().values_list('id', flat=True)
+        qs_ids_2 = ProjectList().get_queryset().values_list('id', flat=True)
+        self.assertNotEquals(qs_ids_1, qs_ids_2)
+
 
 
 class ProjectDetailsTestCase(ProjectTestMixin, TestCase):

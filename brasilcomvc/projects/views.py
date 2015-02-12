@@ -20,7 +20,7 @@ class ProjectList(ListView):
     template_name = 'projects/project_list.html'
 
     def get_queryset(self):
-        return Project.objects.annotate(
+        return Project.objects.order_by('?').annotate(
             application_count=Count('applications'))
 
     def get_context_data(self, **kwargs):
