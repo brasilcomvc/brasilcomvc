@@ -20,6 +20,8 @@ from .staticfiles import *
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 BASE_URL = os.environ.get('BASE_URL', '')
+CONTACT_EMAIL = os.getenv('CONTACT_EMAIL')
+CONTACT_PHONE = os.getenv('CONTACT_PHONE')
 DATABASES = {
     'default': dj_database_url.config(default='spatialite:///dev.sqlite'),
 }
@@ -85,6 +87,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'social.apps.django_app.context_processors.login_redirect',
     'brasilcomvc.common.context_processors.api_keys',
     'brasilcomvc.common.context_processors.blog_url',
+    'brasilcomvc.common.context_processors.contact_info',
     'brasilcomvc.context_processors.sns_links',
 )
 

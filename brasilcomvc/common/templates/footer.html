@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <section id="footer-content">
 <div>
 	<p class="logo">
@@ -22,9 +21,15 @@
 			{% if sns_twitter %}<li><a class="twitter" href="{{ sns_twitter }}">Twitter</a></li>{% endif %}
 		</ul>
 	</section>
+
 	<p class="copyright">
 		© Copyright 2015 - Todos os Direitos Reservados a Brasil.com.vc -
 		Mantido por <strong>The Brand Machine</strong>
+
+		<ul>
+		{% if CONTACT_EMAIL %}<li>E-mail: <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a></li>{% endif %}
+		{% if CONTACT_PHONE %}<li>Telefone: <a href="tel:{{ CONTACT_PHONE }}">{{ CONTACT_PHONE }}</a></li>{% endif %}
+		</ul>
 	</p>
 </div>
 </section>

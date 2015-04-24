@@ -11,3 +11,10 @@ def api_keys(request):
 
 def blog_url(request):
     return {'BLOG_URL': settings.BLOG_URL}
+
+
+def contact_info(request):
+    return {
+        'CONTACT_EMAIL': settings.CONTACT_EMAIL,
+        'CONTACT_PHONE': settings.CONTACT_PHONE,
+    }

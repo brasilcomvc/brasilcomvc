@@ -33,3 +33,22 @@ class BlogURLTestCase(SimpleTestCase):
             ctx = RequestContext(RequestFactory().get('/'))
         self.assertIn('BLOG_URL', ctx)
         self.assertEquals(ctx['BLOG_URL'], 'http://blog')
+
+
+class ContactInfoTestCase(SimpleTestCase):
+
+    def test_unit(self):
+        with self.settings(CONTACT_EMAIL='contato@brasil.com.vc', CONTACT_PHONE='551100000000'):
+            ctx = blog_url(None)
+        self.assertIn('CONTACT_EMAIL', ctx)
+        self.assertEquals(ctx['CONTACT_EMAIL'], 'contato@brasil.com.vc')
+        self.assertIn('CONTACT_PHONE', ctx)
+        self.assertEquals(ctx['CONTACT_PHONE'], '551100000000')
+
+    def test_integration(self):
+        with self.settings(CONTACT_EMAIL='contato@brasil.com.vc', CONTACT_PHONE='551100000000'):
+            ctx = RequestContext(RequestFactory().get('/'))
+        self.assertIn('CONTACT_EMAIL', ctx)
+        self.assertEquals(ctx['CONTACT_EMAIL'], 'contato@brasil.com.vc')
+        self.assertIn('CONTACT_PHONE', ctx)
+        self.assertEquals(ctx['CONTACT_PHONE'], '551100000000')
