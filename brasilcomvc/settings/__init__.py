@@ -20,6 +20,7 @@ from .staticfiles import *
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 BASE_URL = os.environ.get('BASE_URL', '')
+BLOG_URL = os.getenv('BLOG_URL')
 CONTACT_EMAIL = os.getenv('CONTACT_EMAIL')
 CONTACT_PHONE = os.getenv('CONTACT_PHONE')
 DATABASES = {
@@ -140,6 +141,3 @@ SOCIAL_AUTH_FACEBOOK_KEY = FACEBOOK_API_KEY
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('FACEBOOK_API_SECRET', None)
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['public_profile', 'email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'pt_BR'}
-
-# Blog
-BLOG_URL = os.getenv('BLOG_URL')
