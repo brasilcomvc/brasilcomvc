@@ -9,6 +9,9 @@
 		<ul>
 			<li><a href="{% url 'projects:project_list' %}">Projetos</a></li>
 			<li><a href="{% url 'portal:how_it_works' %}">Como Funciona</a></li>
+		{% if BLOG_URL %}
+			<li><a href="{{ BLOG_URL }}">Blog</a></li>
+		{% endif %}
 		{% if request.user.is_authenticated %}
 			<li><a href="{% url 'accounts:edit_dashboard' %}">Minha Conta</a></li>
 			<li><a href="{% url 'accounts:logout' %}">Logout</a></li>

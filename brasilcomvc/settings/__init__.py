@@ -84,6 +84,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
     'brasilcomvc.common.context_processors.api_keys',
+    'brasilcomvc.common.context_processors.blog_url',
     'brasilcomvc.context_processors.sns_links',
 )
 
@@ -136,3 +137,6 @@ SOCIAL_AUTH_FACEBOOK_KEY = FACEBOOK_API_KEY
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('FACEBOOK_API_SECRET', None)
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['public_profile', 'email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'pt_BR'}
+
+# Blog
+BLOG_URL = os.getenv('BLOG_URL')

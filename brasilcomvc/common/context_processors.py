@@ -7,3 +7,7 @@ def api_keys(request):
         'GOOGLE_ANALYTICS_ID': settings.GOOGLE_ANALYTICS_ID,
         'FACEBOOK_API_KEY': settings.FACEBOOK_API_KEY,
     }
+
+
+def blog_url(request):
+    return {'BLOG_URL': settings.BLOG_URL}
