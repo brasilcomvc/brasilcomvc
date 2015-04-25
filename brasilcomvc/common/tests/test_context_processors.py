@@ -2,7 +2,7 @@ from django.template import RequestContext
 from django.test import SimpleTestCase, override_settings
 from django.test.client import RequestFactory
 
-from ..context_processors import blog_url
+from ..context_processors import blog_url, contact_info
 
 
 class ServicesAPIKeysTestCase(SimpleTestCase):
@@ -39,7 +39,7 @@ class ContactInfoTestCase(SimpleTestCase):
 
     def test_unit(self):
         with self.settings(CONTACT_EMAIL='contato@brasil.com.vc', CONTACT_PHONE='551100000000'):
-            ctx = blog_url(None)
+            ctx = contact_info(None)
         self.assertIn('CONTACT_EMAIL', ctx)
         self.assertEquals(ctx['CONTACT_EMAIL'], 'contato@brasil.com.vc')
         self.assertIn('CONTACT_PHONE', ctx)
